@@ -8,9 +8,22 @@ import { Label } from './form/labels'
 import { NameField } from './form/name-field'
 import { PasswordField } from './form/password-field'
 import { PhoneField } from './form/phone-field'
+import axios, { AxiosResponse } from 'axios'
 
+interface RegisterFormState {
+  first_name: string
+  last_name: string
+  email: string
+  phone: string
+  password: string
+  confirm_password?: string
+  dob: string
+  country: string
+}
+
+const server = 'https://thrift-dev.up.railway.app/v1/auth/register'
 export function RegisterForm() {
-  const [formState, setFormState] = useState({
+  const [formState, setFormState] = useState<RegisterFormState>({
     first_name: '',
     last_name: '',
     email: '',
@@ -25,42 +38,56 @@ export function RegisterForm() {
     const { name, value } = e.target
     setFormState({
       ...formState,
-      [name.replace('-', '_')]: value,
+      [name.replace('-', '_') as keyof RegisterFormState]: value,
     })
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(formState)
+    console.log('formState', formState)
+    if (formState.password !== formState.confirm_password) {
+      throw new Error('Passwords do not match')
+    }
+    const { confirm_password, ...userData } = formState
+    let response: AxiosResponse<any, any> | null = null
+    try {
+      response = await axios.post(server, userData)
+    } catch (err) {
+      throw err
+    }
+    alert('User created successfully')
+    console.log(response?.data)
   }
+
+  const styling = 'p-2 my-4 rounded-sm dark:bg-gray-800'
 
   return (
     <Form className="flex flex-col m-auto w-80" onSubmit={handleSubmit}>
       <Label>First Name</Label>
       <NameField
         name="first-name"
-        className="py-1 my-4 rounded-sm dark:bg-gray-800"
+        className={styling}
         value={formState.first_name}
         onChange={handleInputChange}
       />
       <Label>Last Name</Label>
       <NameField
         name="last-name"
-        className="py-1 my-4 rounded-sm dark:bg-gray-800"
+        className={styling}
         value={formState.last_name}
         onChange={handleInputChange}
       />
       <Label>Email Address</Label>
       <EmailField
         name="email"
-        className="py-1 my-4 rounded-sm dark:bg-gray-800"
+        className={styling}
         value={formState.email}
         onChange={handleInputChange}
       />
       <Label>...Or, Phone Number</Label>
       <PhoneField
         name="phone"
-        className="py-1 my-4 rounded-sm dark:bg-gray-800"
+        className={styling}
         value={formState.phone}
         onChange={handleInputChange}
       />
@@ -68,28 +95,28 @@ export function RegisterForm() {
       <Label>Password</Label>
       <PasswordField
         name="password"
-        className="py-1 my-4 rounded-sm dark:bg-gray-800"
+        className={styling}
         value={formState.password}
         onChange={handleInputChange}
       />
       <Label>Confirm Password</Label>
       <PasswordField
         name="confirm-password"
-        className="py-1 my-4 rounded-sm dark:bg-gray-800"
+        className={styling}
         value={formState.confirm_password}
         onChange={handleInputChange}
       />
       <Label>Date of Birth</Label>
       <DateField
         name="dob"
-        className="py-1 my-4 rounded-sm dark:bg-gray-800"
+        className={styling}
         value={formState.dob}
         onChange={handleInputChange}
       />
       <Label>Country</Label>
       <NameField
         name="country"
-        className="py-1 my-4 rounded-sm dark:bg-gray-800"
+        className={styling}
         value={formState.country}
         onChange={handleInputChange}
       />
