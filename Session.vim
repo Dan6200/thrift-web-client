@@ -13,12 +13,14 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +0 components/register-form.tsx
+badd +96 components/register-form.tsx
+badd +5 app/page.tsx
+badd +3 components/form/button.tsx
 argglobal
 %argdel
 edit components/register-form.tsx
 argglobal
-balt components/register-form.tsx
+balt components/form/button.tsx
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -29,11 +31,11 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 16 - ((15 * winheight(0) + 15) / 30)
+let s:l = 1 - ((0 * winheight(0) + 15) / 30)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 16
+keepjumps 1
 normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
@@ -47,7 +49,6 @@ if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
-nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost
