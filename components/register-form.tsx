@@ -3,18 +3,28 @@ import { useState } from 'react'
 import { Form } from './form'
 import { Button } from './form/button'
 import { DateField } from './form/date-field'
-import { EmailField } from './form/email-field'
 import { Label } from './form/labels'
 import { NameField } from './form/name-field'
 import { PasswordField } from './form/password-field'
-import { PhoneField } from './form/phone-field'
 import axios, { AxiosResponse } from 'axios'
+import { ContactField } from './form/contact-field'
+import { RadioInput } from './form/radio-input'
+
+enum ContactType {
+  Email = 'email',
+  Phone = 'phone',
+}
+
+interface ContactValues {
+  contactType: ContactType
+  contactValue: string
+}
 
 interface RegisterFormState {
   first_name: string
   last_name: string
-  email: string
-  phone: string
+  email: string | null
+  phone: string | null
   password: string
   confirm_password?: string
   dob: string
@@ -34,11 +44,24 @@ export function RegisterForm() {
     country: '',
   })
 
+  const [contactValues, setContactValues] = useState<ContactValues>({
+    contactType: ContactType.Email,
+    contactValue: '',
+  })
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormState({
       ...formState,
       [name.replace('-', '_') as keyof RegisterFormState]: value,
+    })
+  }
+
+  const handleContactTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    setContactValues({
+      ...contactValues,
+      contactType: value as ContactType,
     })
   }
 
@@ -59,7 +82,7 @@ export function RegisterForm() {
     console.log(response?.data)
   }
 
-  const styling = 'p-2 my-4 rounded-sm dark:bg-gray-800'
+  const styling = 'p-2 my-4 rounded-md dark:bg-gray-800'
 
   return (
     <Form className="flex flex-col m-auto w-80" onSubmit={handleSubmit}>
@@ -77,18 +100,39 @@ export function RegisterForm() {
         value={formState.last_name}
         onChange={handleInputChange}
       />
-      <Label>Email Address</Label>
-      <EmailField
-        name="email"
+      <Label>Preferred Contact Method</Label>
+      <span className="flex flex-row items-end w-full">
+        <Label>
+          <RadioInput
+            name="contactType"
+            className={styling + ' mr-2'}
+            value={ContactType.Email}
+            checked={contactValues.contactType === ContactType.Email}
+            onChange={handleContactTypeChange}
+          />
+          Email Address
+        </Label>
+        <Label>
+          <RadioInput
+            name="contactType"
+            className={styling + ' mr-2 ml-4'}
+            value={ContactType.Phone}
+            checked={contactValues.contactType === ContactType.Phone}
+            onChange={handleContactTypeChange}
+          />
+          Phone Number
+        </Label>
+      </span>
+      <Label>
+        {contactValues.contactType === ContactType.Email
+          ? 'Email'
+          : 'Phone Number'}
+      </Label>
+      <ContactField
+        name="contact"
+        type={contactValues.contactType === ContactType.Email ? 'email' : 'tel'}
         className={styling}
-        value={formState.email}
-        onChange={handleInputChange}
-      />
-      <Label>...Or, Phone Number</Label>
-      <PhoneField
-        name="phone"
-        className={styling}
-        value={formState.phone}
+        value={contactValues.contactValue}
         onChange={handleInputChange}
       />
 
