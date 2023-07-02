@@ -8,6 +8,9 @@ export default function Home() {
         Welcome to Thrift eCommerce
       </h1>
       <Button>
+        <Link href="/products">View Products</Link>
+      </Button>
+      <Button>
         <Link href="/auth/register">Register</Link>
       </Button>
       <Button>
