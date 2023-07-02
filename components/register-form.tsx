@@ -53,7 +53,16 @@ export function RegisterForm() {
     const { name, value } = e.target
     setFormState({
       ...formState,
-      [name.replace('-', '_') as keyof RegisterFormState]: value,
+      [name.replace('-', '_') as keyof RegisterFormState & ContactValues]:
+        value,
+    })
+  }
+
+  const handleContactInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    setContactValues({
+      ...contactValues,
+      contactValue: value,
     })
   }
 
@@ -61,17 +70,25 @@ export function RegisterForm() {
     const { value } = e.target
     setContactValues({
       ...contactValues,
+      contactValue: '',
       contactType: value as ContactType,
     })
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('formState', formState)
     if (formState.password !== formState.confirm_password) {
       throw new Error('Passwords do not match')
     }
     const { confirm_password, ...userData } = formState
+    if (contactValues.contactType === ContactType.Email) {
+      userData.email = contactValues.contactValue
+    } else {
+      userData.phone = contactValues.contactValue
+    }
+    console.log('formState', formState)
+    console.log('contactValues', contactValues)
+    console.log('userData', userData)
     let response: AxiosResponse<any, any> | null = null
     try {
       response = await axios.post(server, userData)
@@ -101,7 +118,7 @@ export function RegisterForm() {
         onChange={handleInputChange}
       />
       <Label>Preferred Contact Method</Label>
-      <span className="flex flex-row items-end w-full">
+      <div className="flex flex-row justify-between w-full">
         <Label>
           <RadioInput
             name="contactType"
@@ -115,14 +132,14 @@ export function RegisterForm() {
         <Label>
           <RadioInput
             name="contactType"
-            className={styling + ' mr-2 ml-4'}
+            className={styling + ' mr-2'}
             value={ContactType.Phone}
             checked={contactValues.contactType === ContactType.Phone}
             onChange={handleContactTypeChange}
           />
           Phone Number
         </Label>
-      </span>
+      </div>
       <Label>
         {contactValues.contactType === ContactType.Email
           ? 'Email'
@@ -132,8 +149,13 @@ export function RegisterForm() {
         name="contact"
         type={contactValues.contactType === ContactType.Email ? 'email' : 'tel'}
         className={styling}
+        pattern={
+          contactValues.contactType === ContactType.Email
+            ? '[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$'
+            : '[0-9]{3}-[0-9]{3}-[0-9]{4}'
+        }
         value={contactValues.contactValue}
-        onChange={handleInputChange}
+        onChange={handleContactInputChange}
       />
 
       <Label>Password</Label>
