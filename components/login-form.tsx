@@ -88,7 +88,7 @@ export function LoginForm() {
   const styling = 'p-2 my-4 rounded-md dark:bg-gray-800'
 
   return (
-    <Form className="flex flex-col m-auto w-80" onSubmit={handleSubmit}>
+    <Form className="flex flex-col w-full m-auto" onSubmit={handleSubmit}>
       <Label>Preferred Login Method</Label>
       <div className="flex flex-row justify-between w-full">
         <Label>
@@ -137,12 +137,7 @@ export function LoginForm() {
         value={formState.password}
         onChange={handleInputChange}
       />
-      <Button
-        type="submit"
-        className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-      >
-        Submit
-      </Button>
+      <Button type="submit">Submit</Button>
     </Form>
   )
 }

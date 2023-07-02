@@ -104,7 +104,7 @@ export function RegisterForm() {
   const styling = 'p-2 my-4 rounded-md dark:bg-gray-800'
 
   return (
-    <Form className="flex flex-col m-auto w-80" onSubmit={handleSubmit}>
+    <Form className="flex flex-col w-full m-auto" onSubmit={handleSubmit}>
       <Label>First Name</Label>
       <NameField
         name="first-name"
@@ -188,12 +188,7 @@ export function RegisterForm() {
         value={formState.country}
         onChange={handleInputChange}
       />
-      <Button
-        type="submit"
-        className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-      >
-        Submit
-      </Button>
+      <Button type="submit">Submit</Button>
     </Form>
   )
 }
