@@ -151,8 +151,8 @@ export function RegisterForm() {
         className={styling}
         pattern={
           contactValues.contactType === ContactType.Email
-            ? '[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$'
-            : '[0-9]{3}-[0-9]{3}-[0-9]{4}'
+            ? '^(([^<>()[]\\.,;:s@"]+(.[^<>()[]\\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$'
+            : '^s*(?:+?(d{1,3}))?[-. (]*(d{3})[-. )]*(d{3})[-. ]*(d{4})(?: *x(d+))?s*$'
         }
         value={contactValues.contactValue}
         onChange={handleContactInputChange}
