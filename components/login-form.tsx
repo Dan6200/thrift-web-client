@@ -20,28 +20,18 @@ interface ContactValues {
   contactValue: string
 }
 
-interface RegisterFormState {
-  first_name: string
-  last_name: string
+interface LoginFormState {
   email: string | null
   phone: string | null
   password: string
-  confirm_password?: string
-  dob: string
-  country: string
 }
 
-const server = 'https://thrift-dev.up.railway.app/v1/auth/register'
-export function RegisterForm() {
-  const [formState, setFormState] = useState<RegisterFormState>({
-    first_name: '',
-    last_name: '',
+const server = 'https://thrift-dev.up.railway.app/v1/auth/login'
+export function LoginForm() {
+  const [formState, setFormState] = useState<LoginFormState>({
     email: '',
     phone: '',
     password: '',
-    confirm_password: '',
-    dob: '',
-    country: '',
   })
 
   const [contactValues, setContactValues] = useState<ContactValues>({
@@ -53,8 +43,7 @@ export function RegisterForm() {
     const { name, value } = e.target
     setFormState({
       ...formState,
-      [name.replace('-', '_') as keyof RegisterFormState & ContactValues]:
-        value,
+      [name.replace('-', '_') as keyof LoginFormState & ContactValues]: value,
     })
   }
 
@@ -77,27 +66,22 @@ export function RegisterForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (formState.password !== formState.confirm_password) {
-      throw new Error('Passwords do not match')
-    }
-    const { confirm_password, ...userData } = formState
     if (contactValues.contactType === ContactType.Email) {
-      userData.email = contactValues.contactValue
-      userData.phone = null
+      formState.email = contactValues.contactValue
+      formState.phone = null
     } else {
-      userData.phone = contactValues.contactValue
-      userData.email = null
+      formState.phone = contactValues.contactValue
+      formState.email = null
     }
     console.log('formState', formState)
     console.log('contactValues', contactValues)
-    console.log('userData', userData)
     let response: AxiosResponse<any, any> | null = null
     try {
-      response = await axios.post(server, userData)
+      response = await axios.post(server, formState)
     } catch (err) {
       throw err
     }
-    alert('User created successfully')
+    alert('Login successful!')
     console.log(response?.data)
   }
 
@@ -105,21 +89,7 @@ export function RegisterForm() {
 
   return (
     <Form className="flex flex-col m-auto w-80" onSubmit={handleSubmit}>
-      <Label>First Name</Label>
-      <NameField
-        name="first-name"
-        className={styling}
-        value={formState.first_name}
-        onChange={handleInputChange}
-      />
-      <Label>Last Name</Label>
-      <NameField
-        name="last-name"
-        className={styling}
-        value={formState.last_name}
-        onChange={handleInputChange}
-      />
-      <Label>Preferred Contact Method</Label>
+      <Label>Preferred Login Method</Label>
       <div className="flex flex-row justify-between w-full">
         <Label>
           <RadioInput
@@ -129,7 +99,7 @@ export function RegisterForm() {
             checked={contactValues.contactType === ContactType.Email}
             onChange={handleContactTypeChange}
           />
-          Email Address
+          Email
         </Label>
         <Label>
           <RadioInput
@@ -165,27 +135,6 @@ export function RegisterForm() {
         name="password"
         className={styling}
         value={formState.password}
-        onChange={handleInputChange}
-      />
-      <Label>Confirm Password</Label>
-      <PasswordField
-        name="confirm-password"
-        className={styling}
-        value={formState.confirm_password}
-        onChange={handleInputChange}
-      />
-      <Label>Date of Birth</Label>
-      <DateField
-        name="dob"
-        className={styling}
-        value={formState.dob}
-        onChange={handleInputChange}
-      />
-      <Label>Country</Label>
-      <NameField
-        name="country"
-        className={styling}
-        value={formState.country}
         onChange={handleInputChange}
       />
       <Button
