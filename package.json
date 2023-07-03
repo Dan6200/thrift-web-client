@@ -9,14 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@railway/cli": "^3.3.1",
     "@types/node": "20.3.1",
     "@types/react": "18.2.13",
     "@types/react-dom": "18.2.6",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
+    "cloudinary-core": "^2.13.0",
     "cloudinary-react": "^1.8.1",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.6",
+    "lodash": "^4.17.21",
     "next": "13.4.6",
     "next-cloudinary": "^4.13.0",
     "postcss": "8.4.24",

@@ -1,37 +1,13 @@
+// cspell:ignore CldImage, cloudinary, cloudinary's
 // Purpose: Page for displaying all products
 'use client'
 import Link from 'next/link'
 import { CldImage } from 'next-cloudinary'
-import { useState, useEffect } from 'react'
+import { getProducts } from './get-products'
 
-async function getProducts() {
-  try {
-    const products = await fetch(
-      'https://thrift-dev.up.railway.app/v1/public/products?offset=0&limit=100'
-    )
-    const data = await products.json()
-    return data
-  } catch (err) {
-    throw err
-  }
-}
-
-export type Product = {
-  product_id: number
-  title: string
-  category: string
-  description: string[]
-  list_price: number
-  net_price: number
-  quantity_available: number
-  media: { filename: string; description: string }[]
-}
-
-export default function Products() {
-  const [products, setProducts] = useState<Product[]>([])
-  useEffect(() => {
-    getProducts().then((data) => setProducts(data))
-  }, [])
+export default async function Products() {
+  const products = await getProducts()
+  console.log(products[1])
   return (
     <div className="container mx-auto my-20 w-80">
       <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">

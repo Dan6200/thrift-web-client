@@ -85,7 +85,7 @@ export function RegisterForm() {
       userData.email = contactValues.contactValue
       userData.phone = null
     } else {
-      userData.phone = contactValues.contactValue
+      userData.phone = contactValues.contactValue.replace(/[^0-9]/g, '')
       userData.email = null
     }
     console.log('formState', formState)
@@ -152,9 +152,9 @@ export function RegisterForm() {
         type={contactValues.contactType === ContactType.Email ? 'email' : 'tel'}
         className={styling}
         pattern={
-          contactValues.contactType === ContactType.Email
-            ? '^((\[^<>()\[\]\\.,;:s@"\]+(.\[^<>()\[\]\\.,;:s@"\]+)*)|(".+"))@((\[\[0-9\]{1,3}.\[0-9\]{1,3}.\[0-9\]{1,3}.\[0-9\]{1,3}\])|((\[a-zA-Z-0-9\]+.)+\[a-zA-Z\]{2,}))$'
-            : '^s*(?:+?(d{1,3}))?\[-. (\]*(d{3})\[-. )\]*(d{3})\[-. \]*(d{4})(?: *x(d+))?s*$'
+          contactValues.contactType === ContactType.Phone
+            ? '^s*(?:+?(d{1,3}))?[-. (]*(d{3})[-. )]*(d{3})[-. ]*(d{4})(?: *x(d+))?s*$'
+            : '^(([^<>()[]\\.,;:s@"]+(.[^<>()[]\\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$'
         }
         value={contactValues.contactValue}
         onChange={handleContactInputChange}
@@ -192,3 +192,9 @@ export function RegisterForm() {
     </Form>
   )
 }
+/*
+        pattern={
+          contactValues.contactType === ContactType.Email
+            ? '^((\[^<>()\[\]\\.,;:s@"\]+(.\[^<>()\[\]\\.,;:s@"\]+)*)|(".+"))@((\[\[0-9\]{1,3}.\[0-9\]{1,3}.\[0-9\]{1,3}.\[0-9\]{1,3}\])|((\[a-zA-Z-0-9\]+.)+\[a-zA-Z\]{2,}))$'
+            : '^s*(?:+?(d{1,3}))?\[-. (\]*(d{3})\[-. )\]*(d{3})\[-. \]*(d{4})(?: *x(d+))?s*$'
+				}*/
