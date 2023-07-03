@@ -1,7 +1,7 @@
 // Purpose: Page for displaying all products
 'use client'
 import Link from 'next/link'
-import { Image } from 'cloudinary-react'
+import { CldImage } from 'next-cloudinary'
 import { useState, useEffect } from 'react'
 
 async function getProducts() {
@@ -40,10 +40,11 @@ export default function Products() {
       <div className="flex flex-col w-full mx-auto">
         {products.map((product) => (
           <div className="w-full mx-auto my-4" key={product.product_id}>
-            <Image
-              cloudName="thrift"
-              publicId={product.media[0].filename}
+            <CldImage
+              src={product.media[0].filename}
               className="object-cover w-full h-64"
+              width={600}
+              height={600}
               alt={product.media[0].description}
             />
             <Link
