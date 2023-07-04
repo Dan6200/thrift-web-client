@@ -28,7 +28,7 @@ export default async function Products() {
         <div className="w-full mx-auto grid grid-cols-2 gap-4">
           {products.map((product) => (
             <div
-              className="w-full p-2 mx-auto my-4 border-2 border-cyan-100 rounded-md"
+              className="w-full p-2 mx-auto my-4 border-[.5pt] dark:border-gray-500 rounded-md"
               key={product.product_id}
             >
               <ProductImage
@@ -51,7 +51,7 @@ export default async function Products() {
                     product.list_price) *
                     100 >
                     5 && (
-                    <p className="text-xs font-light dark:text-gray-500">
+                    <p className="text-xs font-light dark:text-gray-300">
                       {Math.ceil(
                         ((product.list_price - product.net_price) /
                           product.list_price) *
