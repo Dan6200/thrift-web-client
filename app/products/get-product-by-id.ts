@@ -1,5 +1,5 @@
+import { Product } from '@/components/products/types'
 import axios from 'axios'
-import { Product } from './get-products'
 
 export const revalidate = 120 * 60
 
