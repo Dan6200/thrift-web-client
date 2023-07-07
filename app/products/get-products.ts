@@ -4,8 +4,12 @@ import axios from 'axios'
 export const revalidate = 30 * 60
 
 export default async function getProducts() {
-  const response = await axios.get(
-    'https://thrift-dev.up.railway.app/v1/public/products'
-  )
-  return (await response.data) as Product[]
+  try {
+    const response = await axios.get(
+      'https://thrift-dev.up.railway.app/v1/public/products?limit=50'
+    )
+    return (await response.data) as Product[]
+  } catch (e) {
+    console.error(e)
+  }
 }

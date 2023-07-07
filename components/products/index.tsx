@@ -11,32 +11,32 @@ export const Products = ({ products }: { products: Product[] }) => (
       {products.map((product) => (
         <div
           className="w-full p-2 mx-auto my-4 border-[.5pt] dark:border-gray-500 rounded-md"
-          key={product.product_id}
+          key={product?.product_id}
         >
           <Link
-            href={`/products/${product.product_id}`}
+            href={`/products/${product?.product_id}`}
             passHref
             className="inline-block w-full text-center"
           >
             <ProductImage
               className="object-cover w-full h-32"
-              src={product.media[0].filename}
-              alt={product.media[0].description}
+              imgData={product?.media?.[0]}
             />
             <h4 className="text-sm font-semibold dark:text-blue-300">
-              {product.title.slice(0, 30) + '...'}
+              {product?.title.slice(0, 30) + '...'}
             </h4>
             <div className="flex flex-row my-2 w-[90%] mx-auto justify-between">
               <p className="text-xs font-semibold dark:text-gray-100">
-                N {product.net_price}
+                N {product?.net_price}
               </p>
-              {((product.list_price - product.net_price) / product.list_price) *
+              {((product?.list_price - product?.net_price) /
+                product?.list_price) *
                 100 >
                 5 && (
                 <p className="text-xs font-light dark:text-gray-300">
                   {Math.ceil(
-                    ((product.list_price - product.net_price) /
-                      product.list_price) *
+                    ((product?.list_price - product?.net_price) /
+                      product?.list_price) *
                       100
                   )}
                   % off

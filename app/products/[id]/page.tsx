@@ -15,22 +15,23 @@ export default async function Product({
     return (
       <div className="container mx-auto my-20 w-80">
         <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
-          {product.title}
+          {product?.title}
         </h2>
         <div
           className="w-full p-2 mx-auto my-4 border-[.5pt] dark:border-gray-500 rounded-md"
-          key={product.product_id}
+          key={product?.product_id}
         >
           <ProductImage
-            src={product.media[0].filename}
-            alt={product.media[0].description}
+            imgData={product?.media?.[0]}
             className="object-cover w-full mb-8"
           />
           <div className="flex justify-between">
             <p>Price</p>
-            <p className="">N {product.net_price}</p>
+            <p className="">N {product?.net_price}</p>
             <p className="dark:text-gray-700">List Price</p>
-            <p className="text-sm dark:text-gray-700">N {product.list_price}</p>
+            <p className="text-sm dark:text-gray-700">
+              N {product?.list_price}
+            </p>
           </div>
         </div>
         <Button>Add To Cart</Button>

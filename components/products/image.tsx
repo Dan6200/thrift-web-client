@@ -1,22 +1,50 @@
 //cspell:ignore CldImage, cloudinary, cloudinary's
 'use client'
 import { CldImage } from 'next-cloudinary'
+import Image from 'next/image'
 
 export function ProductImage({
-  src,
-  alt,
   className,
+  imgData,
 }: {
-  src: string
-  alt: string
+  imgData: { [key: string]: string } | undefined
   className: string
 }) {
+  const placeHolder =
+    'https://images.pexels.com/photos/16952091/pexels-photo-16952091/free-photo-of-wood-landscape-field-summer.jpeg'
+
+  if (imgData?.filepath?.includes('cloudinary')) {
+    const src = imgData.filename
+    const alt = imgData.description
+    return (
+      <CldImage
+        src={src}
+        width={600}
+        height={600}
+        alt={alt}
+        className={className}
+      />
+    )
+  }
+  if (imgData?.filepath) {
+    const src = imgData.filepath
+    const alt = imgData.description
+    return (
+      <Image
+        src={src}
+        alt={alt ?? ''}
+        width={600}
+        height={600}
+        className={className}
+      />
+    )
+  }
   return (
-    <CldImage
-      src={src}
+    <Image
+      src={placeHolder}
+      alt={'placeholder'}
       width={600}
       height={600}
-      alt={alt}
       className={className}
     />
   )
