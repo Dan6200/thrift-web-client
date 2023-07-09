@@ -20,7 +20,7 @@ export const Products = ({ products }: { products: Product[] }) => (
           >
             <ProductImage
               className="object-cover w-full h-32"
-              imgData={product?.media?.[0]}
+              imgData={product?.media?.find((img) => img?.is_display_image)}
             />
             <h4 className="text-sm font-semibold dark:text-blue-300">
               {product?.title.slice(0, 30) + '...'}

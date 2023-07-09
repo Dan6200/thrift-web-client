@@ -6,5 +6,10 @@ export interface Product {
   list_price: number
   net_price: number
   quantity_available: number
-  media: { filename: string; description: string }[]
+  media: {
+    filename: string
+    filepath: string
+    description: string
+    is_display_image: boolean
+  }[]
 }

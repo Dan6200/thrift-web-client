@@ -7,8 +7,15 @@ export function ProductImage({
   className,
   imgData,
 }: {
-  imgData: { [key: string]: string } | undefined
   className: string
+  imgData:
+    | {
+        filename: string
+        filepath: string
+        description: string
+        is_display_image: boolean
+      }
+    | undefined
 }) {
   const placeHolder =
     'https://images.pexels.com/photos/16952091/pexels-photo-16952091/free-photo-of-wood-landscape-field-summer.jpeg'
