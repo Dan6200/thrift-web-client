@@ -5,7 +5,7 @@ export const revalidate = 30 * 60
 
 export default async function getProducts() {
   const response = await axios.get(
-    'https://thrift-dev.up.railway.app/v1/public/products?limit=50'
+    'https://thrift-dev.up.railway.app/v1/public/products'
   )
   return (await response.data) as Product[]
 }
