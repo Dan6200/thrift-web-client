@@ -26,7 +26,7 @@ export function ProductImage({
     return (
       <CldImage
         src={src}
-        width={600}
+        width={300}
         height={600}
         alt={alt}
         className={className}
@@ -40,7 +40,7 @@ export function ProductImage({
       <Image
         src={src}
         alt={alt ?? ''}
-        width={600}
+        width={300}
         height={600}
         className={className}
       />
@@ -50,7 +50,7 @@ export function ProductImage({
     <Image
       src={placeHolder}
       alt={'placeholder'}
-      width={600}
+      width={300}
       height={600}
       className={className}
     />

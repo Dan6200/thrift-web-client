@@ -4,9 +4,10 @@ import { Product } from './types'
 
 export function Product({ product }: { product: Product }) {
   const displayImg = product?.media?.find((img) => img?.is_display_image)
+  console.log(product.list_price, product.net_price)
   return (
     <div className="container mx-auto my-20 w-80">
-      <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
+      <h2 className="w-full mx-auto my-16 text-2xl font-bold text-justify">
         {product?.title}
       </h2>
       <div
@@ -18,13 +19,35 @@ export function Product({ product }: { product: Product }) {
           className="object-cover w-full mb-8"
         />
         <div className="flex justify-between">
-          <p>Price</p>
-          <p className="">N {product?.net_price}</p>
-          <p className="dark:text-gray-700">List Price</p>
-          <p className="text-sm dark:text-gray-700">N {product?.list_price}</p>
+          <p className="">
+            {product?.net_price.toLocaleString('en-NG', {
+              currency: 'NGN',
+              style: 'currency',
+            })}
+          </p>
+          {product?.net_price.toFixed(2) !== product?.list_price.toFixed(2) && (
+            <p className="text-sm line-through dark:text-gray-700">
+              {product?.list_price.toLocaleString('en-NG', {
+                currency: 'NGN',
+                style: 'currency',
+              })}
+            </p>
+          )}
         </div>
       </div>
       <Button>Add To Cart</Button>
+      <h3 className="w-full mx-auto my-16 text-xl font-bold text-center">
+        About This Product
+      </h3>
+      {product?.description && (
+        <div className="w-full p-2 mx-auto my-4 border-[.5pt] dark:border-gray-500 rounded-md">
+          {product?.description?.map((desc, index) => (
+            <p className="mb-4 text-sm" key={index}>
+              {desc}
+            </p>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
