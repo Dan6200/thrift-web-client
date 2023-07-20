@@ -5,7 +5,7 @@ import { Product } from './types'
 export const Products = ({ products }: { products: Product[] }) => (
   <div className="container mx-auto my-20">
     <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
-      Products
+      All Products
     </h2>
     <div className="w-full mx-auto grid grid-cols-2 gap-4">
       {products.map((product) => (

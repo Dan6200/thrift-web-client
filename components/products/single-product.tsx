@@ -6,8 +6,8 @@ export function Product({ product }: { product: Product }) {
   const displayImg = product?.media?.find((img) => img?.is_display_image)
   console.log(product.list_price, product.net_price)
   return (
-    <div className="container mx-auto my-20 w-80">
-      <h2 className="w-full mx-auto my-16 text-2xl font-bold text-justify">
+    <div className="container mx-auto my-20">
+      <h2 className="w-full mx-auto m-16 text-2xl font-bold text-justify">
         {product?.title}
       </h2>
       <div

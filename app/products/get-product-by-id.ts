@@ -1,9 +1,19 @@
-import { Product } from '@/components/products/types'
+import { isProducts } from '@/components/products/types'
 
 export default async function getProductById(id: number) {
-  const products: Product[] = await fetch(
-    'https://thrift-app-v2.onrender.com/v1/public/products?limit=100,sort=created_at',
+  const products: unknown = await fetch(
+    'https://thrift-dev.onrender.com/v1/public/products?' +
+      new URLSearchParams({
+        limit: '100',
+        sort: 'created_at',
+        order: 'desc',
+      }),
     { next: { revalidate: 30 * 60 } }
   ).then((res) => res.json())
+
+  if (!isProducts(products)) {
+    throw new Error('Failed to fetch products')
+  }
+
   return products.find((product) => product.product_id === id)
 }
