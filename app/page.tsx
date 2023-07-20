@@ -17,5 +17,5 @@ export default function Home() {
         <Button>Login</Button>
       </Link>
     </div>
-  )
+	)
 }
