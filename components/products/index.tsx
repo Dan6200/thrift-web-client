@@ -3,7 +3,7 @@ import { ProductImage } from './image'
 import { Product } from './types'
 
 export const Products = ({ products }: { products: Product[] }) => (
-  <div className="container mx-auto my-20 w-80">
+  <div className="container mx-auto my-20">
     <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
       Products
     </h2>
@@ -23,7 +23,7 @@ export const Products = ({ products }: { products: Product[] }) => (
               imgData={product?.media?.find((img) => img?.is_display_image)}
             />
             <div className="flex flex-col justify-between h-24 mt-4">
-              <h4 className="text-sm font-semibold text-left dark:text-blue-300">
+              <h4 className="whitespace-pre-wrap text-sm font-semibold text-left dark:text-blue-300">
                 {product?.title.slice(0, 30) + '...'}
               </h4>
               <div className="flex flex-row my-2 w-[90%] mx-auto justify-between">

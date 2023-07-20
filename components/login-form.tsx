@@ -26,7 +26,7 @@ interface LoginFormState {
   password: string
 }
 
-const server = 'https://thrift-dev.up.railway.app/v1/auth/login'
+const server = 'https://thrift-app-v2.onrender.com/v1/auth/login'
 export function LoginForm() {
   const [formState, setFormState] = useState<LoginFormState>({
     email: '',

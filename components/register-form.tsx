@@ -31,7 +31,7 @@ interface RegisterFormState {
   country: string
 }
 
-const server = 'https://thrift-dev.up.railway.app/v1/auth/register'
+const server = 'https://thrift-app-v2.onrender.com/v1/auth/register'
 export function RegisterForm() {
   const [formState, setFormState] = useState<RegisterFormState>({
     first_name: '',

@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div className="container mx-auto my-20 w-80">
+    <div className="container mx-auto my-20 w-full">
       <h1 className="w-full mx-auto mt-64 mb-16 text-4xl font-bold text-center">
         Welcome to Thrift eCommerce
       </h1>
@@ -17,5 +17,5 @@ export default function Home() {
         <Button>Login</Button>
       </Link>
     </div>
-	)
+  )
 }
