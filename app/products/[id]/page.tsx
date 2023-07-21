@@ -1,6 +1,7 @@
 // cspell:disable
 // Purpose: Page for displaying all products
 
+import { Nav } from '@/components/nav'
 import { Product } from '@/components/products/single-product'
 import { isProduct, isProducts } from '@/components/products/types'
 import getProductById from '../get-product-by-id'
@@ -14,7 +15,11 @@ export default async function ProductPage({
   if (!isProduct(product)) {
     throw new Error('Product not found')
   }
-  return <Product product={product} />
+  return (
+    <>
+      <Nav children /> <Product product={product} />
+    </>
+  )
 }
 
 export async function generateStaticParams() {

@@ -1,3 +1,4 @@
+//cspell: ignore semibold
 import Link from 'next/link'
 import { ProductImage } from './image'
 import { Product } from './types'
@@ -10,7 +11,7 @@ export const Products = ({ products }: { products: Product[] }) => (
     <div className="w-full mx-auto grid grid-cols-2 gap-4">
       {products.map((product) => (
         <div
-          className="w-full p-2 mx-auto my-4 h-64 border-[.5pt] dark:border-gray-500 rounded-md"
+          className="w-full p-2 mx-auto my-4 h-64 border-[.5pt] border-gray-800 dark:border-gray-700 rounded-md"
           key={product?.product_id}
         >
           <Link
@@ -18,16 +19,18 @@ export const Products = ({ products }: { products: Product[] }) => (
             passHref
             className="inline-block w-full text-center"
           >
-            <ProductImage
-              className="object-cover w-full h-32"
-              imgData={product?.media?.find((img) => img?.is_display_image)}
-            />
+            <div className="bg-white dark:bg-white rounded-sm">
+              <ProductImage
+                className="object-contain w-full h-32"
+                imgData={product?.media?.find((img) => img?.is_display_image)}
+              />
+            </div>
             <div className="flex flex-col justify-between h-24 mt-4">
               <h4 className="whitespace-pre-wrap text-sm font-semibold text-left dark:text-blue-300">
-                {product?.title.slice(0, 30) + '...'}
+                {product?.title.slice(0, 50) + '...'}
               </h4>
-              <div className="flex flex-row my-2 w-[90%] mx-auto justify-between">
-                <p className="text-xs font-semibold dark:text-gray-100">
+              <div className="flex flex-row my-2 w-full mx-auto justify-between">
+                <p className="text-xs font-semibold text-gray-900 dark:text-gray-100">
                   {product?.net_price.toLocaleString('en-NG', {
                     currency: 'NGN',
                     style: 'currency',

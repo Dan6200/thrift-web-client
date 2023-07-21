@@ -4,19 +4,18 @@ import { Product } from './types'
 
 export function Product({ product }: { product: Product }) {
   const displayImg = product?.media?.find((img) => img?.is_display_image)
-  console.log(product.list_price, product.net_price)
   return (
-    <div className="container mx-auto my-20">
+    <div className="container mx-auto p-5 my-20">
       <h2 className="w-full mx-auto m-16 text-2xl font-bold text-justify">
         {product?.title}
       </h2>
       <div
-        className="w-full p-2 mx-auto my-4 border-[.5pt] dark:border-gray-500 rounded-md"
+        className="w-full p-2 mx-auto my-4 border-4 border-gray-300 dark:border-gray-800 rounded-md"
         key={product?.product_id}
       >
         <ProductImage
           imgData={displayImg}
-          className="object-cover w-full mb-8"
+          className="object-cover w-full mb-8 rounded-md"
         />
         <div className="flex justify-between">
           <p className="">
