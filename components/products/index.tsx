@@ -14,6 +14,7 @@ export const Products = ({ products }: { products: Product[] }) => (
           href={`/products/${product?.product_id}`}
           passHref
           className="active:dark:bg-slate-800 w-fit"
+          key={product?.product_id}
         >
           <Card
             className="w-full p-2 mx-auto text-center my-4 h-64 bg-stone-100 dark:bg-neutral-800 border-[.5pt] border-stone-200 shadow-md dark:border-none rounded-md"
