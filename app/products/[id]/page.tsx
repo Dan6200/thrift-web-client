@@ -17,7 +17,7 @@ export default async function ProductPage({
   }
   return (
     <>
-      <Nav children /> <Product product={product} />
+      <Nav /> <Product product={product} />
     </>
   )
 }

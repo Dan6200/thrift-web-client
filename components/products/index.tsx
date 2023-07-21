@@ -4,20 +4,20 @@ import { ProductImage } from './image'
 import { Product } from './types'
 
 export const Products = ({ products }: { products: Product[] }) => (
-  <div className="container mx-auto my-20">
+  <div className="container mx-auto p-8 my-20">
     <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
       All Products
     </h2>
     <div className="w-full mx-auto grid grid-cols-2 gap-4">
       {products.map((product) => (
-        <div
-          className="w-full p-2 mx-auto my-4 h-64 border-[.5pt] border-gray-800 dark:border-gray-700 rounded-md"
-          key={product?.product_id}
+        <Link
+          href={`/products/${product?.product_id}`}
+          passHref
+          className="active:dark:bg-slate-800 w-fit"
         >
-          <Link
-            href={`/products/${product?.product_id}`}
-            passHref
-            className="inline-block w-full text-center"
+          <Card
+            className="w-full p-2 mx-auto text-center my-4 h-64 bg-stone-100 dark:bg-neutral-800 border-[.5pt] border-stone-200 shadow-md dark:border-none rounded-md"
+            key={product?.product_id}
           >
             <div className="bg-white dark:bg-white rounded-sm">
               <ProductImage
@@ -26,7 +26,7 @@ export const Products = ({ products }: { products: Product[] }) => (
               />
             </div>
             <div className="flex flex-col justify-between h-24 mt-4">
-              <h4 className="whitespace-pre-wrap text-sm font-semibold text-left dark:text-blue-300">
+              <h4 className="whitespace-pre-wrap text-sm font-semibold text-left text-blue-500 dark:text-blue-300">
                 {product?.title.slice(0, 50) + '...'}
               </h4>
               <div className="flex flex-row my-2 w-full mx-auto justify-between">
@@ -51,9 +51,19 @@ export const Products = ({ products }: { products: Product[] }) => (
                 )}
               </div>
             </div>
-          </Link>
-        </div>
+          </Card>
+        </Link>
       ))}
     </div>
   </div>
 )
+
+function Card({
+  children,
+  className,
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
+  return <div className={className}>{children}</div>
+}

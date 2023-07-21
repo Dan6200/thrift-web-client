@@ -9,7 +9,7 @@ export default async function ProductsPage() {
     const products = await getProducts()
     return (
       <>
-        <Nav children />
+        <Nav />
         <Products products={products} />
       </>
     )
