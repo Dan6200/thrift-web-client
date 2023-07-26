@@ -1,12 +1,15 @@
-import { isProducts } from '@/components/products/types'
+import { isProductData } from '@/components/products/types'
 import getProducts from './get-products'
 
-export default async function getProductById(id: number) {
-  const products = await getProducts()
+const pageNum = 0
 
-  if (!isProducts(products)) {
-    throw new Error('Failed to fetch products')
+export default async function getProductById(id: number) {
+  const productData: unknown = await getProducts(pageNum, 50, 1)
+  if (!isProductData(productData)) {
+    throw new Error('Invalid product data')
   }
+
+  const { products } = productData
 
   return products.find((product) => product.product_id === id)
 }

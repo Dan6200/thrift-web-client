@@ -1,7 +1,9 @@
 //cspell:ignore CldImage, cloudinary, cloudinary's
 'use client'
 import { CldImage } from 'next-cloudinary'
-import Image from 'next/image'
+{
+  /* import Image from 'next/image' */
+}
 
 export function ProductImage({
   className,
@@ -37,7 +39,7 @@ export function ProductImage({
     const src = imgData.filepath
     const alt = imgData.description
     return (
-      <Image
+      <img
         src={src}
         alt={alt ?? ''}
         width={300}
@@ -47,7 +49,7 @@ export function ProductImage({
     )
   }
   return (
-    <Image
+    <img
       src={placeHolder}
       alt={'placeholder'}
       width={300}

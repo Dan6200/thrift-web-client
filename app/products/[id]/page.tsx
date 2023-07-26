@@ -3,7 +3,11 @@
 
 import { Nav } from '@/components/nav'
 import { Product } from '@/components/products/single-product'
-import { isProduct, isProducts } from '@/components/products/types'
+import {
+  isProduct,
+  isProductData,
+  isProducts,
+} from '@/components/products/types'
 import getProductById from '../get-product-by-id'
 
 export default async function ProductPage({
@@ -23,9 +27,10 @@ export default async function ProductPage({
 }
 
 export async function generateStaticParams() {
-  const products: unknown = await fetch(
-    'https://thrift-dev.onrender.com/v1/public/products?' +
+  const data: unknown = await fetch(
+    'https://thrift-dev.onrender.com/v1/products?' +
       new URLSearchParams({
+        public: 'true',
         limit: '100',
         sort: 'created_at',
         order: 'desc',
@@ -33,9 +38,11 @@ export async function generateStaticParams() {
     { next: { revalidate: 30 * 60 } }
   ).then((res) => res.json())
 
-  if (!isProducts(products)) {
+  if (!isProductData(data)) {
     throw new Error('Failed to fetch products')
   }
+
+  const { products } = data
 
   return products.map((product) => ({
     id: product.product_id.toString(),
