@@ -22,14 +22,7 @@ const productsAtom = atom<Product[]>([])
  * fetches more products from the API when the last page is reached
  * */
 
-export const Products = ({
-  products,
-}: {
-  products: Product[]
-  totalProducts: number
-  apiPageNum: number
-  itemsPerPage: number
-}) => {
+export const Products = ({ products }: { products: Product[] }) => {
   const itemsPerPage = 50
   const [pageNum, setPageNum] = useAtom(pageNumAtom)
   const productsToDisplay = products.slice(

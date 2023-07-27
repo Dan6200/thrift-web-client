@@ -4,9 +4,9 @@
 import { Nav } from '@/components/nav'
 import { Product } from '@/components/products/single-product'
 import { isProductData } from '@/components/products/types'
-import getProductById from '../get-product-by-id'
-import getProducts from '../get-products'
-import { ITEMS_PER_PAGE } from '../page'
+import getProductById from '../get-product-by-id_optimized'
+import getProducts from '../get-products_optimized'
+import { ITEMS_PER_PAGE } from '../page_optimized'
 
 /** Optimized version of Product page */
 export default async function ProductPage({

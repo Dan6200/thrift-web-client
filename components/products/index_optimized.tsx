@@ -1,6 +1,6 @@
 //cspell: ignore semibold jotai
 'use client'
-import getProducts from '@/app/products/get-products'
+import getProducts from '@/app/products/get-products_optimized'
 import { Suspense } from 'react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'

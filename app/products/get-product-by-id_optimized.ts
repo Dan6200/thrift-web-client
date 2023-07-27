@@ -1,7 +1,7 @@
 // cspell:ignore productid jotai
 
 import { Product } from '@/components/products/types'
-import getProducts from './get-products'
+import getProducts from './get-products_optimized'
 
 /** Optimized Version of getProductById **/
 export default async function getProductById(

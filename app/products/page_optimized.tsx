@@ -1,9 +1,9 @@
 // cspell:disable
 // Purpose: Page for displaying all products
 import { Nav } from '@/components/nav'
-import { Products } from '@/components/products'
+import { Products } from '@/components/products/index_optimized'
 import { isProductData } from '@/components/products/types'
-import getProducts from './get-products'
+import getProducts from './get-products_optimized'
 
 export const apiPageNum = 0
 export const ITEMS_PER_PAGE = 50
