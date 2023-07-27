@@ -1,4 +1,4 @@
-//cspell: ignore semibold
+//cspell: ignore semibold jotai
 'use client'
 import getProducts from '@/app/products/get-products'
 import { Suspense } from 'react'
@@ -8,6 +8,10 @@ import { Card } from './card'
 import { ProductImage } from './image'
 import { PageButton } from './page-button'
 import { isProductData, Product } from './types'
+import { atom, useAtom } from 'jotai'
+
+const pageNumAtom = atom(0)
+const productsAtom = atom<Product[]>([])
 
 /** Display products in a grid
  * @param products - The products to display
@@ -19,7 +23,7 @@ import { isProductData, Product } from './types'
  * */
 
 export const Products = ({
-  products,
+  products: _products,
   totalProducts: total,
   apiPageNum: _apiPageNum,
   itemsPerPage,
@@ -29,34 +33,38 @@ export const Products = ({
   apiPageNum: number
   itemsPerPage: number
 }) => {
-  const [pageNum, setPageNum] = useState(0)
+  const [pageNum, setPageNum] = useAtom(pageNumAtom)
   const [apiPageNum, setApiPageNum] = useState(_apiPageNum)
-  const [allProducts, setAllProducts] = useState<Product[]>(products)
-  const productsToDisplay = allProducts.slice(
+  const [products, setProducts] = useAtom(productsAtom)
+  const productsToDisplay = products.slice(
     pageNum * itemsPerPage,
     pageNum * itemsPerPage + itemsPerPage
   )
   const [totalProducts, setTotalProducts] = useState(total)
   const [loading, setLoading] = useState(false)
 
+  // Set products on initial render
+  useEffect(() => {
+    if (pageNum === 0) setProducts(_products)
+  }, [pageNum])
+
   useEffect(() => {
     async function fetchMoreProducts() {
-      console.log('fetched')
       setLoading((_) => true)
       const productData: unknown = await getProducts(apiPageNum, itemsPerPage)
       if (!isProductData(productData)) {
         throw new Error('Failed to fetch products')
       }
       const { products: newProducts, total_products } = productData
-      setAllProducts([...allProducts, ...newProducts])
+      setProducts([...products, ...newProducts])
       setLoading((_) => false)
       setApiPageNum(apiPageNum + 1)
       setTotalProducts(+total_products)
     }
 
     if (
-      pageNum * itemsPerPage + itemsPerPage >= allProducts.length &&
-      allProducts.length < totalProducts
+      pageNum * itemsPerPage + itemsPerPage >= products.length &&
+      products.length < totalProducts
     ) {
       fetchMoreProducts()
     }

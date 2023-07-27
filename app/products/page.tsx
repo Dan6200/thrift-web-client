@@ -5,8 +5,8 @@ import { Products } from '@/components/products'
 import { isProductData } from '@/components/products/types'
 import getProducts from './get-products'
 
-const apiPageNum = 0
-const ITEMS_PER_PAGE = 50
+export const apiPageNum = 0
+export const ITEMS_PER_PAGE = 50
 
 export default async function ProductsPage() {
   try {
@@ -23,7 +23,7 @@ export default async function ProductsPage() {
       <>
         <Nav />
         <Products
-          {...productData}
+          products={productData.products}
           totalProducts={+productData.total_products}
           apiPageNum={apiPageNum + 1 * 3}
           itemsPerPage={ITEMS_PER_PAGE}

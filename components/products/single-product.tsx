@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Button } from '../form/button'
 import { ProductImage } from './image'
 import { Product } from './types'
@@ -6,6 +7,9 @@ export function Product({ product }: { product: Product }) {
   const displayImg = product?.media?.find((img) => img?.is_display_image)
   return (
     <div className="container mx-auto p-5 my-20">
+      <Link className="" href="/products">
+        {'<'} Go back to products page
+      </Link>
       <h2 className="w-full mx-auto m-16 text-2xl font-bold text-justify">
         {product?.title}
       </h2>

@@ -6,6 +6,7 @@ export interface Product {
   list_price: number
   net_price: number
   quantity_available: number
+  created_at: string
   media: {
     filename: string
     filepath: string
@@ -48,6 +49,8 @@ export function isProduct(product: unknown): product is Product {
     typeof (product as Product).category === 'string' &&
     typeof (product as Product).list_price === 'number' &&
     typeof (product as Product).net_price === 'number' &&
+    typeof (product as Product).quantity_available === 'number' &&
+    typeof (product as Product).created_at === 'string' &&
     typeof (product as Product).media === 'object' &&
     typeof (product as Product).media !== null &&
     typeof (product as Product).media[0].filename === 'string'
