@@ -73,7 +73,7 @@ export const Products = ({
   return (
     <div className="container mx-auto p-8 my-20">
       <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
-        All Products
+        All Categories
       </h2>
       <PagingProducts
         loading={loading}
