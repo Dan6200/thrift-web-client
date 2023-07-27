@@ -23,31 +23,63 @@ const productsAtom = atom<Product[]>([])
  * */
 
 export const Products = ({
-  products,
+  products: _products,
+  totalProducts: total,
+  apiPageNum: _apiPageNum,
+  itemsPerPage,
 }: {
   products: Product[]
   totalProducts: number
   apiPageNum: number
   itemsPerPage: number
 }) => {
-  const itemsPerPage = 50
   const [pageNum, setPageNum] = useAtom(pageNumAtom)
+  const [apiPageNum, setApiPageNum] = useState(_apiPageNum)
+  const [products, setProducts] = useAtom(productsAtom)
   const productsToDisplay = products.slice(
     pageNum * itemsPerPage,
     pageNum * itemsPerPage + itemsPerPage
   )
+  const [totalProducts, setTotalProducts] = useState(total)
   const [loading, setLoading] = useState(false)
+
+  // Set products on initial render
+  useEffect(() => {
+    setProducts(_products)
+  }, [pageNum])
+
+  useEffect(() => {
+    async function fetchMoreProducts() {
+      setLoading((_) => true)
+      const productData: unknown = await getProducts(apiPageNum, itemsPerPage)
+      if (!isProductData(productData)) {
+        throw new Error('Failed to fetch products')
+      }
+      const { products: newProducts, total_products } = productData
+      setProducts([...products, ...newProducts])
+      setLoading((_) => false)
+      setApiPageNum(apiPageNum + 1)
+      setTotalProducts(+total_products)
+    }
+
+    if (
+      pageNum * itemsPerPage + itemsPerPage >= products.length &&
+      products.length < totalProducts
+    ) {
+      fetchMoreProducts()
+    }
+  }, [pageNum])
 
   return (
     <div className="container mx-auto p-8 my-20">
-      <h2 className="whitespace-normal break-words w-full mx-auto my-16 text-2xl font-bold text-center">
+      <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
         All Products
       </h2>
       <PagingProducts
         loading={loading}
-        totalProducts={products.length}
         pageNum={pageNum}
         setPageNum={setPageNum}
+        totalProducts={totalProducts}
         itemsPerPage={itemsPerPage}
       />
       <Suspense fallback={<div>Loading...</div>}>
@@ -101,9 +133,9 @@ export const Products = ({
       </Suspense>
       <PagingProducts
         loading={loading}
-        totalProducts={products.length}
         pageNum={pageNum}
         setPageNum={setPageNum}
+        totalProducts={totalProducts}
         itemsPerPage={itemsPerPage}
       />
     </div>
@@ -125,7 +157,9 @@ export function PagingProducts({
 }>) {
   const disablePrev = pageNum === 0
   const disableNext =
-    pageNum * itemsPerPage + itemsPerPage >= totalProducts || loading
+    pageNum * itemsPerPage >= totalProducts ||
+    loading ||
+    Math.floor(totalProducts / itemsPerPage) === pageNum
   return (
     <div className="flex text-sm flex-row justify-between w-full mx-auto">
       <PageButton
