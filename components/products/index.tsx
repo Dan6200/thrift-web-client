@@ -1,6 +1,7 @@
 //cspell: ignore semibold
 'use client'
 import getProducts from '@/app/products/get-products'
+import { Suspense } from 'react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Card } from './card'
@@ -40,31 +41,23 @@ export const Products = ({
 
   useEffect(() => {
     async function fetchMoreProducts() {
+      console.log('fetched')
       setLoading((_) => true)
       const productData: unknown = await getProducts(apiPageNum, itemsPerPage)
       if (!isProductData(productData)) {
         throw new Error('Failed to fetch products')
       }
       const { products: newProducts, total_products } = productData
-      console.log('new products: ', newProducts.length)
       setAllProducts([...allProducts, ...newProducts])
       setLoading((_) => false)
       setApiPageNum(apiPageNum + 1)
       setTotalProducts(+total_products)
     }
 
-    console.log(
-      '\napi page num: ',
-      apiPageNum + 1,
-      '\n page num: ',
-      pageNum + 1,
-      '\nall products fetched: ',
-      allProducts.length,
-      '\ntotal products: ',
-      totalProducts
-    )
-
-    if (allProducts.length < totalProducts) {
+    if (
+      pageNum * itemsPerPage + itemsPerPage >= allProducts.length &&
+      allProducts.length < totalProducts
+    ) {
       fetchMoreProducts()
     }
   }, [pageNum])
@@ -81,52 +74,55 @@ export const Products = ({
         totalProducts={totalProducts}
         itemsPerPage={itemsPerPage}
       />
-      <div className="w-full mx-auto grid grid-cols-2 gap-4">
-        {loading && <p className="w-full text-center">Loading...</p>}
-        {productsToDisplay.map((product) => (
-          <Link
-            href={`/products/${product?.product_id}`}
-            passHref
-            className="active:dark:bg-slate-800 w-fit"
-            key={product?.product_id}
-          >
-            <Card className="w-full p-2 mx-auto text-center my-4 h-64 bg-neutral-100 dark:bg-neutral-800 border-[.5pt] border-neutral-200 shadow-md dark:border-none rounded-md">
-              <div className="bg-white dark:bg-white rounded-sm">
-                <ProductImage
-                  className="object-contain w-full h-32"
-                  imgData={product?.media?.find((img) => img?.is_display_image)}
-                />
-              </div>
-              <div className="flex flex-col justify-between h-24 mt-4">
-                <h4 className="whitespace-pre-wrap text-sm font-semibold text-left text-blue-500 dark:text-blue-300">
-                  {product?.title.slice(0, 25) + '...'}
-                </h4>
-                <div className="flex flex-row my-2 w-full mx-auto justify-between">
-                  <p className="text-xs font-semibold text-gray-900 dark:text-gray-100">
-                    {product?.net_price.toLocaleString('en-NG', {
-                      currency: 'NGN',
-                      style: 'currency',
-                    })}
-                  </p>
-                  {((product?.list_price - product?.net_price) /
-                    product?.list_price) *
-                    100 >
-                    5 && (
-                    <p className="text-xs font-light dark:text-gray-300">
-                      {Math.ceil(
-                        ((product?.list_price - product?.net_price) /
-                          product?.list_price) *
-                          100
-                      )}
-                      % off
-                    </p>
-                  )}
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="w-full mx-auto grid grid-cols-2 gap-4">
+          {productsToDisplay.map((product) => (
+            <Link
+              href={`/products/${product?.product_id}`}
+              passHref
+              className="active:dark:bg-slate-800 w-fit"
+              key={product?.product_id}
+            >
+              <Card className="w-full p-2 mx-auto text-center my-4 h-64 bg-neutral-100 dark:bg-neutral-800 border-[.5pt] border-neutral-200 shadow-md dark:border-none rounded-md">
+                <div className="w-full h-32 bg-white dark:bg-white rounded-sm">
+                  <ProductImage
+                    className="object-contain w-full h-full"
+                    imgData={product?.media?.find(
+                      (img) => img?.is_display_image
+                    )}
+                  />
                 </div>
-              </div>
-            </Card>
-          </Link>
-        ))}
-      </div>
+                <div className="flex flex-col justify-between h-24 mt-4">
+                  <h4 className="whitespace-pre-wrap text-sm font-semibold text-left text-blue-500 dark:text-blue-300">
+                    {product?.title.slice(0, 25) + '...'}
+                  </h4>
+                  <div className="flex flex-row my-2 w-full mx-auto justify-between">
+                    <p className="text-xs font-semibold text-gray-900 dark:text-gray-100">
+                      {product?.net_price.toLocaleString('en-NG', {
+                        currency: 'NGN',
+                        style: 'currency',
+                      })}
+                    </p>
+                    {((product?.list_price - product?.net_price) /
+                      product?.list_price) *
+                      100 >
+                      5 && (
+                      <p className="text-xs font-light dark:text-gray-300">
+                        {Math.ceil(
+                          ((product?.list_price - product?.net_price) /
+                            product?.list_price) *
+                            100
+                        )}
+                        % off
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </Suspense>
       <PagingProducts
         loading={loading}
         pageNum={pageNum}

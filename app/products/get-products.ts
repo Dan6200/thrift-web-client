@@ -11,8 +11,6 @@ export default async function getProducts(
 ) {
   const offset = page * chunk
   const limit = numOfPages * chunk
-  console.log('offset', offset)
-  console.log('limit', limit)
   const response: unknown = await fetch(
     'https://thrift-dev.onrender.com/v1/products?' +
       new URLSearchParams({
@@ -30,9 +28,6 @@ export default async function getProducts(
   }
 
   const { products, total_products } = response
-  console.log('products', products.length)
-  console.log('first', products[0].product_id)
-  console.log('last', products[products.length - 1].product_id)
 
   if (!isProducts(products)) {
     throw new Error('Failed to fetch products')
