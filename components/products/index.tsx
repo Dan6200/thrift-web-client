@@ -29,71 +29,64 @@ export const Products = ({ products }: { products: Product[] }) => {
     pageNum * itemsPerPage,
     pageNum * itemsPerPage + itemsPerPage
   )
-  const [loading, setLoading] = useState(false)
 
   return (
     <div className="container mx-auto p-8 my-20">
       <h2 className="whitespace-normal break-words w-full mx-auto my-16 text-2xl font-bold text-center">
-        All Products
+        All Categories
       </h2>
       <PagingProducts
-        loading={loading}
         totalProducts={products.length}
         pageNum={pageNum}
         setPageNum={setPageNum}
         itemsPerPage={itemsPerPage}
       />
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className="w-full mx-auto grid grid-cols-2 gap-4">
-          {productsToDisplay.map((product) => (
-            <Link
-              href={`/products/${product?.product_id}`}
-              passHref
-              className="active:dark:bg-slate-800 w-fit"
-              key={product?.product_id}
-            >
-              <Card className="w-full p-2 mx-auto text-center my-4 h-64 bg-neutral-100 dark:bg-neutral-800 border-[.5pt] border-neutral-200 shadow-md dark:border-none rounded-md">
-                <div className="w-full h-32 bg-white dark:bg-white rounded-sm">
-                  <ProductImage
-                    className="object-contain w-full h-full"
-                    imgData={product?.media?.find(
-                      (img) => img?.is_display_image
-                    )}
-                  />
-                </div>
-                <div className="flex flex-col justify-between h-24 mt-4">
-                  <h4 className="whitespace-pre-wrap text-sm font-semibold text-left text-blue-500 dark:text-blue-300">
-                    {product?.title.slice(0, 25) + '...'}
-                  </h4>
-                  <div className="flex flex-row my-2 w-full mx-auto justify-between">
-                    <p className="text-xs font-semibold text-gray-900 dark:text-gray-100">
-                      {product?.net_price.toLocaleString('en-NG', {
-                        currency: 'NGN',
-                        style: 'currency',
-                      })}
+      <div className="w-full mx-auto grid grid-cols-2 gap-4">
+        {productsToDisplay.map((product) => (
+          <Link
+            href={`/products/${product?.product_id}`}
+            passHref
+            className="active:dark:bg-slate-800 w-fit"
+            key={product?.product_id}
+          >
+            <Card className="w-full p-2 mx-auto text-center my-4 h-64 bg-neutral-100 dark:bg-neutral-800 border-[.5pt] border-neutral-200 shadow-md dark:border-none rounded-md">
+              <div className="w-full h-32 bg-white dark:bg-white rounded-sm">
+                <ProductImage
+                  className="object-contain w-full h-full"
+                  imgData={product?.media?.find((img) => img?.is_display_image)}
+                />
+              </div>
+              <div className="flex flex-col justify-between h-24 mt-4">
+                <h4 className="whitespace-pre-wrap text-sm font-semibold text-left text-blue-500 dark:text-blue-300">
+                  {product?.title.slice(0, 25) + '...'}
+                </h4>
+                <div className="flex flex-row my-2 w-full mx-auto justify-between">
+                  <p className="text-xs font-semibold text-gray-900 dark:text-gray-100">
+                    {product?.net_price.toLocaleString('en-NG', {
+                      currency: 'NGN',
+                      style: 'currency',
+                    })}
+                  </p>
+                  {((product?.list_price - product?.net_price) /
+                    product?.list_price) *
+                    100 >
+                    5 && (
+                    <p className="text-xs font-light dark:text-gray-300">
+                      {Math.ceil(
+                        ((product?.list_price - product?.net_price) /
+                          product?.list_price) *
+                          100
+                      )}
+                      % off
                     </p>
-                    {((product?.list_price - product?.net_price) /
-                      product?.list_price) *
-                      100 >
-                      5 && (
-                      <p className="text-xs font-light dark:text-gray-300">
-                        {Math.ceil(
-                          ((product?.list_price - product?.net_price) /
-                            product?.list_price) *
-                            100
-                        )}
-                        % off
-                      </p>
-                    )}
-                  </div>
+                  )}
                 </div>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </Suspense>
+              </div>
+            </Card>
+          </Link>
+        ))}
+      </div>
       <PagingProducts
-        loading={loading}
         totalProducts={products.length}
         pageNum={pageNum}
         setPageNum={setPageNum}
@@ -104,21 +97,18 @@ export const Products = ({ products }: { products: Product[] }) => {
 }
 
 export function PagingProducts({
-  loading,
   pageNum,
   setPageNum,
   totalProducts,
   itemsPerPage,
 }: React.PropsWithChildren<{
-  loading: boolean
   pageNum: number
   setPageNum: (pageNum: number) => void
   totalProducts: number
   itemsPerPage: number
 }>) {
   const disablePrev = pageNum === 0
-  const disableNext =
-    pageNum * itemsPerPage + itemsPerPage >= totalProducts || loading
+  const disableNext = pageNum * itemsPerPage + itemsPerPage >= totalProducts
   return (
     <div className="flex text-sm flex-row justify-between w-full mx-auto">
       <PageButton

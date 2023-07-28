@@ -1,9 +1,7 @@
 //cspell:ignore CldImage, cloudinary, cloudinary's
 'use client'
 import { CldImage } from 'next-cloudinary'
-{
-  /* import Image from 'next/image' */
-}
+import Image from 'next/image'
 
 export function ProductImage({
   className,
@@ -49,7 +47,8 @@ export function ProductImage({
     )
   }
   return (
-    <img
+    // leads to memory leak in dev mode
+    <Image
       src={placeHolder}
       alt={'placeholder'}
       width={300}
