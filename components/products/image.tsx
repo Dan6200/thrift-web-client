@@ -37,6 +37,7 @@ export function ProductImage({
     const src = imgData.filepath
     const alt = imgData.description
     return (
+      // <Image src={src} alt={alt ?? ''} width={300} height={600} className={className} />
       <img
         src={src}
         alt={alt ?? ''}
@@ -48,7 +49,8 @@ export function ProductImage({
   }
   return (
     // leads to memory leak in dev mode
-    <Image
+    //<Image src={placeHolder} alt={'placeholder'} width={300} height={600} className={className} />
+    <img
       src={placeHolder}
       alt={'placeholder'}
       width={300}

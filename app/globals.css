@@ -5,37 +5,27 @@
 
 :root {
   --foreground-rgb: 37, 38, 38;
-  --background-start-rgb: 240, 243, 245;
-  --background-end-rgb: 240, 243, 245;
+  --background-rgb: 240, 243, 245;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 247, 253, 255;
-    --background-start-rgb: 27, 28, 28;
-    --background-end-rgb: 27, 28, 28;
+    --background-rgb: 27, 28, 28;
   }
 }
 
-body.dark {
-  --foreground-rgb: 247, 253, 255;
-  --background-start-rgb: 27, 28, 28;
-  --background-end-rgb: 27, 28, 28;
+body.light {
+  color: rgb(37, 38, 38);
+  background: rgb(240, 243, 245);
 }
 
-body {
-  --foreground-rgb: 37, 38, 38;
-  --background-start-rgb: 240, 243, 245;
-  --background-end-rgb: 240, 243, 245;
+body.dark {
+  color: rgb(247, 253, 255);
+  background: rgb(27, 28, 28);
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-start-rgb));
-  /* background: linear-gradient( */
-  /*     to bottom, */
-  /*     transparent, */
-  /*     rgb(var(--background-end-rgb)) */
-  /*   ) */
-  /*   rgb(var(--background-start-rgb)); */
+  background: rgb(var(--background-rgb));
 }

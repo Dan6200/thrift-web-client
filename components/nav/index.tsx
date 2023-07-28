@@ -5,18 +5,19 @@ import { atom, useAtom } from 'jotai'
 import Link from 'next/link'
 import { IconButton } from '../icon-button'
 
-let darkModeAtom = atom(false)
-if (typeof window !== 'undefined') {
-  darkModeAtom = atom(window.matchMedia('(prefers-color-scheme: dark)').matches)
-}
+const darkModeAtom = atom(
+  window.matchMedia('(prefers-color-scheme: dark)').matches
+)
 
 export function Nav() {
   const [darkMode, setDarkMode] = useAtom(darkModeAtom)
   useEffect(() => {
     if (darkMode) {
+      document.body.classList.remove('light')
       document.body.classList.add('dark')
     } else {
       document.body.classList.remove('dark')
+      document.body.classList.add('light')
     }
   }, [darkMode])
   return (
