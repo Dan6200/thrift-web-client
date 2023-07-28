@@ -32,7 +32,7 @@ export const Products = ({ products }: { products: Product[] }) => {
 
   return (
     <div className="container mx-auto p-8 my-20">
-      <h2 className="whitespace-normal break-words w-full mx-auto my-16 text-2xl font-bold text-center">
+      <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
         All Categories
       </h2>
       <PagingProducts
@@ -57,7 +57,7 @@ export const Products = ({ products }: { products: Product[] }) => {
                 />
               </div>
               <div className="flex flex-col justify-between h-24 mt-4">
-                <h4 className="whitespace-pre-wrap text-sm font-semibold text-left text-blue-500 dark:text-blue-300">
+                <h4 className="whitespace-normal break-words text-sm font-semibold text-left text-blue-500 dark:text-blue-300">
                   {product?.title.slice(0, 25) + '...'}
                 </h4>
                 <div className="flex flex-row my-2 w-full mx-auto justify-between">
