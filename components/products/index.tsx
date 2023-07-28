@@ -1,17 +1,13 @@
 //cspell: ignore semibold jotai
 'use client'
-import getProducts from '@/app/products/get-products'
-import { Suspense } from 'react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 import { Card } from './card'
 import { ProductImage } from './image'
 import { PageButton } from './page-button'
-import { isProductData, Product } from './types'
+import { Product } from './types'
 import { atom, useAtom } from 'jotai'
 
 const pageNumAtom = atom(0)
-const productsAtom = atom<Product[]>([])
 
 /** Display products in a grid
  * @param products - The products to display

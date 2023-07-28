@@ -5,9 +5,10 @@ import { atom, useAtom } from 'jotai'
 import Link from 'next/link'
 import { IconButton } from '../icon-button'
 
-const darkModeAtom = atom(
-  window.matchMedia('(prefers-color-scheme: dark)').matches
-)
+let darkModeAtom = atom(false)
+if (typeof window != undefined) {
+  darkModeAtom = atom(window.matchMedia('(prefers-color-scheme: dark)').matches)
+}
 
 export function Nav() {
   const [darkMode, setDarkMode] = useAtom(darkModeAtom)
