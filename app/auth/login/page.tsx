@@ -1,4 +1,4 @@
-import { LoginForm } from '@/components/login-form'
+import { LoginForm } from '@/components/form/login'
 import { Nav } from '@/components/nav'
 
 // Purpose: Login page
