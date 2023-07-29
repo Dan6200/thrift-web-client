@@ -10,34 +10,52 @@ import { joiResolver } from '@hookform/resolvers/joi'
 import Link from 'next/link'
 import { formSchema } from './validation'
 import { ContactType, ContactValues, LoginFormState } from './types'
-import { Form } from '@/components/ui/form'
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormItem,
+  FormField,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 const server = 'https://thrift-dev.onrender.com/v1/auth/login'
 
 /** TODO: use tabs instead of radio buttons **/
 export function LoginForm() {
-  const { register, handleSubmit, watch, setValue } = useForm<
-    LoginFormState & ContactValues
-  >({
-    resolver: joiResolver(formSchema),
+  const form = useForm<LoginFormState & ContactValues>({
+    resolver: async (data, context, options) => {
+      // you can debug your validation schema here
+      console.log('formData', data)
+      console.log(
+        'validation result',
+        await joiResolver(formSchema)(data, context, options)
+      )
+      return joiResolver(formSchema)(data, context, options)
+    },
   })
-
+  const { handleSubmit, watch, setValue } = form
   const contactType = watch('contactType', ContactType.Email)
-  console.log('email', watch('email')) // why is this undefined
-  console.log('phone', watch('phone')) // why is this undefined
 
   const handleContactTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue('contactType', e.target.value as ContactType)
+    setValue(contactType, '')
   }
 
-  const onSubmit: SubmitHandler<LoginFormState> = async (
-    data: LoginFormState
+  const submit: SubmitHandler<LoginFormState> = async (
+    data: LoginFormState,
+    e
   ) => {
-    const formState = data
-    console.log('formState', formState)
+    e?.preventDefault()
+    console.log('runs')
+    const formData = data
+    console.log('Data', formData)
     let response: AxiosResponse<'token', string> | null = null
     try {
-      response = await axios.post(server, formState)
+      response = await axios.post(server, formData)
     } catch (err) {
       throw err
     }
@@ -45,54 +63,95 @@ export function LoginForm() {
     console.log(response?.data)
   }
 
-  const styling = 'p-2 my-4 rounded-md dark:bg-gray-800'
-
   return (
-    <form
-      className="flex flex-col w-full sm:w-[28rem] p-4 sm:p-8 m-auto border rounded-lg"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <label>Preferred Login Method:</label>
-      <div className="flex flex-row justify-between w-[80%]">
-        <label>
-          <RadioInput
-            name="contactType"
-            className={styling + ' mr-2'}
-            value={ContactType.Email}
-            checked={contactType === ContactType.Email}
-            onChange={handleContactTypeChange}
-          />
-          Email
-        </label>
-        <label>
-          <RadioInput
-            name="contactType"
-            className={styling + ' mr-2'}
-            value={ContactType.Phone}
-            checked={contactType === ContactType.Phone}
-            onChange={handleContactTypeChange}
-          />
-          Phone
-        </label>
-      </div>
-      <label>
-        {contactType === ContactType.Email ? 'Email' : 'Phone'}
-        <ContactField
-          type={contactType === ContactType.Email ? 'email' : 'tel'}
-          className={styling}
-          {...register(contactType)}
+    <Form {...form}>
+      <form
+        className="flex flex-col w-full sm:w-[28rem] p-4 sm:p-8 m-auto"
+        onSubmit={handleSubmit(submit)}
+      >
+        <FormField
+          control={form.control}
+          name={contactType}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                {contactType === ContactType.Email ? 'Email' : 'Phone'}
+              </FormLabel>
+              <FormControl>
+                <Input
+                  placeholder={
+                    contactType === ContactType.Email
+                      ? 'myemail1234@gmail.com'
+                      : '+234901234567'
+                  }
+                  type={contactType === ContactType.Email ? 'email' : 'tel'}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </label>
 
-      <label>
-        Password
-        <PasswordField
-          type="password"
-          className={styling}
-          {...register('password')}
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input type="password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </label>
-      <Button type="submit">Submit</Button>
-    </form>
+
+        {/*
+        <label>Preferred Login Method:</label>
+        <div className="flex flex-row justify-between w-[80%]">
+          <label>
+            <RadioInput
+              name="contactType"
+              className={styling + ' mr-2'}
+              value={ContactType.Email}
+              checked={contactType === ContactType.Email}
+              onChange={handleContactTypeChange}
+            />
+            Email
+          </label>
+          <label>
+            <RadioInput
+              name="contactType"
+              className={styling + ' mr-2'}
+              value={ContactType.Phone}
+              checked={contactType === ContactType.Phone}
+              onChange={handleContactTypeChange}
+            />
+            Phone
+          </label>
+        </div>
+        <label className={labelStyle}>
+          {contactType === ContactType.Email ? 'Email' : 'Phone'}
+          <ContactField
+            type={contactType === ContactType.Email ? 'email' : 'tel'}
+            className={styling}
+            {...register(contactType)}
+          />
+        </label>
+
+        <label className={labelStyle}>
+          Password
+          <PasswordField
+            type="password"
+            className={styling}
+            {...register('password')}
+          />
+				</label>*/}
+        <Button className="mt-4" type="submit">
+          Submit
+        </Button>
+      </form>
+    </Form>
   )
 }
