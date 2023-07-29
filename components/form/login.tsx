@@ -1,14 +1,14 @@
 'use client'
 import { useState } from 'react'
 // import { Form } from './form'
-import { Label } from './form/labels'
-import { PasswordField } from './form/password-field'
-import axios, { AxiosResponse } from 'axios'
-import { ContactField } from './form/contact-field'
-import { RadioInput } from './form/radio-input'
-import { Button } from './ui/button'
 import Joi from 'joi'
-import { Form } from './ui/form'
+import axios, { AxiosResponse } from 'axios'
+import { Label } from '@radix-ui/react-dropdown-menu'
+import { Button } from '../ui/button'
+import { Form } from './utils'
+import { ContactField } from './utils/contact-field'
+import { PasswordField } from './utils/password-field'
+import { RadioInput } from './utils/radio-input'
 
 enum ContactType {
   Email = 'email',
