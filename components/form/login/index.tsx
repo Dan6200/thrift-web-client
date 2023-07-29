@@ -1,19 +1,13 @@
 'use client'
-import { useState } from 'react'
 import axios, { AxiosResponse } from 'axios'
 import { Button } from '../../ui/button'
-import { ContactField } from './../utils/contact-field'
-import { PasswordField } from './../utils/password-field'
-import { RadioInput } from './../utils/radio-input'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
-import Link from 'next/link'
 import { formSchema } from './validation'
 import { ContactType, ContactValues, LoginFormState } from './types'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormItem,
   FormField,
   FormLabel,
@@ -36,7 +30,7 @@ export function LoginForm() {
       return joiResolver(formSchema)(data, context, options)
     },
   })
-  const { handleSubmit, watch, setValue } = form
+  const { handleSubmit, watch } = form
   const contactType = watch('contactType', ContactType.Email)
 
   const submit: SubmitHandler<LoginFormState> = async (
