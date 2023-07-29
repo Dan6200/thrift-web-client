@@ -89,11 +89,7 @@ export function LoginForm() {
                 <FormItem>
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="+234-123-456-7890"
-                      type="phone"
-                      {...field}
-                    />
+                    <Input placeholder="0804567890" type="phone" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
