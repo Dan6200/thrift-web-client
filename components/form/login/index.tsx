@@ -4,7 +4,7 @@ import { Button } from '../../ui/button'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { formSchema } from './validation'
-import { ContactType, ContactValues, LoginFormState } from './types'
+import { LoginFormState } from './types'
 import {
   Form,
   FormControl,
@@ -13,13 +13,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+import { Input, InputProps } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 const server = 'https://thrift-dev.onrender.com/v1/auth/login'
 
 export function LoginForm() {
-  const form = useForm<LoginFormState & ContactValues>({
+  const form = useForm<LoginFormState>({
     resolver: async (data, context, options) => {
       // debug input schema
       console.log('formData', data)
@@ -30,8 +30,7 @@ export function LoginForm() {
       return joiResolver(formSchema)(data, context, options)
     },
   })
-  const { handleSubmit, watch } = form
-  const contactType = watch('contactType', ContactType.Email)
+  const { handleSubmit } = form
 
   const submit: SubmitHandler<LoginFormState> = async (
     data: LoginFormState,
@@ -65,15 +64,14 @@ export function LoginForm() {
           <TabsContent value="email">
             <FormField
               control={form.control}
-              name={contactType}
+              name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="myemailaddress1234@mail.com"
-                      type="email"
-                      {...field}
+                      {...(field as InputProps)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -81,15 +79,19 @@ export function LoginForm() {
               )}
             />
           </TabsContent>
+
           <TabsContent value="phone">
             <FormField
               control={form.control}
-              name={contactType}
+              name="phone"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <Input placeholder="0804567890" type="phone" {...field} />
+                    <Input
+                      placeholder="0804567890"
+                      {...(field as InputProps)}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -105,54 +107,12 @@ export function LoginForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" {...field} />
+                <Input {...(field as InputProps)} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
-        {/*
-        <label>Preferred Login Method:</label>
-        <div className="flex flex-row justify-between w-[80%]">
-          <label>
-            <RadioInput
-              name="contactType"
-              className={styling + ' mr-2'}
-              value={ContactType.Email}
-              checked={contactType === ContactType.Email}
-              onChange={handleContactTypeChange}
-            />
-            Email
-          </label>
-          <label>
-            <RadioInput
-              name="contactType"
-              className={styling + ' mr-2'}
-              value={ContactType.Phone}
-              checked={contactType === ContactType.Phone}
-              onChange={handleContactTypeChange}
-            />
-            Phone
-          </label>
-        </div>
-        <label className={labelStyle}>
-          {contactType === ContactType.Email ? 'Email' : 'Phone'}
-          <ContactField
-            type={contactType === ContactType.Email ? 'email' : 'tel'}
-            className={styling}
-            {...register(contactType)}
-          />
-        </label>
-
-        <label className={labelStyle}>
-          Password
-          <PasswordField
-            type="password"
-            className={styling}
-            {...register('password')}
-          />
-				</label>*/}
         <Button className="mt-4" type="submit">
           Submit
         </Button>

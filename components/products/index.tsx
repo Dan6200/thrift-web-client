@@ -28,7 +28,7 @@ export const Products = ({ products }: { products: Product[] }) => {
   )
 
   return (
-    <div className="container mx-auto px-4 py-8 my-20">
+    <div className="container mx-auto px-4 py-8">
       <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
         All Categories
       </h2>
