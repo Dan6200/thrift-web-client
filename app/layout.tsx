@@ -1,4 +1,5 @@
 'use strict'
+import { ThemeProvider } from '@/components/theme-provider'
 // cspell:disable
 import './globals.css'
 import Providers from './providers'
@@ -16,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Providers>{children}</Providers>
+        </ThemeProvider>
       </body>
     </html>
   )

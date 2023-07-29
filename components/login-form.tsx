@@ -1,14 +1,14 @@
 'use client'
 import { useState } from 'react'
-import { Form } from './form'
-import { Button } from './form/button'
-import { DateField } from './form/date-field'
+// import { Form } from './form'
 import { Label } from './form/labels'
-import { NameField } from './form/name-field'
 import { PasswordField } from './form/password-field'
 import axios, { AxiosResponse } from 'axios'
 import { ContactField } from './form/contact-field'
 import { RadioInput } from './form/radio-input'
+import { Button } from './ui/button'
+import Joi from 'joi'
+import { Form } from './ui/form'
 
 enum ContactType {
   Email = 'email',
@@ -88,61 +88,60 @@ export function LoginForm() {
   const styling = 'p-2 my-4 rounded-md dark:bg-gray-800'
 
   return (
-    <Form className="flex flex-col w-full m-auto" onSubmit={handleSubmit}>
-      <Label>Preferred Login Method</Label>
-      <div className="flex flex-row justify-between w-full">
+    <Form>
+      <form className="flex flex-col w-full m-auto" onSubmit={handleSubmit}>
+        <Label>Preferred Login Method</Label>
+        <div className="flex flex-row justify-between w-full">
+          <Label>
+            <RadioInput
+              name="contactType"
+              className={styling + ' mr-2'}
+              value={ContactType.Email}
+              checked={contactValues.contactType === ContactType.Email}
+              onChange={handleContactTypeChange}
+            />
+            Email
+          </Label>
+          <Label>
+            <RadioInput
+              name="contactType"
+              className={styling + ' mr-2'}
+              value={ContactType.Phone}
+              checked={contactValues.contactType === ContactType.Phone}
+              onChange={handleContactTypeChange}
+            />
+            Phone Number
+          </Label>
+        </div>
         <Label>
-          <RadioInput
-            name="contactType"
-            className={styling + ' mr-2'}
-            value={ContactType.Email}
-            checked={contactValues.contactType === ContactType.Email}
-            onChange={handleContactTypeChange}
-          />
-          Email
+          {contactValues.contactType === ContactType.Email
+            ? 'Email'
+            : 'Phone Number'}
         </Label>
-        <Label>
-          <RadioInput
-            name="contactType"
-            className={styling + ' mr-2'}
-            value={ContactType.Phone}
-            checked={contactValues.contactType === ContactType.Phone}
-            onChange={handleContactTypeChange}
-          />
-          Phone Number
-        </Label>
-      </div>
-      <Label>
-        {contactValues.contactType === ContactType.Email
-          ? 'Email'
-          : 'Phone Number'}
-      </Label>
-      {/* pattern={ 
-          contactValues.contactType === ContactType.Email
-            ? '^(([^<>()[]\\.,;:s@"]+(.[^<>()[]\\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$'
-            : '^s*(?:+?(d{1,3}))?[-. (]*(d{3})[-. )]*(d{3})[-. ]*(d{4})(?: *x(d+))?s*$'
-        }*/}
-      <ContactField
-        name="contact"
-        type={contactValues.contactType === ContactType.Email ? 'email' : 'tel'}
-        className={styling}
-        pattern={
-          contactValues.contactType === ContactType.Phone
-            ? '^s*(?:+?(d{1,3}))?[-. (]*(d{3})[-. )]*(d{3})[-. ]*(d{4})(?: *x(d+))?s*$'
-            : '^(([^<>()[]\\.,;:s@"]+(.[^<>()[]\\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$'
-        }
-        value={contactValues.contactValue}
-        onChange={handleContactInputChange}
-      />
+        <ContactField
+          name="contact"
+          type={
+            contactValues.contactType === ContactType.Email ? 'email' : 'tel'
+          }
+          className={styling}
+          pattern={
+            contactValues.contactType === ContactType.Phone
+              ? '^s*(?:+?(d{1,3}))?[-. (]*(d{3})[-. )]*(d{3})[-. ]*(d{4})(?: *x(d+))?s*$'
+              : '^(([^<>()[]\\.,;:s@"]+(.[^<>()[]\\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$'
+          }
+          value={contactValues.contactValue}
+          onChange={handleContactInputChange}
+        />
 
-      <Label>Password</Label>
-      <PasswordField
-        name="password"
-        className={styling}
-        value={formState.password}
-        onChange={handleInputChange}
-      />
-      <Button type="submit">Submit</Button>
+        <Label>Password</Label>
+        <PasswordField
+          name="password"
+          className={styling}
+          value={formState.password}
+          onChange={handleInputChange}
+        />
+        <Button type="submit">Submit</Button>
+      </form>
     </Form>
   )
 }

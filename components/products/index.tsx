@@ -21,6 +21,7 @@ const pageNumAtom = atom(0)
 export const Products = ({ products }: { products: Product[] }) => {
   const itemsPerPage = 50
   const [pageNum, setPageNum] = useAtom(pageNumAtom)
+  console.log(pageNum)
   const productsToDisplay = products.slice(
     pageNum * itemsPerPage,
     pageNum * itemsPerPage + itemsPerPage
