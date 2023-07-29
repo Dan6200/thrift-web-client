@@ -6,7 +6,7 @@ export default function Login() {
   return (
     <>
       <Nav />
-      <div className="container mx-auto my-20 p-4">
+      <div className="container mx-auto my-20 p-8">
         <div className="w-full mx-auto">
           <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
             Login
