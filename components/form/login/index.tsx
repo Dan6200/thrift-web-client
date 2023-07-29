@@ -20,17 +20,24 @@ export function LoginForm() {
     resolver: joiResolver(formSchema),
   })
 
-  const contactType = watch('email', ContactType.Email)
+  const emailType = watch('email', ContactType.Email)
+  const phoneType = watch('phone', ContactType.Phone)
+  console.log(emailType, phoneType)
 
-  const handleContactTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  if (emailType === null) throw new Error('Error handling form input')
+  if (emailType !== 'email') throw new Error('Error setting the email field')
+  if (phoneType !== 'phone') throw new Error('Error setting the phone field')
+
+  const handleContactTypeChange = (_: React.ChangeEvent<HTMLInputElement>) => {
     setValue('email', '')
+    setValue('phone', '')
   }
 
-  const onSubmit = async (data: LoginFormState) => {
-    console.log('formState', data)
+  const onSubmit = async (formState: LoginFormState) => {
+    console.log('formState', formState)
     let response: AxiosResponse<any, any> | null = null
     try {
-      response = await axios.post(server, data)
+      response = await axios.post(server, formState)
     } catch (err) {
       throw err
     }
@@ -49,36 +56,36 @@ export function LoginForm() {
       <div className="flex flex-row justify-between w-full">
         <Label>
           <RadioInput
-            name="contactType"
+            name="emailType"
             className={styling + ' mr-2'}
             value={ContactType.Email}
-            checked={contactType === ContactType.Email}
+            checked={emailType === ContactType.Email}
             onChange={handleContactTypeChange}
           />
           Email
         </Label>
         <Label>
           <RadioInput
-            name="contactType"
+            name="emailType"
             className={styling + ' mr-2'}
             value={ContactType.Phone}
-            checked={contactType === ContactType.Phone}
+            checked={phoneType === ContactType.Phone}
             onChange={handleContactTypeChange}
           />
           Phone Number
         </Label>
       </div>
       <Label>
-        {contactType === ContactType.Email ? 'Email' : 'Phone Number'}
+        {emailType === ContactType.Email ? 'Email' : 'Phone Number'}
       </Label>
       <ContactField
-        type={contactType === ContactType.Email ? 'email' : 'tel'}
+        type={emailType === ContactType.Email ? 'email' : 'tel'}
         className={styling}
-        {...register(contactType)}
+        {...register(emailType!)}
       />
 
       <Label>Password</Label>
-      <PasswordField className={styling} {...register(contactType)} />
+      <PasswordField className={styling} {...register(emailType)} />
       <Button type="submit">Submit</Button>
     </form>
   )
