@@ -6,7 +6,7 @@ import { Button } from '../../ui/button'
 import { ContactField } from './../utils/contact-field'
 import { PasswordField } from './../utils/password-field'
 import { RadioInput } from './../utils/radio-input'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import Link from 'next/link'
 import { formSchema } from './validation'
@@ -15,6 +15,7 @@ import { Form } from '@/components/ui/form'
 
 const server = 'https://thrift-dev.onrender.com/v1/auth/login'
 
+/** TODO: use tabs instead of radio buttons **/
 export function LoginForm() {
   const { register, handleSubmit, watch, setValue } = useForm<
     LoginFormState & ContactValues
@@ -23,15 +24,19 @@ export function LoginForm() {
   })
 
   const contactType = watch('contactType', ContactType.Email)
+  console.log(watch('email')) // why is this undefined
+  console.log(watch('phone')) // why is this undefined
 
   const handleContactTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue('contactType', e.target.value as ContactType)
-    setValue('contactValue', '')
   }
 
-  const onSubmit = async (formState: LoginFormState) => {
+  const onSubmit: SubmitHandler<LoginFormState> = async (
+    data: LoginFormState
+  ) => {
+    const formState = data
     console.log('formState', formState)
-    let response: AxiosResponse<any, any> | null = null
+    let response: AxiosResponse<'token', string> | null = null
     try {
       response = await axios.post(server, formState)
     } catch (err) {
@@ -45,11 +50,11 @@ export function LoginForm() {
 
   return (
     <form
-      className="flex flex-col w-full m-auto"
+      className="flex flex-col w-full sm:w-[28rem] p-4 sm:p-8 m-auto border rounded-lg"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Label>Preferred Login Method</Label>
-      <div className="flex flex-row justify-between w-full">
+      <Label>Preferred Login Method:</Label>
+      <div className="flex flex-row justify-between w-[80%]">
         <Label>
           <RadioInput
             name="contactType"
@@ -68,12 +73,10 @@ export function LoginForm() {
             checked={contactType === ContactType.Phone}
             onChange={handleContactTypeChange}
           />
-          Phone Number
+          Phone
         </Label>
       </div>
-      <Label>
-        {contactType === ContactType.Email ? 'Email' : 'Phone Number'}
-      </Label>
+      <Label>{contactType === ContactType.Email ? 'Email' : 'Phone'}</Label>
       <ContactField
         type={contactType === ContactType.Email ? 'email' : 'tel'}
         className={styling}
@@ -81,7 +84,11 @@ export function LoginForm() {
       />
 
       <Label>Password</Label>
-      <PasswordField className={styling} {...register(contactType)} />
+      <PasswordField
+        type="password"
+        className={styling}
+        {...register('password')}
+      />
       <Button type="submit">Submit</Button>
     </form>
   )
