@@ -24,11 +24,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 const server = 'https://thrift-dev.onrender.com/v1/auth/login'
 
-/** TODO: use tabs instead of radio buttons **/
 export function LoginForm() {
   const form = useForm<LoginFormState & ContactValues>({
     resolver: async (data, context, options) => {
-      // you can debug your validation schema here
+      // debug input schema
       console.log('formData', data)
       console.log(
         'validation result',
@@ -39,11 +38,6 @@ export function LoginForm() {
   })
   const { handleSubmit, watch, setValue } = form
   const contactType = watch('contactType', ContactType.Email)
-
-  const handleContactTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue('contactType', e.target.value as ContactType)
-    setValue(contactType, '')
-  }
 
   const submit: SubmitHandler<LoginFormState> = async (
     data: LoginFormState,
@@ -69,29 +63,50 @@ export function LoginForm() {
         className="flex flex-col w-full sm:w-[28rem] p-4 sm:p-8 m-auto"
         onSubmit={handleSubmit(submit)}
       >
-        <FormField
-          control={form.control}
-          name={contactType}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                {contactType === ContactType.Email ? 'Email' : 'Phone'}
-              </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={
-                    contactType === ContactType.Email
-                      ? 'myemail1234@gmail.com'
-                      : '+234901234567'
-                  }
-                  type={contactType === ContactType.Email ? 'email' : 'tel'}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <Tabs defaultValue="email" className="w-[24rem]">
+          <TabsList className="h-fit grid w-full grid-cols-2 mb-8">
+            <TabsTrigger value="email">Email</TabsTrigger>
+            <TabsTrigger value="phone">Phone Number</TabsTrigger>
+          </TabsList>
+          <TabsContent value="email">
+            <FormField
+              control={form.control}
+              name={contactType}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="myemailaddress1234@mail.com"
+                      type="email"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </TabsContent>
+          <TabsContent value="phone">
+            <FormField
+              control={form.control}
+              name={contactType}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Phone</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="+234-123-456-7890"
+                      type="phone"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </TabsContent>
+        </Tabs>
 
         <FormField
           control={form.control}
