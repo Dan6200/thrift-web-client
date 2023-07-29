@@ -2,7 +2,6 @@
 import { useState } from 'react'
 // import { Form } from './form'
 import axios, { AxiosResponse } from 'axios'
-import { Label } from '@radix-ui/react-dropdown-menu'
 import { Button } from '../../ui/button'
 import { Form } from './../utils'
 import { ContactField } from './../utils/contact-field'
@@ -81,9 +80,9 @@ export function LoginForm() {
 
   return (
     <Form className="flex flex-col w-full m-auto" onSubmit={handleSubmit}>
-      <Label>Preferred Login Method</Label>
+      <label>Preferred Login Method</label>
       <div className="flex flex-row justify-between w-full">
-        <Label>
+        <label>
           <RadioInput
             name="contactType"
             className={styling + ' mr-2'}
@@ -92,8 +91,8 @@ export function LoginForm() {
             onChange={handleContactTypeChange}
           />
           Email
-        </Label>
-        <Label>
+        </label>
+        <label>
           <RadioInput
             name="contactType"
             className={styling + ' mr-2'}
@@ -102,13 +101,13 @@ export function LoginForm() {
             onChange={handleContactTypeChange}
           />
           Phone Number
-        </Label>
+        </label>
       </div>
-      <Label>
+      <label>
         {contactValues.contactType === ContactType.Email
           ? 'Email'
           : 'Phone Number'}
-      </Label>
+      </label>
       <ContactField
         name="contact"
         type={contactValues.contactType === ContactType.Email ? 'email' : 'tel'}
@@ -117,7 +116,7 @@ export function LoginForm() {
         onChange={handleContactInputChange}
       />
 
-      <Label>Password</Label>
+      <label>Password</label>
       <PasswordField
         name="password"
         className={styling}

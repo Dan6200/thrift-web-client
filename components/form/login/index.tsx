@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import axios, { AxiosResponse } from 'axios'
-import { Label } from '@radix-ui/react-dropdown-menu'
 import { Button } from '../../ui/button'
 import { ContactField } from './../utils/contact-field'
 import { PasswordField } from './../utils/password-field'
@@ -24,8 +23,8 @@ export function LoginForm() {
   })
 
   const contactType = watch('contactType', ContactType.Email)
-  console.log(watch('email')) // why is this undefined
-  console.log(watch('phone')) // why is this undefined
+  console.log('email', watch('email')) // why is this undefined
+  console.log('phone', watch('phone')) // why is this undefined
 
   const handleContactTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue('contactType', e.target.value as ContactType)
@@ -53,9 +52,9 @@ export function LoginForm() {
       className="flex flex-col w-full sm:w-[28rem] p-4 sm:p-8 m-auto border rounded-lg"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Label>Preferred Login Method:</Label>
+      <label>Preferred Login Method:</label>
       <div className="flex flex-row justify-between w-[80%]">
-        <Label>
+        <label>
           <RadioInput
             name="contactType"
             className={styling + ' mr-2'}
@@ -64,8 +63,8 @@ export function LoginForm() {
             onChange={handleContactTypeChange}
           />
           Email
-        </Label>
-        <Label>
+        </label>
+        <label>
           <RadioInput
             name="contactType"
             className={styling + ' mr-2'}
@@ -74,21 +73,25 @@ export function LoginForm() {
             onChange={handleContactTypeChange}
           />
           Phone
-        </Label>
+        </label>
       </div>
-      <Label>{contactType === ContactType.Email ? 'Email' : 'Phone'}</Label>
-      <ContactField
-        type={contactType === ContactType.Email ? 'email' : 'tel'}
-        className={styling}
-        {...register(contactType)}
-      />
+      <label>
+        {contactType === ContactType.Email ? 'Email' : 'Phone'}
+        <ContactField
+          type={contactType === ContactType.Email ? 'email' : 'tel'}
+          className={styling}
+          {...register(contactType)}
+        />
+      </label>
 
-      <Label>Password</Label>
-      <PasswordField
-        type="password"
-        className={styling}
-        {...register('password')}
-      />
+      <label>
+        Password
+        <PasswordField
+          type="password"
+          className={styling}
+          {...register('password')}
+        />
+      </label>
       <Button type="submit">Submit</Button>
     </form>
   )

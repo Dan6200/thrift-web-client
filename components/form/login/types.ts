@@ -5,7 +5,6 @@ export enum ContactType {
 
 export interface ContactValues {
   contactType: ContactType
-  contactValue: string
 }
 
 export interface LoginFormState {
