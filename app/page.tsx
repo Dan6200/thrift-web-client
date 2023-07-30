@@ -35,6 +35,9 @@ export default async function Home() {
           </Link>
         </div>
         <ProductsHome products={productData.products} />
+        <Link href="/products" className="m-l[80%]">
+          See more items...
+        </Link>
       </div>
     </div>
   )

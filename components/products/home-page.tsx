@@ -32,8 +32,8 @@ export const ProductsHome = ({ products }: { products: Product[] }) => {
           >
             {/* overflow should be visible during dev, TODO: switch to hidded
 					<Card className="w-40 h-72 overflow-hidden rounded-sm">*/}
-            <Card className="w-44 h-80 overflow-visible rounded-sm">
-              <CardContent className="bg-foreground p-0 w-full flex items-center h-40">
+            <Card className="w-44 h-[22rem] overflow-visible rounded-sm">
+              <CardContent className="bg-white border-b p-0 w-full flex items-center h-44">
                 <ProductImage
                   className="object-contain w-40 max-h-40"
                   imgData={product?.media?.find((img) => img?.is_display_image)}

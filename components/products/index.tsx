@@ -3,10 +3,10 @@
 import Link from 'next/link'
 import { Card } from './card'
 import { ProductImage } from './image'
-import { PageButton } from './page-button'
 import { Product } from './types'
 import { atom, useAtom } from 'jotai'
 import Paginate from '../pagination'
+import { CardContent, CardFooter } from '../ui/card'
 
 // One based to work well with mui component
 export const pageNumAtom = atom(1)
@@ -22,6 +22,7 @@ export const pageNumAtom = atom(1)
 
 export const Products = ({ products }: { products: Product[] }) => {
   const itemsPerPage = 50
+  const CUT_OFF = 30
   const totalProducts = products.length
   const [pageNum] = useAtom(pageNumAtom)
   const productsToDisplay = products.slice(
@@ -30,7 +31,7 @@ export const Products = ({ products }: { products: Product[] }) => {
   )
 
   return (
-    <div className="mx-auto">
+    <div className="container p-2 mx-auto">
       <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
         All Categories
       </h2>
@@ -40,22 +41,24 @@ export const Products = ({ products }: { products: Product[] }) => {
           <Link
             href={`/products/${product?.product_id}`}
             passHref
-            className="active:dark:bg-slate-800 w-fit"
+            className="active:dark:bg-slate-800"
             key={product?.product_id}
           >
-            <Card className="w-full p-2 mx-auto text-center my-4 h-64 bg-neutral-100 dark:bg-neutral-800 border-[.5pt] border-neutral-200 shadow-md dark:border-none rounded-md">
-              <div className="w-full h-32 bg-white dark:bg-white rounded-sm">
+            {/* overflow should be visible during dev, TODO: switch to hidded
+					<Card className="w-40 h-72 overflow-hidden rounded-sm">*/}
+            <Card className="w-44 h-[22rem] overflow-visible rounded-sm">
+              <CardContent className="bg-white border-b p-0 w-full flex items-center h-44">
                 <ProductImage
-                  className="object-contain w-full max-w-[8rem] h-full"
+                  className="object-contain w-40 max-h-40"
                   imgData={product?.media?.find((img) => img?.is_display_image)}
                 />
-              </div>
-              <div className="flex flex-col justify-between h-24 w-fit mt-4">
-                <h4 className="max-w-[9rem] w-36 whitespace-normal break-words text-sm font-semibold text-left text-blue-500 dark:text-blue-300">
-                  {product?.title.slice(0, 25) + '...'}
+              </CardContent>
+              <CardFooter className="p-2 flex flex-col items-center justify-between h-40">
+                <h4 className="my-4">
+                  {product?.title.slice(0, CUT_OFF) + '...'}
                 </h4>
-                <div className="flex flex-row my-2 w-full mx-auto justify-between">
-                  <p className="text-xs font-semibold text-gray-900 dark:text-gray-100">
+                <div className="w-full flex justify-between">
+                  <p className="">
                     {product?.net_price.toLocaleString('en-NG', {
                       currency: 'NGN',
                       style: 'currency',
@@ -65,7 +68,7 @@ export const Products = ({ products }: { products: Product[] }) => {
                     product?.list_price) *
                     100 >
                     5 && (
-                    <p className="text-xs font-light dark:text-gray-300">
+                    <p className="">
                       {Math.ceil(
                         ((product?.list_price - product?.net_price) /
                           product?.list_price) *
@@ -75,7 +78,7 @@ export const Products = ({ products }: { products: Product[] }) => {
                     </p>
                   )}
                 </div>
-              </div>
+              </CardFooter>
             </Card>
           </Link>
         ))}
