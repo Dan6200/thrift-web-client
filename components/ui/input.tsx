@@ -1,19 +1,9 @@
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
-import { Noop } from 'react-hook-form'
-import { RefCallBack } from 'react-hook-form'
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  onChange: (...event: any[]) => {}
-  onBlur: Noop
-  value: string | undefined
-  name: 'email' | 'phone' | 'password'
-  ref: RefCallBack
-  placeholder?: '08012345678' | 'myemailaddress1234@mail.com'
-  type: 'email' | 'phone' | 'password'
-}
+  extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {

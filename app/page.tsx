@@ -19,7 +19,7 @@ export default async function Home() {
     <div className="mx-auto w-full">
       <Nav />
       <div className="container w-full mx-auto my-10 p-2">
-        <h1 className="w-full mx-auto m-32 text-4xl font-bold text-center">
+        <h1 className="w-full mx-auto mt-32 mb-8 text-4xl font-bold text-center">
           Welcome to Thrift eCommerce
         </h1>
         <div className="w-48 mb-16 flex justify-between mx-auto">

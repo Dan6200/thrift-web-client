@@ -4,7 +4,7 @@ import { Button } from '../../ui/button'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { formSchema } from './validation'
-import { LoginFormState } from './types'
+import { LoginFormState, LoginInputProps } from './types'
 import {
   Form,
   FormControl,
@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input, InputProps } from '@/components/ui/input'
+import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 const server = 'https://thrift-dev.onrender.com/v1/auth/login'
@@ -71,7 +71,7 @@ export function LoginForm() {
                   <FormControl>
                     <Input
                       placeholder="myemailaddress1234@mail.com"
-                      {...(field as InputProps)}
+                      {...(field as LoginInputProps)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -90,7 +90,7 @@ export function LoginForm() {
                   <FormControl>
                     <Input
                       placeholder="08012345678"
-                      {...(field as InputProps)}
+                      {...(field as LoginInputProps)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -107,7 +107,7 @@ export function LoginForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input {...(field as InputProps)} />
+                <Input {...(field as LoginInputProps)} />
               </FormControl>
               <FormMessage />
             </FormItem>

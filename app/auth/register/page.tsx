@@ -1,5 +1,5 @@
+import { RegisterForm } from '@/components/form/register'
 import { Nav } from '@/components/nav'
-import { RegisterForm } from '@/components/register-form'
 
 // Purpose: Provide a page for users to register for an account
 export default function Register() {
