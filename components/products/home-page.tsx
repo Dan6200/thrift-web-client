@@ -1,7 +1,14 @@
 //cspell: ignore semibold jotai
 'use client'
 import Link from 'next/link'
-import { Card } from './card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { ProductImage } from './image'
 import { Product } from './types'
 
@@ -29,14 +36,16 @@ export const ProductsHome = ({ products }: { products: Product[] }) => {
             className="active:dark:bg-slate-800 w-fit"
             key={product?.product_id}
           >
-            <Card className="w-full p-2 mx-auto text-center my-4 h-64 bg-neutral-100 dark:bg-neutral-800 border-[.5pt] border-neutral-200 shadow-md dark:border-none rounded-md">
-              <div className="w-full h-32 bg-white dark:bg-white rounded-sm">
+            {/*<Card className="w-full p-2 mx-auto text-center my-4 h-64 bg-neutral-100 dark:bg-neutral-800 border-[.5pt] border-neutral-200 shadow-md dark:border-none rounded-md">*/}
+            <Card>
+              {/*<CardContent className="w-full h-32 bg-white dark:bg-white rounded-sm">*/}
+              <CardContent>
                 <ProductImage
                   className="object-contain w-full max-w-[8rem] h-full"
                   imgData={product?.media?.find((img) => img?.is_display_image)}
                 />
-              </div>
-              <div className="flex flex-col justify-between h-24 w-fit mt-4">
+              </CardContent>
+              <CardFooter className="flex flex-col justify-between h-24 w-fit mt-4">
                 <h4 className="max-w-[9rem] w-36 whitespace-normal break-words text-sm font-semibold text-left text-blue-500 dark:text-blue-300">
                   {product?.title.slice(0, 25) + '...'}
                 </h4>
@@ -61,7 +70,7 @@ export const ProductsHome = ({ products }: { products: Product[] }) => {
                     </p>
                   )}
                 </div>
-              </div>
+              </CardFooter>
             </Card>
           </Link>
         ))}
