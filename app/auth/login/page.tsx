@@ -2,6 +2,7 @@ import { LoginForm } from '@/components/form/login'
 import { Nav } from '@/components/nav'
 
 // Purpose: Login page
+// TODO: Use a card instead of your own border
 export default function Login() {
   return (
     <>

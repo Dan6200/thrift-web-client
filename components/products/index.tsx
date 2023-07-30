@@ -6,6 +6,7 @@ import { ProductImage } from './image'
 import { PageButton } from './page-button'
 import { Product } from './types'
 import { atom, useAtom } from 'jotai'
+import Paginate from '../pagination'
 
 const pageNumAtom = atom(0)
 
@@ -20,6 +21,7 @@ const pageNumAtom = atom(0)
 
 export const Products = ({ products }: { products: Product[] }) => {
   const itemsPerPage = 50
+  const totalProducts = products.length
   const [pageNum, setPageNum] = useAtom(pageNumAtom)
   console.log(pageNum)
   const productsToDisplay = products.slice(
@@ -32,6 +34,7 @@ export const Products = ({ products }: { products: Product[] }) => {
       <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
         All Categories
       </h2>
+      <Paginate count={Math.ceil(totalProducts / itemsPerPage)} />
       <PagingProducts
         totalProducts={products.length}
         pageNum={pageNum}
