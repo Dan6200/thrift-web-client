@@ -39,7 +39,13 @@ export async function generateStaticParams() {
 
   const { products } = data
 
+  /* prod
   return products.map((product) => ({
+    id: product.product_id.toString(),
+  }))
+		 */
+  // for dev to reduce memory usage
+  return products.slice(0, 10).map((product) => ({
     id: product.product_id.toString(),
   }))
 }

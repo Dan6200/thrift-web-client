@@ -8,7 +8,8 @@ import { Product } from './types'
 import { atom, useAtom } from 'jotai'
 import Paginate from '../pagination'
 
-const pageNumAtom = atom(0)
+// One based to work well with mui component
+export const pageNumAtom = atom(1)
 
 /** Display products in a grid
  * @param products - The products to display
@@ -22,25 +23,18 @@ const pageNumAtom = atom(0)
 export const Products = ({ products }: { products: Product[] }) => {
   const itemsPerPage = 50
   const totalProducts = products.length
-  const [pageNum, setPageNum] = useAtom(pageNumAtom)
-  console.log(pageNum)
+  const [pageNum] = useAtom(pageNumAtom)
   const productsToDisplay = products.slice(
-    pageNum * itemsPerPage,
-    pageNum * itemsPerPage + itemsPerPage
+    pageNum * itemsPerPage - itemsPerPage,
+    pageNum * itemsPerPage
   )
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="mx-auto">
       <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
         All Categories
       </h2>
       <Paginate count={Math.ceil(totalProducts / itemsPerPage)} />
-      <PagingProducts
-        totalProducts={products.length}
-        pageNum={pageNum}
-        setPageNum={setPageNum}
-        itemsPerPage={itemsPerPage}
-      />
       <div className="w-full mx-auto place-items-center grid grid-cols-2 gap-2">
         {productsToDisplay.map((product) => (
           <Link
@@ -86,12 +80,7 @@ export const Products = ({ products }: { products: Product[] }) => {
           </Link>
         ))}
       </div>
-      <PagingProducts
-        totalProducts={products.length}
-        pageNum={pageNum}
-        setPageNum={setPageNum}
-        itemsPerPage={itemsPerPage}
-      />
+      <Paginate count={Math.ceil(totalProducts / itemsPerPage)} />
     </div>
   )
 }

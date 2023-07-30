@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button } from '../form/button'
+import { Button } from '../ui/button'
 import { ProductImage } from './image'
 import { Product } from './types'
 
