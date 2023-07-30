@@ -9,7 +9,7 @@ export default function Login() {
     <>
       <Nav />
       <div className="container mx-auto my-20 p-4">
-        <Card className="w-full border dark:border-neutral-600 rounded-lg mx-auto">
+        <Card className="w-full mx-auto">
           <CardHeader className="w-full mx-auto my-8 text-2xl font-bold text-center">
             Welcome Back
           </CardHeader>
