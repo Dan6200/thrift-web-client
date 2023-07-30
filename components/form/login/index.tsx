@@ -89,7 +89,7 @@ export function LoginForm() {
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="0804567890"
+                      placeholder="08012345678"
                       {...(field as InputProps)}
                     />
                   </FormControl>

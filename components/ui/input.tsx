@@ -2,7 +2,6 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 import { Noop } from 'react-hook-form'
-import { ContactType } from '../form/login/types'
 import { RefCallBack } from 'react-hook-form'
 
 export interface InputProps
@@ -12,7 +11,7 @@ export interface InputProps
   value: string | undefined
   name: 'email' | 'phone' | 'password'
   ref: RefCallBack
-  placeholder?: '0804567890' | 'myemailaddress1234@mail.com'
+  placeholder?: '08012345678' | 'myemailaddress1234@mail.com'
   type: 'email' | 'phone' | 'password'
 }
 

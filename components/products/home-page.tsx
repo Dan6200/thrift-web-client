@@ -3,38 +3,24 @@
 import Link from 'next/link'
 import { Card } from './card'
 import { ProductImage } from './image'
-import { PageButton } from './page-button'
 import { Product } from './types'
-import { atom, useAtom } from 'jotai'
-import Paginate from '../pagination'
-
-// One based to work well with mui component
-export const pageNumAtom = atom(1)
 
 /** Display products in a grid
- * @param products - The products to display
- * @param lastPage - Whether the last page has been reached
- * @param apiPageNum - The page number to fetch from the API
+ * for home page only
  * @returns A grid of products
  * @description This component displays pre-fetched products in a grid. It also
  * fetches more products from the API when the last page is reached
  * */
 
-export const Products = ({ products }: { products: Product[] }) => {
+export const ProductsHome = ({ products }: { products: Product[] }) => {
   const itemsPerPage = 50
-  const totalProducts = products.length
-  const [pageNum] = useAtom(pageNumAtom)
-  const productsToDisplay = products.slice(
-    pageNum * itemsPerPage - itemsPerPage,
-    pageNum * itemsPerPage
-  )
+  const productsToDisplay = products.slice(0, itemsPerPage)
 
   return (
     <div className="mx-auto">
-      <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
+      <h2 className="w-full mx-auto my-8 text-2xl font-bold text-center">
         All Categories
       </h2>
-      <Paginate count={Math.ceil(totalProducts / itemsPerPage)} />
       <div className="w-full mx-auto place-items-center grid grid-cols-2 gap-2">
         {productsToDisplay.map((product) => (
           <Link
@@ -80,7 +66,6 @@ export const Products = ({ products }: { products: Product[] }) => {
           </Link>
         ))}
       </div>
-      <Paginate count={Math.ceil(totalProducts / itemsPerPage)} />
     </div>
   )
 }
