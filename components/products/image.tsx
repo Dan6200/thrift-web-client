@@ -26,7 +26,7 @@ export function ProductImage({
     return (
       <CldImage
         src={src}
-        width={300}
+        width={600}
         height={600}
         alt={alt}
         className={className}
@@ -38,7 +38,7 @@ export function ProductImage({
     const alt = imgData.description
     return (
       // <Image src={src} alt={alt ?? ''} width={300} height={600} className={className} />
-      <img
+      <Image
         src={src}
         alt={alt ?? ''}
         width={300}
@@ -50,7 +50,7 @@ export function ProductImage({
   return (
     // leads to memory leak in dev mode
     //<Image src={placeHolder} alt={'placeholder'} width={300} height={600} className={className} />
-    <img
+    <Image
       src={placeHolder}
       alt={'placeholder'}
       width={300}
