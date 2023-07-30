@@ -10,7 +10,7 @@ import {
   FirstName,
   LastName,
   Password,
-} from '../utils/form-fields'
+} from '../register/form-fields'
 import { RegisterFormState } from './types'
 import submitHandler from './submit-handler'
 import useFromProps from './use-from-props'
