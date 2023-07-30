@@ -35,7 +35,7 @@ export const ProductsHome = ({ products }: { products: Product[] }) => {
             <Card className="w-44 h-80 overflow-visible rounded-sm">
               <CardContent className="bg-foreground p-0 w-full flex items-center h-40">
                 <ProductImage
-                  className="object-cover w-40 max-h-40"
+                  className="object-contain w-40 max-h-40"
                   imgData={product?.media?.find((img) => img?.is_display_image)}
                 />
               </CardContent>

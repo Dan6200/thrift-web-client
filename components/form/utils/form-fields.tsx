@@ -11,13 +11,15 @@ import {
 } from '../../ui/form'
 import { Calendar as CalendarIcon } from 'lucide-react'
 import { UseFormReturn } from 'react-hook-form'
-import { RegisterFormState } from '../register'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { Calendar } from '@/components/ui/calendar'
+import { RegisterFormState } from '../register/types'
+import { cn } from '@/lib/utils'
+import { format } from 'date-fns'
 
 export const FirstName = ({
   form,
@@ -135,7 +137,7 @@ export const DOB = ({
               selected={field.value}
               onSelect={field.onChange}
               disabled={(date) =>
-                date > new Date({ form }) || date < new Date('1900-01-01')
+                date > new Date() || date < new Date('1900-01-01')
               }
               initialFocus
             />

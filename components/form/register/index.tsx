@@ -13,7 +13,8 @@ import {
   LastName,
   Password,
 } from '../utils/form-fields'
-import { RegisterFormState } from '../register'
+import { schema } from './schema'
+import { RegisterFormState } from './types'
 
 const server = 'https://thrift-dev.onrender.com/v1/auth/register'
 export function RegisterForm() {
@@ -23,9 +24,9 @@ export function RegisterForm() {
       console.log('formData', data)
       console.log(
         'validation result',
-        await joiResolver(formSchema)(data, context, options)
+        await joiResolver(schema)(data, context, options)
       )
-      return joiResolver(formSchema)(data, context, options)
+      return joiResolver(schema)(data, context, options)
     },
   })
   const { handleSubmit } = form
