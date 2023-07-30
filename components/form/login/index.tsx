@@ -53,11 +53,11 @@ export function LoginForm() {
   return (
     <Form {...form}>
       <form
-        className="flex flex-col w-full sm:w-[28rem] p-4 sm:p-8 m-auto"
+        className="w-full flex flex-col p-4 sm:p-8 m-auto"
         onSubmit={handleSubmit(submit)}
       >
-        <Tabs defaultValue="email" className="w-[24rem]">
-          <TabsList className="h-fit grid w-full grid-cols-2 mb-8">
+        <Tabs defaultValue="email" className="">
+          <TabsList className="h-fit grid grid-cols-2 mb-8">
             <TabsTrigger value="email">Email</TabsTrigger>
             <TabsTrigger value="phone">Phone Number</TabsTrigger>
           </TabsList>
