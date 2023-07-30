@@ -1,10 +1,8 @@
 'use client'
 // cspell:ignore hookform lucide
 import { Button } from '@/components/ui/button'
-import axios, { AxiosResponse } from 'axios'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Form } from '../../ui/form'
-import { joiResolver } from '@hookform/resolvers/joi'
 import {
   ConfirmPassword,
   Country,
@@ -13,45 +11,14 @@ import {
   LastName,
   Password,
 } from '../utils/form-fields'
-import { schema } from './schema'
 import { RegisterFormState } from './types'
+import submitHandler from './submit-handler'
+import useFromProps from './use-from-props'
 
-const server = 'https://thrift-dev.onrender.com/v1/auth/register'
 export function RegisterForm() {
-  const form = useForm<RegisterFormState>({
-    resolver: async (data, context, options) => {
-      // debug input schema
-      console.log('formData', data)
-      console.log(
-        'validation result',
-        await joiResolver(schema)(data, context, options)
-      )
-      return joiResolver(schema)(data, context, options)
-    },
-  })
+  const form = useForm<RegisterFormState>(useFromProps)
   const { handleSubmit } = form
-
-  const submit: SubmitHandler<RegisterFormState> = async (
-    data: RegisterFormState,
-    e
-  ) => {
-    e?.preventDefault()
-    const formState = data
-    if (formState.password !== formState.confirm_password) {
-      throw new Error('Passwords do not match')
-    }
-    const { confirm_password, ...userData } = formState
-    console.log('formState', formState)
-    console.log('userData', userData)
-    let response: AxiosResponse<any, any> | null = null
-    try {
-      response = await axios.post(server, userData)
-    } catch (err) {
-      throw err
-    }
-    alert('User created successfully')
-    console.log(response?.data)
-  }
+  const submit: SubmitHandler<RegisterFormState> = submitHandler
 
   return (
     <Form {...form}>

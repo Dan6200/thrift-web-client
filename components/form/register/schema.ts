@@ -1,7 +1,7 @@
 // Purpose: Joi schema for account data
 // cspell:ignore alphanum
 import joi from 'joi'
-import { RegisterFormState } from '../register'
+import { RegisterFormState } from './types'
 
 export const schema = joi
   .object<RegisterFormState>()

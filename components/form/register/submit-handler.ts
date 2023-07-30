@@ -1,6 +1,9 @@
-import { RegisterFormState } from '.'
+import axios, { AxiosResponse } from 'axios'
+import { BaseSyntheticEvent } from 'react'
+import { RegisterFormState } from './types'
 
-export default async (data: RegisterFormState, e) => {
+const SERVER = 'https://thrift-dev.onrender.com/v1/auth/register'
+export default async (data: RegisterFormState, e?: BaseSyntheticEvent) => {
   e?.preventDefault()
   const formState = data
   if (formState.password !== formState.confirm_password) {
@@ -11,7 +14,7 @@ export default async (data: RegisterFormState, e) => {
   console.log('userData', userData)
   let response: AxiosResponse<any, any> | null = null
   try {
-    response = await axios.post(server, userData)
+    response = await axios.post(SERVER, userData)
   } catch (err) {
     throw err
   }
