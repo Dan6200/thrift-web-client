@@ -3,6 +3,7 @@ import { Input, InputProps } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -11,6 +12,12 @@ import {
 import { Calendar as CalendarIcon } from 'lucide-react'
 import { UseFormReturn } from 'react-hook-form'
 import { RegisterFormState } from '../register'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import { Calendar } from '@/components/ui/calendar'
 
 export const FirstName = ({
   form,

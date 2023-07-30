@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from 'axios'
 import { Button } from '../../ui/button'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
-import { formSchema } from './validation'
+import { formSchema } from './schema'
 import { LoginFormState, LoginInputProps } from './types'
 import {
   Form,

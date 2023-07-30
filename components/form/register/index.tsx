@@ -13,17 +13,7 @@ import {
   LastName,
   Password,
 } from '../utils/form-fields'
-
-export interface RegisterFormState {
-  first_name: string
-  last_name: string
-  email: string | null
-  phone: string | null
-  password: string
-  confirm_password?: string
-  dob: string
-  country: string
-}
+import { RegisterFormState } from '../register'
 
 const server = 'https://thrift-dev.onrender.com/v1/auth/register'
 export function RegisterForm() {
