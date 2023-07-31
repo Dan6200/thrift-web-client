@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { Button } from '../ui/button'
+import { GoBackLink } from './go-back-link'
 import { ProductImage } from './image'
 import { Product } from './types'
 
@@ -7,9 +7,7 @@ export function Product({ product }: { product: Product }) {
   const displayImg = product?.media?.find((img) => img?.is_display_image)
   return (
     <div className="container mx-auto p-5 my-20">
-      <Link className="" href="/products">
-        {'<'} Go back to products page
-      </Link>
+      <GoBackLink>Go back</GoBackLink>
       <h2 className="whitespace-normal break-words w-full mx-auto m-16 text-2xl font-bold text-justify">
         {/* remove &nbsp; that breaks ui */}
         {product?.title.replace(/\u00A0/, ' ')}
@@ -47,6 +45,7 @@ export function Product({ product }: { product: Product }) {
         <div className="w-full p-2 mx-auto my-4 border-[.5pt] dark:border-gray-500 rounded-md">
           {product?.description?.map((desc, index) => (
             <p className="mb-4 text-sm break-words" key={index}>
+              {/* remove &nbsp; that breaks ui */}
               {desc.replace(/\u00A0/, ' ')}
             </p>
           ))}
