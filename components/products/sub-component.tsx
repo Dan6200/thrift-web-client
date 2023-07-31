@@ -32,10 +32,10 @@ export const ProductsSubComponent = ({
           className="active:bg-blue-100"
           key={product?.product_id}
         >
-          <Card className="w-[10.5rem] h-[22rem] overflow-hidden rounded-sm">
+          <Card className="w-full h-[22rem] overflow-hidden rounded-sm">
             <CardContent className="bg-white border-b p-0 w-full flex items-center h-44">
               <ProductImage
-                className="object-contain w-40 max-h-40"
+                className="object-contain w-full max-h-40"
                 imgData={product?.media?.find((img) => img?.is_display_image)}
               />
             </CardContent>

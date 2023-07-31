@@ -11,18 +11,19 @@ const StyledPagination = styled(Pagination)(() => ({
     margin: '0 auto',
   },
   '& .Mui-selected': {
-    backgroundColor: 'hsl(var(--foreground)) !important',
-    color: 'hsl(var(--background)) !important',
-  },
-  '& .MuiPaginationItem-page': {
-    backgroundColor: 'hsl(var(--background)))',
-    color: 'hsl(var(--foreground))',
-  },
-  '& .MuiPaginationItem-previousNext': {
     backgroundColor: 'hsl(var(--foreground))',
     color: 'hsl(var(--background))',
-    width: '1rem',
-    height: '1.5rem',
+  },
+  '& .MuiPaginationItem-page': {
+    backgroundColor: 'hsl(var(--background))',
+    color: 'hsl(var(--foreground))',
+  },
+  '& .Mui-selected.MuiPaginationItem-page': {
+    backgroundColor: 'hsl(var(--foreground))',
+    color: 'hsl(var(--background))',
+  },
+  '& .MuiPaginationItem-previousNext, .MuiPaginationItem-text': {
+    color: 'hsl(var(--foreground))',
   },
 }))
 
@@ -32,11 +33,10 @@ export default function Paginate({ count }: { count: number }) {
   const [page, setPage] = useAtom(pageNumAtom)
 
   return (
-    <Stack className="w-full my-8 mx-auto">
+    <Stack spacing={1} className="w-full my-8 mx-auto">
       <StyledPagination
         className="mx-auto w-full h-9 flex justify-between"
         count={count}
-        variant="outlined"
         shape="rounded"
         page={page}
         onChange={(_, page) => setPage(page)}
