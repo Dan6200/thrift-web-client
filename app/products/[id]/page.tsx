@@ -36,16 +36,9 @@ export async function generateStaticParams() {
   if (!isProductData(data)) {
     throw new Error('Failed to fetch products')
   }
-
   const { products } = data
 
-  /* prod
   return products.map((product) => ({
-    id: product.product_id.toString(),
-  }))
-		 */
-  // for dev to reduce memory usage
-  return products.slice(0, 10).map((product) => ({
     id: product.product_id.toString(),
   }))
 }
