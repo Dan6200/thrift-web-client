@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Password, TabbedContactField } from './form-fields'
 
 const server = 'https://thrift-dev.onrender.com/v1/auth/login'
 
@@ -56,63 +57,8 @@ export function LoginForm() {
         className="w-full flex flex-col p-4 sm:p-8 m-auto"
         onSubmit={handleSubmit(submit)}
       >
-        <Tabs defaultValue="email" className="">
-          <TabsList className="h-fit grid grid-cols-2 mb-8">
-            <TabsTrigger value="email">Email</TabsTrigger>
-            <TabsTrigger value="phone">Phone Number</TabsTrigger>
-          </TabsList>
-          <TabsContent value="email">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="myemailaddress1234@mail.com"
-                      {...(field as LoginInputProps)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </TabsContent>
-
-          <TabsContent value="phone">
-            <FormField
-              control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="08012345678"
-                      {...(field as LoginInputProps)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </TabsContent>
-        </Tabs>
-
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input {...(field as LoginInputProps)} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <TabbedContactField form={form} />
+        <Password form={form} />
         <Button className="mt-4" type="submit">
           Submit
         </Button>
