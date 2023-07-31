@@ -11,7 +11,8 @@ export function Product({ product }: { product: Product }) {
         {'<'} Go back to products page
       </Link>
       <h2 className="whitespace-normal break-words w-full mx-auto m-16 text-2xl font-bold text-justify">
-        {product?.title}
+        {/* remove &nbsp; that breaks ui */}
+        {product?.title.replace(/\u00A0/, ' ')}
       </h2>
       <div
         className="w-full p-2 mx-auto my-4 border-4 border-gray-300 dark:border-gray-800 rounded-md"
@@ -46,7 +47,7 @@ export function Product({ product }: { product: Product }) {
         <div className="w-full p-2 mx-auto my-4 border-[.5pt] dark:border-gray-500 rounded-md">
           {product?.description?.map((desc, index) => (
             <p className="mb-4 text-sm break-words" key={index}>
-              {desc}
+              {desc.replace(/\u00A0/, ' ')}
             </p>
           ))}
         </div>

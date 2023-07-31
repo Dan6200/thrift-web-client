@@ -40,8 +40,10 @@ export const ProductsSubComponent = ({
               />
             </CardContent>
             <CardFooter className="p-2 flex flex-col items-center justify-between h-40">
-              <h4 className="my-4">
-                {product?.title.slice(0, cutOff) + '...'}
+              <h4 className="my-4 whitespace-normal break-words">
+                {/* remove &nbsp; that breaks ui */}
+                {product?.title.slice(0, cutOff).replace(/\u00A0/g, ' ') +
+                  '...'}
               </h4>
               <div className="w-full flex justify-between">
                 <p className="">
