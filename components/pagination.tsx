@@ -1,4 +1,3 @@
-//cspell: ignore jotai
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 import { useAtom } from 'jotai'
@@ -19,8 +18,9 @@ const StyledPagination = styled(Pagination)(() => ({
     color: 'hsl(var(--foreground))',
   },
   '& .Mui-selected.MuiPaginationItem-page': {
-    backgroundColor: 'hsl(var(--foreground))',
+    backgroundColor: 'hsl(var(--foreground)) !important',
     color: 'hsl(var(--background))',
+    transition: 'background-color 2s ease',
   },
   '& .MuiPaginationItem-previousNext, .MuiPaginationItem-text': {
     color: 'hsl(var(--foreground))',

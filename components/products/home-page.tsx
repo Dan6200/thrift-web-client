@@ -19,9 +19,14 @@ export const ProductsHome = ({ products }: { products: Product[] }) => {
   const CUT_OFF = 30
 
   return (
-    <ProductsSubComponent
-      cutOff={CUT_OFF}
-      productsToDisplay={productsToDisplay}
-    />
+    <div className="mx-auto">
+      <h4 className="w-full mx-auto my-8 text-xl font-bold text-center">
+        New Arrivals
+      </h4>
+      <ProductsSubComponent
+        cutOff={CUT_OFF}
+        productsToDisplay={productsToDisplay}
+      />
+    </div>
   )
 }

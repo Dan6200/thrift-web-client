@@ -1,5 +1,3 @@
-// cspell:ignore productid jotai
-
 import getProducts from './get-products'
 
 /** Optimized Version of getProductById **/

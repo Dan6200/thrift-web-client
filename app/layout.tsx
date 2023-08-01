@@ -1,6 +1,5 @@
 'use strict'
 import { ThemeProvider } from '@/components/theme-provider'
-// cspell:disable
 import './globals.css'
 import Providers from './providers'
 

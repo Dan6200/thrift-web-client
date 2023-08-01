@@ -20,6 +20,15 @@ import { Calendar } from '@/components/ui/calendar'
 import { RegisterFormState } from '../register/types'
 import { cn } from '@/lib/utils'
 import { format } from 'date-fns'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { getNames } from 'country-list'
+import { useState } from 'react'
 
 export const FirstName = ({
   form,
@@ -61,6 +70,56 @@ export const LastName = ({
   />
 )
 
+export const Email = ({
+  form,
+}: {
+  form: UseFormReturn<RegisterFormState, any, undefined>
+}) => (
+  <FormField
+    control={form.control}
+    name="email"
+    render={({ field }) => (
+      <FormItem>
+        <FormLabel>Enter your Email</FormLabel>
+        <FormControl>
+          <Input {...(field as InputProps)} placeholder="myemail@mail.com" />
+        </FormControl>
+        <FormDescription>
+          Enter email, phone number or both for easy sign in and account
+          recovery
+        </FormDescription>
+        <FormMessage />
+      </FormItem>
+    )}
+  />
+)
+
+export const Phone = ({
+  form,
+}: {
+  form: UseFormReturn<RegisterFormState, any, undefined>
+}) => (
+  <FormField
+    control={form.control}
+    name="phone"
+    render={({ field }) => (
+      <FormItem>
+        <FormLabel>Phone number</FormLabel>
+        <FormControl>
+          <Input
+            {...(field as InputProps)}
+            placeholder="08012345678    |    +234012345678"
+          />
+        </FormControl>
+        <FormDescription>
+          For countries outside Nigeria, it is necessary to add an area code
+        </FormDescription>
+        <FormMessage />
+      </FormItem>
+    )}
+  />
+)
+
 export const Password = ({
   form,
 }: {
@@ -91,7 +150,7 @@ export const ConfirmPassword = ({
     name="confirm_password"
     render={({ field }) => (
       <FormItem>
-        <FormLabel>Choose a Secure Password</FormLabel>
+        <FormLabel>Confirm Password</FormLabel>
         <FormControl>
           <Input {...(field as InputProps)} />
         </FormControl>
@@ -156,18 +215,31 @@ export const Country = ({
   form,
 }: {
   form: UseFormReturn<RegisterFormState, any, undefined>
-}) => (
-  <FormField
-    control={form.control}
-    name="country"
-    render={({ field }) => (
-      <FormItem>
-        <FormLabel>Country</FormLabel>
-        <FormControl>
-          <Input {...(field as InputProps)} />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    )}
-  />
-)
+}) => {
+  const [countries] = useState(getNames())
+  console.log('renders')
+  return (
+    <FormField
+      control={form.control}
+      name="country"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Country</FormLabel>
+          <FormControl>
+            <Select {...field} className="overflow-scroll">
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Nigeria" />
+              </SelectTrigger>
+              <SelectContent>
+                {countries.map((country) => (
+                  <SelectItem value={country}>{country}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}

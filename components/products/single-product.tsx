@@ -1,3 +1,4 @@
+import { MoveLeft } from 'lucide-react'
 import { Button } from '../ui/button'
 import { GoBackLink } from './go-back-link'
 import { ProductImage } from './image'
@@ -7,9 +8,12 @@ export function Product({ product }: { product: Product }) {
   const displayImg = product?.media?.find((img) => img?.is_display_image)
   return (
     <div className="container mx-auto p-5 my-20">
-      <GoBackLink>Go back</GoBackLink>
+      <GoBackLink className="text-sm">
+        <MoveLeft className="inline mr-4" />
+        Go back
+      </GoBackLink>
       <h2 className="whitespace-normal break-words w-full mx-auto m-16 text-2xl font-bold text-justify">
-        {/* remove &nbsp; that breaks ui */}
+        {/* remove &nbsp;, that breaks the ui */}
         {product?.title.replace(/\u00A0/, ' ')}
       </h2>
       <div

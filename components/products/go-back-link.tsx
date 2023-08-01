@@ -1,11 +1,16 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import { ReactNode } from 'react'
+import { FC, ReactNode } from 'react'
 
-export const GoBackLink: React.FC<{ children: ReactNode }> = ({ children }) => {
+interface GoBackLinkProps {
+  className: string
+  children: ReactNode
+}
+
+export const GoBackLink: FC<GoBackLinkProps> = ({ className, children }) => {
   const router = useRouter()
   return (
-    <a className="" onClick={() => router.back()}>
+    <a className={className} onClick={() => router.back()}>
       {children}
     </a>
   )

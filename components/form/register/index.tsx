@@ -1,5 +1,4 @@
 'use client'
-// cspell:ignore hookform lucide
 import { Button } from '@/components/ui/button'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Form } from '../../ui/form'
@@ -7,9 +6,11 @@ import {
   ConfirmPassword,
   Country,
   DOB,
+  Email,
   FirstName,
   LastName,
   Password,
+  Phone,
 } from '../register/form-fields'
 import { RegisterFormState } from './types'
 import submitHandler from './submit-handler'
@@ -28,6 +29,8 @@ export function RegisterForm() {
       >
         <FirstName form={form} />
         <LastName form={form} />
+        <Email form={form} />
+        <Phone form={form} />
         <Password form={form} />
         <ConfirmPassword form={form} />
         <DOB form={form} />

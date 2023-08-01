@@ -1,4 +1,3 @@
-//cspell: ignore semibold jotai
 'use client'
 import { Product } from './types'
 import { atom, useAtom } from 'jotai'

@@ -1,4 +1,3 @@
-//cSpell:ignore jotai
 import React from 'react'
 import Link from 'next/link'
 import { ModeToggle } from '../dark-mode-toggle'

@@ -1,10 +1,10 @@
-//cspell: ignore jotai
 import { Button } from '@/components/ui/button'
 import { Nav } from '@/components/nav'
 import Link from 'next/link'
 import getProducts from './products/get-products'
 import { isProductData } from '@/components/products/types'
 import { ProductsHome } from '@/components/products/home-page'
+import { MoveRight } from 'lucide-react'
 
 export default async function Home() {
   // fetch and display products on home page
@@ -13,30 +13,33 @@ export default async function Home() {
     throw new Error('Invalid product data')
   }
 
-  const style =
-    'text-md active:text-foreground hover:text-foreground active:bg-blue-500 hover:bg-blue-500'
+  const style = 'text-md'
   return (
     <div className="mx-auto w-full">
       <Nav />
       <div className="container w-full mx-auto my-10 p-4">
-        <h1 className="w-full mx-auto mt-32 mb-8 text-4xl font-bold text-center">
+        <h1 className="w-full mx-auto my-16 text-4xl font-bold text-center">
           Welcome to Thrift eCommerce
         </h1>
         <div className="w-48 mb-16 flex justify-between mx-auto">
           <Link href="/auth/login">
-            <Button type="button" className={style}>
+            <Button type="button" className="text-md">
               Login
             </Button>
           </Link>
           <Link href="/auth/register">
-            <Button type="button" className={style}>
+            <Button type="button" className="text-md">
               Register
             </Button>
           </Link>
         </div>
         <ProductsHome products={productData.products} />
-        <Link href="/products" className="m-l[80%]">
-          See more items...
+        <Link
+          href="/products"
+          className="dark:text-blue-200 text-blue-700 block w-fit my-8 ml-[60%] sm:ml-[80%]"
+        >
+          See more
+          <MoveRight className="inline ml-2" />
         </Link>
       </div>
     </div>

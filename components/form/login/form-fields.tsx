@@ -1,12 +1,6 @@
 'use client'
-import axios, { AxiosResponse } from 'axios'
-import { Button } from '../../ui/button'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { joiResolver } from '@hookform/resolvers/joi'
-import { formSchema } from './schema'
 import { LoginFormState, LoginInputProps } from './types'
 import {
-  Form,
   FormControl,
   FormItem,
   FormField,
@@ -93,7 +87,10 @@ export const Phone = ({
       <FormItem>
         <FormLabel>Phone</FormLabel>
         <FormControl>
-          <Input placeholder="08012345678" {...(field as LoginInputProps)} />
+          <Input
+            placeholder="08012345678    |    +234012345678"
+            {...(field as LoginInputProps)}
+          />
         </FormControl>
         <FormMessage />
       </FormItem>

@@ -1,4 +1,3 @@
-//cSpell:ignore jotai
 'use client'
 import { Provider } from 'jotai'
 

@@ -1,5 +1,4 @@
 // Purpose: Joi schema for account data
-// cspell:ignore alphanum
 import joi from 'joi'
 import { RegisterFormState } from './types'
 

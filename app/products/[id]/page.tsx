@@ -1,4 +1,3 @@
-// cspell:disable
 // Purpose: Page for displaying all products
 
 import { Nav } from '@/components/nav'

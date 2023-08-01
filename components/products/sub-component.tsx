@@ -1,4 +1,3 @@
-// cspell: ignore semibold jotai
 'use client'
 import Link from 'next/link'
 import { ProductImage } from './image'
@@ -18,13 +17,10 @@ export const ProductsSubComponent = ({
   productsToDisplay: Product[]
 }) => (
   <div className="mx-auto">
-    <h2 className="w-full mx-auto my-16 text-2xl font-bold text-center">
-      All Categories
-    </h2>
     {totalProducts && itemsPerPage && (
       <Paginate count={Math.ceil(totalProducts / itemsPerPage)} />
     )}
-    <div className="w-full mx-auto place-items-center grid grid-cols-2 gap-2">
+    <div className="w-full sm:px-8 sm:py-4 mx-auto place-items-center grid grid-cols-2 gap-2 sm:grid-cols-4 ">
       {productsToDisplay.map((product) => (
         <Link
           href={`/products/${product?.product_id}`}
@@ -32,15 +28,15 @@ export const ProductsSubComponent = ({
           className="active:bg-blue-100"
           key={product?.product_id}
         >
-          <Card className="w-full h-[22rem] overflow-hidden rounded-sm">
+          <Card className="w-full sm:w-72 h-[22rem] overflow-hidden rounded-sm">
             <CardContent className="bg-white border-b p-0 w-full flex items-center h-44">
               <ProductImage
                 className="object-contain w-full max-h-40"
                 imgData={product?.media?.find((img) => img?.is_display_image)}
               />
             </CardContent>
-            <CardFooter className="p-2 flex flex-col items-center justify-between h-40">
-              <h4 className="my-4 whitespace-normal break-words">
+            <CardFooter className="p-2 sm:p-4 flex flex-col items-center justify-between h-40">
+              <h4 className="my-4 w-full whitespace-normal break-words">
                 {/* remove &nbsp; that breaks ui */}
                 {product?.title.slice(0, cutOff).replace(/\u00A0/g, ' ') +
                   '...'}
