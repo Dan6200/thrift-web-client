@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack'
 import { useAtom } from 'jotai'
 import { pageNumAtom } from './products'
 import { styled } from '@mui/material/styles'
+import { useEffect, useState } from 'react'
 
 const StyledPagination = styled(Pagination)(() => ({
   '& .MuiPagination-ul': {
@@ -30,6 +31,12 @@ const StyledPagination = styled(Pagination)(() => ({
 // use StyledPagination in place of Pagination
 
 export default function Paginate({ count }: { count: number }) {
+  let [isMobile] = useState(false)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth <= 400) isMobile = true
+    }
+  }, [])
   const [page, setPage] = useAtom(pageNumAtom)
 
   return (
@@ -39,6 +46,7 @@ export default function Paginate({ count }: { count: number }) {
         count={count}
         shape="rounded"
         page={page}
+        size={isMobile ? 'small' : 'large'}
         onChange={(_, page) => setPage(page)}
         siblingCount={1}
         boundaryCount={1}
