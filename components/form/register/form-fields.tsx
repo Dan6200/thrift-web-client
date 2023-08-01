@@ -29,6 +29,7 @@ import {
 } from '@/components/ui/select'
 import country, { CountryProperty } from 'country-codes-list'
 import { useState } from 'react'
+import { SelectProps } from '@mui/material'
 
 export const FirstName = ({
   form,
@@ -93,49 +94,6 @@ export const Email = ({
     )}
   />
 )
-
-export const Phone = ({
-  form,
-}: {
-  form: UseFormReturn<RegisterFormState, any, undefined>
-}) => {
-  const [codes] = useState(
-    Object.keys(country.customList('countryCallingCode' as CountryProperty))
-  )
-  return (
-    <FormField
-      control={form.control}
-      name="phone"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel className="block">Phone number</FormLabel>
-          <FormControl>
-            <>
-              <Select {...field}>
-                <SelectTrigger className="inline-flex align-baseline mr-2 w-[25%]">
-                  <SelectValue className="w-[20%]" placeholder="+234" />
-                </SelectTrigger>
-                <SelectContent className="h-80 overflow-y-scroll disable-scrollbars">
-                  {codes.map((code) => (
-                    <SelectItem key={code} value={code}>
-                      +{code}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Input
-                {...(field as InputProps)}
-                className="w-[70%] inline-block"
-                placeholder="012345678"
-              />
-            </>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  )
-}
 
 export const Password = ({
   form,
@@ -256,6 +214,49 @@ export const Country = ({
                 ))}
               </SelectContent>
             </Select>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}
+
+export const Phone = ({
+  form,
+}: {
+  form: UseFormReturn<RegisterFormState, any, undefined>
+}) => {
+  const [codes] = useState(
+    Object.keys(country.customList('countryCallingCode' as CountryProperty))
+  )
+  return (
+    <FormField
+      control={form.control}
+      name="phone"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel className="block">Phone number</FormLabel>
+          <FormControl>
+            <Select {...(field as any)}>
+              <SelectTrigger className="inline-flex p-1 sm:px-3 sm:py-2 align-baseline mr-2 w-[25%]">
+                <SelectValue className="w-[20%]" placeholder="+234" />
+              </SelectTrigger>
+              <SelectContent className="h-64 sm:h-80 overflow-y-scroll disable-scrollbars">
+                {codes.map((code) => (
+                  <SelectItem key={code} value={code}>
+                    +{code}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormControl>
+          <FormControl>
+            <Input
+              {...(field as InputProps)}
+              className="w-[60%] sm:w-[70%] inline-block"
+              placeholder="012345678"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
