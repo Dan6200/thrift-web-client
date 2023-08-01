@@ -3,11 +3,11 @@ import Stack from '@mui/material/Stack'
 import { useAtom } from 'jotai'
 import { pageNumAtom } from './products'
 import { styled } from '@mui/material/styles'
-import { useEffect, useState } from 'react'
 
 const StyledPagination = styled(Pagination)(() => ({
   '& .MuiPagination-ul': {
-    width: 'fit', // set the desired width here
+    'min-width': '4rem', // set the desired width here
+    'justify-content': 'space-between',
     margin: '0 auto',
   },
   '& .Mui-selected': {
@@ -21,7 +21,7 @@ const StyledPagination = styled(Pagination)(() => ({
   '& .Mui-selected.MuiPaginationItem-page': {
     backgroundColor: 'hsl(var(--foreground)) !important',
     color: 'hsl(var(--background))',
-    transition: 'background-color 2s ease',
+    transition: 'background-color .5s ease',
   },
   '& .MuiPaginationItem-previousNext, .MuiPaginationItem-text': {
     color: 'hsl(var(--foreground))',
@@ -38,16 +38,16 @@ export default function Paginate({ count }: { count: number }) {
   const [page, setPage] = useAtom(pageNumAtom)
 
   return (
-    <Stack spacing={1} className="w-full my-8 mx-auto">
+    <Stack spacing={0} className="w-full my-8 mx-auto">
       <StyledPagination
         className="mx-auto w-full h-9 flex justify-between"
         count={count}
         shape="rounded"
         page={page}
-        size={isMobile ? 'small' : 'large'}
+        size={isMobile ? 'medium' : 'large'}
         onChange={(_, page) => setPage(page)}
-        siblingCount={1}
-        boundaryCount={1}
+        siblingCount={isMobile ? 0 : 2}
+        boundaryCount={isMobile ? 1 : 2}
       />
     </Stack>
   )

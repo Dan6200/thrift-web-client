@@ -36,7 +36,7 @@
     "cloudinary-core": "^2.13.0",
     "cloudinary-react": "^1.8.1",
     "clsx": "^2.0.0",
-    "country-list": "^2.3.0",
+    "country-codes-list": "^1.6.11",
     "date-fns": "^2.30.0",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.10",

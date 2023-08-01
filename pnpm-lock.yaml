@@ -86,9 +86,9 @@ dependencies:
   clsx:
     specifier: ^2.0.0
     version: 2.0.0
-  country-list:
-    specifier: ^2.3.0
-    version: 2.3.0
+  country-codes-list:
+    specifier: ^1.6.11
+    version: 1.6.11
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
@@ -2095,8 +2095,8 @@ packages:
       yaml: 1.10.2
     dev: false
 
-  /country-list@2.3.0:
-    resolution: {integrity: sha512-qZk66RlmQm7fQjMYWku1AyjlKPogjPEorAZJG88owPExoPV8EsyCcuFLvO2afTXHEhi9liVOoyd+5A6ZS5QwaA==}
+  /country-codes-list@1.6.11:
+    resolution: {integrity: sha512-MsHoJ83tGyv9tFspeI8yHBomiTH4rruHxdWhNWGG9d1ykXgLyawh/VykmYPH5KqduY+9Q2RUNlL2/KGkXJqANA==}
     dev: false
 
   /cross-spawn@7.0.3:

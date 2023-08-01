@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { getNames } from 'country-list'
+import country, { CountryProperty } from 'country-codes-list'
 import { useState } from 'react'
 
 export const FirstName = ({
@@ -98,27 +98,46 @@ export const Phone = ({
   form,
 }: {
   form: UseFormReturn<RegisterFormState, any, undefined>
-}) => (
-  <FormField
-    control={form.control}
-    name="phone"
-    render={({ field }) => (
-      <FormItem>
-        <FormLabel>Phone number</FormLabel>
-        <FormControl>
-          <Input
-            {...(field as InputProps)}
-            placeholder="08012345678    |    +234012345678"
-          />
-        </FormControl>
-        <FormDescription>
-          For countries outside Nigeria, it is necessary to add an area code
-        </FormDescription>
-        <FormMessage />
-      </FormItem>
-    )}
-  />
-)
+}) => {
+  const [codes] = useState(
+    Object.keys(country.customList('countryCallingCode' as CountryProperty))
+  )
+  return (
+    <FormField
+      control={form.control}
+      name="phone"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Phone number</FormLabel>
+          <FormControl>
+            <>
+              <Select {...field}>
+                <SelectTrigger>
+                  <SelectValue
+                    className="inline-block w-16"
+                    placeholder="+234"
+                  />
+                </SelectTrigger>
+                <SelectContent className="overflow-scroll">
+                  {codes.map((code) => (
+                    <SelectItem key={code} value={code}>
+                      +{code}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Input {...(field as InputProps)} placeholder="012345678" />
+            </>
+          </FormControl>
+          <FormDescription>
+            For countries outside Nigeria, it is necessary to add an area code
+          </FormDescription>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}
 
 export const Password = ({
   form,
@@ -216,8 +235,9 @@ export const Country = ({
 }: {
   form: UseFormReturn<RegisterFormState, any, undefined>
 }) => {
-  const [countries] = useState(getNames())
-  console.log('renders')
+  const [countries] = useState(
+    Object.keys(country.customList('countryNameEn' as CountryProperty))
+  )
   return (
     <FormField
       control={form.control}
