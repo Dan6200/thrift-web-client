@@ -6,12 +6,12 @@ import { Card, CardContent, CardFooter } from '../ui/card'
 import { Product } from './types'
 
 export const ProductsSubComponent = ({
-  cutOff,
+  MAX_TITLE_LEN,
   totalProducts,
   itemsPerPage,
   productsToDisplay,
 }: {
-  cutOff: number
+  MAX_TITLE_LEN: number
   totalProducts?: number
   itemsPerPage?: number
   productsToDisplay: Product[]
@@ -20,7 +20,7 @@ export const ProductsSubComponent = ({
     {totalProducts && itemsPerPage && (
       <Paginate count={Math.ceil(totalProducts / itemsPerPage)} />
     )}
-    <div className="w-full sm:px-8 sm:py-4 mx-auto place-items-center grid grid-cols-2 gap-2 sm:grid-cols-4 ">
+    <div className="w-full sm:px-8 sm:py-4 mx-auto place-items-center grid grid-cols-2 gap-2 sm:grid-cols-4">
       {productsToDisplay.map((product) => (
         <Link
           href={`/products/${product?.product_id}`}
@@ -38,8 +38,9 @@ export const ProductsSubComponent = ({
             <CardFooter className="p-2 sm:p-4 flex flex-col items-center justify-between h-40">
               <h4 className="my-4 w-full whitespace-normal break-words">
                 {/* remove &nbsp; that breaks ui */}
-                {product?.title.slice(0, cutOff).replace(/\u00A0/g, ' ') +
-                  '...'}
+                {product?.title
+                  .slice(0, MAX_TITLE_LEN)
+                  .replace(/\u00A0/g, ' ') + '...'}
               </h4>
               <div className="w-full flex justify-between">
                 <p className="">

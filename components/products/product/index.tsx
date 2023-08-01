@@ -1,5 +1,4 @@
 import { MoveLeft } from 'lucide-react'
-import { AspectRatio } from '../../ui/aspect-ratio'
 import { Button } from '../../ui/button'
 import { Card, CardContent, CardFooter } from '../../ui/card'
 import { GoBackLink } from '../go-back-link'
@@ -14,22 +13,23 @@ export function Product({ product }: { product: Product }) {
         <MoveLeft className="inline mr-4" />
         Go back
       </GoBackLink>
-      <h2 className="text-lg font-bold text-justify mb-16">
+      <h2 className="sm:text-3xl font-bold text-justify mb-16">
         {/* remove &nbsp;, that breaks the ui */}
         {product?.title.replace(/\u00A0/, ' ')}
       </h2>
       <Card className="flex items-center rounded-sm w-full">
         <CardContent
-          className="flex flex-col w-full justify-between p-6"
+          className="flex sm:flex-col sm:w-[50%] h-full items-center justify-between p-6"
           key={product?.product_id}
         >
           <ProductImage
             imgData={displayImg}
-            className="object-cover w-full sm:w-80 rounded-md"
+            className="object-cover p-4 border-b w-full sm:w-96 rounded-xs"
           />
-          <div className="flex-col w-full justify-between h-32">
+          <div className="flex sm:flex-col my-4 p-4 sm:w-96 justify-between h-48">
             <div className="w-full flex justify-between">
               <p>
+                price:{'\u00A0'.repeat(8)}
                 {product?.net_price.toLocaleString('en-NG', {
                   currency: 'NGN',
                   style: 'currency',
@@ -37,7 +37,7 @@ export function Product({ product }: { product: Product }) {
               </p>
               {product?.net_price.toFixed(2) !==
                 product?.list_price.toFixed(2) && (
-                <p className="text-sm line-through dark:text-gray-700">
+                <p className="mb-4 line-through dark:text-gray-700">
                   {product?.list_price.toLocaleString('en-NG', {
                     currency: 'NGN',
                     style: 'currency',
@@ -45,14 +45,21 @@ export function Product({ product }: { product: Product }) {
                 </p>
               )}
             </div>
-            <div className="flex w-full justify-between">
+            <div className="flex mb-4">
+              <p>
+                items left:{'\u00A0'.repeat(8)}
+                {product.quantity_available}
+              </p>
+            </div>
+            <div className="flex w-full mb-4 justify-between">
               <Button>Add To Cart</Button>
               <Button>Save For Later</Button>
             </div>
           </div>
         </CardContent>
+        <div className="border-l-2 block w-[.5pt] h-80"></div>
         <CardContent className="sm:w-[50%]">
-          <h3 className="w-full mx-auto my-16 text-xl sm:text-lg font-bold text-center">
+          <h3 className="w-full mx-auto my-8 text-xl sm:text-lg font-bold text-center">
             About This Product
           </h3>
           {product?.description && (

@@ -41,7 +41,7 @@ export function ProductImage({
       <Image
         src={src}
         alt={alt ?? ''}
-        width={300}
+        width={600}
         height={600}
         className={className}
       />
