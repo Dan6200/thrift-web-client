@@ -1,3 +1,4 @@
+/* cspell:ignore scrollbars */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -75,4 +76,16 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.disable-scrollbars {
+  /* Chrome/Safari/Webkit */
+  ::-webkit-scrollbar {
+    background: transparent;
+    width: 0px;
+  }
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE 10+ */
+  -ms-overflow-style: none;
 }

@@ -112,10 +112,10 @@ export const Phone = ({
           <FormControl>
             <>
               <Select {...field}>
-                <SelectTrigger className="inline-flex align-baseline mr-2 w-[20%]">
+                <SelectTrigger className="inline-flex align-baseline mr-2 w-[25%]">
                   <SelectValue className="w-[20%]" placeholder="+234" />
                 </SelectTrigger>
-                <SelectContent className="overflow-scroll">
+                <SelectContent className="h-80 overflow-y-scroll disable-scrollbars">
                   {codes.map((code) => (
                     <SelectItem key={code} value={code}>
                       +{code}
@@ -248,7 +248,7 @@ export const Country = ({
               <SelectTrigger className="w-full">
                 <SelectValue className="p-2" placeholder="Nigeria" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="h-80 overflow-y-scroll disable-scrollbars">
                 {countries.map((country) => (
                   <SelectItem key={country} value={country}>
                     {country}
