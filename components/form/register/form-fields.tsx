@@ -226,13 +226,15 @@ export const Country = ({
         <FormItem>
           <FormLabel>Country</FormLabel>
           <FormControl>
-            <Select {...field} className="overflow-scroll">
+            <Select {...field}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Nigeria" />
               </SelectTrigger>
               <SelectContent>
                 {countries.map((country) => (
-                  <SelectItem value={country}>{country}</SelectItem>
+                  <SelectItem key={country} value={country}>
+                    {country}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
