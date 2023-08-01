@@ -108,15 +108,12 @@ export const Phone = ({
       name="phone"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Phone number</FormLabel>
+          <FormLabel className="block">Phone number</FormLabel>
           <FormControl>
             <>
               <Select {...field}>
-                <SelectTrigger>
-                  <SelectValue
-                    className="inline-block w-16"
-                    placeholder="+234"
-                  />
+                <SelectTrigger className="inline-flex align-baseline mr-2 w-[20%]">
+                  <SelectValue className="w-[20%]" placeholder="+234" />
                 </SelectTrigger>
                 <SelectContent className="overflow-scroll">
                   {codes.map((code) => (
@@ -126,12 +123,13 @@ export const Phone = ({
                   ))}
                 </SelectContent>
               </Select>
-              <Input {...(field as InputProps)} placeholder="012345678" />
+              <Input
+                {...(field as InputProps)}
+                className="w-[70%] inline-block"
+                placeholder="012345678"
+              />
             </>
           </FormControl>
-          <FormDescription>
-            For countries outside Nigeria, it is necessary to add an area code
-          </FormDescription>
           <FormMessage />
         </FormItem>
       )}
@@ -248,7 +246,7 @@ export const Country = ({
           <FormControl>
             <Select {...field}>
               <SelectTrigger className="w-full">
-                <SelectValue placeholder="Nigeria" />
+                <SelectValue className="p-2" placeholder="Nigeria" />
               </SelectTrigger>
               <SelectContent>
                 {countries.map((country) => (
