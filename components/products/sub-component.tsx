@@ -42,7 +42,7 @@ export const ProductsSubComponent = ({
                   .slice(0, MAX_TITLE_LEN)
                   .replace(/\u00A0/g, ' ') + '...'}
               </h4>
-              <div className="w-full flex justify-between">
+              <div className="w-full flex flex-wrap justify-between">
                 <p className="">
                   {product?.net_price.toLocaleString('en-NG', {
                     currency: 'NGN',
