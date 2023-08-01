@@ -31,12 +31,10 @@ const StyledPagination = styled(Pagination)(() => ({
 // use StyledPagination in place of Pagination
 
 export default function Paginate({ count }: { count: number }) {
-  let [isMobile] = useState(false)
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (window.innerWidth <= 400) isMobile = true
-    }
-  }, [])
+  let isMobile = false
+  if (typeof window !== 'undefined') {
+    if (window.innerWidth <= 400) isMobile = true
+  }
   const [page, setPage] = useAtom(pageNumAtom)
 
   return (

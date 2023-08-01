@@ -10,7 +10,7 @@ export const Products = ({ products }: { products: Product[] }) => {
   const itemsPerPage = 50
   let MAX_TITLE_LEN = 40
   if (typeof window !== 'undefined') {
-    if (window.innerWidth > 400) MAX_TITLE_LEN = 50
+    if (window.innerWidth > 400) MAX_TITLE_LEN = 80
   }
   const totalProducts = products.length
   const [pageNum] = useAtom(pageNumAtom)
