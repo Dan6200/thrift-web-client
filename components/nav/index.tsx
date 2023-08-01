@@ -13,8 +13,8 @@ export function Nav() {
       </div>
       <div className="mx-auto w-[90%] mt-2 bg-red-500 text-white p-2">
         <p>
-          Note: This project is still under development and features are added
-          and removed daily!
+          Note: This project is still under development and features are
+          constantly changing
         </p>
       </div>
     </>

@@ -1,6 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 reader-for-code-snip.mjs
 shadcn-download.sh
+todo.md
 
 # dependencies
 /node_modules

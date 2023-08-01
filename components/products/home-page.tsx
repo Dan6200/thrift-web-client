@@ -14,22 +14,15 @@ import { ProductsSubComponent } from './sub-component'
  * */
 
 export const ProductsHome = ({ products }: { products: Product[] }) => {
-  const itemsPerPage = 50
+  const itemsPerPage = 30
   const productsToDisplay = products.slice(0, itemsPerPage)
-  let MAX_TITLE_LEN = 40
-  if (typeof window !== 'undefined') {
-    if (window.innerWidth > 400) MAX_TITLE_LEN = 80
-  }
 
   return (
     <div className="mx-auto">
       <h4 className="w-full mx-auto my-8 text-xl font-bold text-center">
         New Arrivals
       </h4>
-      <ProductsSubComponent
-        MAX_TITLE_LEN={MAX_TITLE_LEN}
-        productsToDisplay={productsToDisplay}
-      />
+      <ProductsSubComponent productsToDisplay={productsToDisplay} />
     </div>
   )
 }

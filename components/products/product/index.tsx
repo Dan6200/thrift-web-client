@@ -1,6 +1,6 @@
 import { MoveLeft } from 'lucide-react'
 import { Button } from '../../ui/button'
-import { Card, CardContent, CardFooter } from '../../ui/card'
+import { Card, CardContent } from '../../ui/card'
 import { GoBackLink } from '../go-back-link'
 import { ProductImage } from '../image'
 import { Product } from '../types'
@@ -13,18 +13,18 @@ export function Product({ product }: { product: Product }) {
         <MoveLeft className="inline mr-4" />
         Go back
       </GoBackLink>
-      <h2 className="sm:text-3xl font-bold text-justify mb-16">
+      <h2 className="sm:text-3xl font-bold text-justify mb-16 break-words">
         {/* remove &nbsp;, that breaks the ui */}
         {product?.title.replace(/\u00A0/, ' ')}
       </h2>
-      <Card className="flex flex-col sm:flex-row items-center rounded-sm w-full">
+      <Card className="flex flex-col sm:flex-row items-center rounded-sm py-4 w-full">
         <CardContent
-          className="flex flex-col w-full sm:w-[50%] sm:h-full items-center justify-between p-6"
+          className="flex flex-col w-full sm:w-[50%] sm:h-full items-center justify-between"
           key={product?.product_id}
         >
           <ProductImage
             imgData={displayImg}
-            className="object-cover p-4 border-b w-full sm:w-96 rounded-xs"
+            className="object-cover py-4 border-b w-full sm:w-96 rounded-sm"
           />
           <div className="flex flex-col my-4 p-2 sm:p-4 w-full sm:w-96 justify-between sm:h-48">
             <div className="w-full flex justify-between">
