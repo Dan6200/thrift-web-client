@@ -17,19 +17,19 @@ export function Product({ product }: { product: Product }) {
         {/* remove &nbsp;, that breaks the ui */}
         {product?.title.replace(/\u00A0/, ' ')}
       </h2>
-      <Card className="flex items-center rounded-sm w-full">
+      <Card className="flex flex-col sm:flex-row items-center rounded-sm w-full">
         <CardContent
-          className="flex sm:flex-col sm:w-[50%] h-full items-center justify-between p-6"
+          className="flex flex-col w-full sm:w-[50%] sm:h-full items-center justify-between p-6"
           key={product?.product_id}
         >
           <ProductImage
             imgData={displayImg}
             className="object-cover p-4 border-b w-full sm:w-96 rounded-xs"
           />
-          <div className="flex sm:flex-col my-4 p-4 sm:w-96 justify-between h-48">
+          <div className="flex flex-col my-4 p-2 sm:p-4 w-full sm:w-96 justify-between sm:h-48">
             <div className="w-full flex justify-between">
               <p>
-                price:{'\u00A0'.repeat(8)}
+                price:{'\u00A0'.repeat(4)}
                 {product?.net_price.toLocaleString('en-NG', {
                   currency: 'NGN',
                   style: 'currency',
@@ -47,7 +47,7 @@ export function Product({ product }: { product: Product }) {
             </div>
             <div className="flex mb-4">
               <p>
-                items left:{'\u00A0'.repeat(8)}
+                items left:{'\u00A0'.repeat(4)}
                 {product.quantity_available}
               </p>
             </div>
@@ -57,8 +57,8 @@ export function Product({ product }: { product: Product }) {
             </div>
           </div>
         </CardContent>
-        <div className="border-l-2 block w-[.5pt] h-80"></div>
-        <CardContent className="sm:w-[50%]">
+        <div className="border-b-2 sm:border-l-2 sm:border-b-0 block w-[80%] sm:w-[.5pt] sm:h-80"></div>
+        <CardContent className="w-full sm:w-[50%]">
           <h3 className="w-full mx-auto my-8 text-xl sm:text-lg font-bold text-center">
             About This Product
           </h3>
