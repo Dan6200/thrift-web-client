@@ -34,6 +34,7 @@ export default function Paginate({ count }: { count: number }) {
   const [isMobile, setIsMobile] = useAtom(isMobileAtom)
   if (typeof window !== 'undefined') {
     if (window.innerWidth >= 400) setIsMobile(false)
+    else setIsMobile(true)
   }
   const [page, setPage] = useAtom(pageNumAtom)
 

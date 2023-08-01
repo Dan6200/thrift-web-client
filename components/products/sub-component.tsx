@@ -17,7 +17,13 @@ export const ProductsSubComponent = ({
   productsToDisplay: Product[]
 }) => {
   const [isMobile, setIsMobile] = useAtom(isMobileAtom)
-  if (!isMobile && typeof window !== 'undefined') setIsMobile(true)
+  if (typeof window !== 'undefined') {
+    if (window.innerWidth > 400) {
+      setIsMobile(false)
+    } else {
+      setIsMobile(true)
+    }
+  }
   const MAX_TITLE_LEN = isMobile ? 40 : 80
   return (
     <div className="mx-auto">
