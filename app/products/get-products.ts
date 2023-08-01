@@ -13,7 +13,10 @@ export default async function getProducts() {
         order: 'desc',
       }),
     { next: { revalidate: 30 * 60 } }
-  ).then((res) => res.json())
+  ).then((res) => {
+    if (res.status >= 400) return null
+    return res.json()
+  })
 
   if (!isProductData(response)) {
     throw new Error('Failed to fetch data')
