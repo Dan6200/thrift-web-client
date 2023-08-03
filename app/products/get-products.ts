@@ -5,6 +5,7 @@ import {
 } from '@/components/products/types'
 
 export default async function getProducts() {
+  // fetch products
   const response: unknown = await fetch(
     'https://thrift-dev.onrender.com/v1/products?' +
       new URLSearchParams({
@@ -27,5 +28,6 @@ export default async function getProducts() {
   if (!isProducts(products)) {
     throw new Error('Failed to fetch products')
   }
+
   return { products, total_products } as ProductData
 }

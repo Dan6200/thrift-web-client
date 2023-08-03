@@ -1,12 +1,17 @@
-import getProducts from './get-products'
+import { isProduct } from '@/components/products/types'
 
-/** Optimized Version of getProductById **/
 export default async function getProductById(id: number) {
-  // if product not cached, fetch it
-  // Remember: data is sorted by date.
-  const { products } = await getProducts()
+  // fetch product
+  const response: unknown = await fetch(
+    'https://thrift-dev.onrender.com/v1/products?' + id,
+    { next: { revalidate: 5 * 60 } }
+  ).then((res) => {
+    if (res.status >= 400) return null
+    return res.json()
+  })
 
-  return {
-    product: products.find((product) => product.product_id === id),
-  }
+  if (response == null) throw new Error('Product not found')
+  if (!isProduct(response)) throw new Error('Invalid product data')
+
+  return response
 }

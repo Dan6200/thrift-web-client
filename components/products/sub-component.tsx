@@ -30,7 +30,7 @@ export const ProductsSubComponent = ({
       {totalProducts && itemsPerPage && (
         <Paginate count={Math.ceil(totalProducts / itemsPerPage)} />
       )}
-      <div className="w-full sm:px-8 sm:py-4 mx-auto place-items-center grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <div className="w-full sm:px-4 sm:py-2 md:px-8 md:py-4 mx-auto place-items-center grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
         {productsToDisplay.map((product) => (
           <Link
             href={`/products/${product?.product_id}`}
@@ -38,7 +38,7 @@ export const ProductsSubComponent = ({
             className="active:bg-blue-100"
             key={product?.product_id}
           >
-            <Card className="w-full sm:w-72 h-[22rem] overflow-hidden rounded-sm">
+            <Card className="w-full sm:w-[30vw] md:w-[27vw] lg:w-[25vw] h-[22rem] overflow-hidden rounded-sm">
               <CardContent className="bg-white border-b p-0 w-full flex items-center h-44">
                 <ProductImage
                   className="object-contain w-full max-h-40"

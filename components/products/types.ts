@@ -23,15 +23,16 @@ export type ProductData = {
 export function isProductData(
   productData: unknown
 ): productData is ProductData {
+  debugger
   return (
     typeof productData === 'object' &&
     productData !== null &&
     typeof (productData as ProductData).products === 'object' &&
     typeof (productData as ProductData).products !== null &&
-    isProducts((productData as ProductData).products) &&
     typeof (productData as ProductData).total_products === 'string'
   )
 }
+
 export function isProducts(products: unknown): products is Product[] {
   return (
     Array.isArray(products) && products.every((product) => isProduct(product))

@@ -11,10 +11,10 @@ export function Nav() {
         </Link>
         <ModeToggle />
       </div>
-      <div className="mx-auto w-[90%] mt-2 bg-red-500 text-white p-2">
+      <div className="mx-auto w-[90%] mt-2 bg-red-500 text-center text-white p-2">
         <p>
-          Note: This project is still under development and features are
-          constantly changing
+          Note: This project is still under development and is constantly
+          changing
         </p>
       </div>
     </>
