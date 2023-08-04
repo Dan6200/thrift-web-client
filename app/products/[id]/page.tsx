@@ -2,7 +2,7 @@
 
 import { Nav } from '@/components/nav'
 import { Product } from '@/components/products/product'
-import { isProductData } from '@/components/products/types'
+import { isProduct, isProductData } from '@/components/products/types'
 import getProductById from '../get-product-by-id'
 import getProducts from '../get-products'
 
@@ -13,12 +13,12 @@ export default async function ProductPage({
   params: { id: string }
 }) {
   let response = await getProductById(+id)
-  let { product } = response
-  if (product === undefined) {
+  if (response == undefined) {
     // TODO: Add 404 page
     throw new Error('Product not found')
   }
-
+  if (!isProduct(response)) throw new Error('Invalid product')
+  const product = response
   return (
     <>
       <Nav />

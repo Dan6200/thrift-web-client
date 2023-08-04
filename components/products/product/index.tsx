@@ -35,8 +35,8 @@ export function Product({ product }: { product: Product }) {
                   style: 'currency',
                 })}
               </p>
-              {product?.net_price.toFixed(2) !==
-                product?.list_price.toFixed(2) && (
+              {parseFloat(product?.net_price as string).toFixed(2) !==
+                parseFloat(product?.list_price as string).toFixed(2) && (
                 <p className="mb-4 line-through dark:text-gray-700">
                   {product?.list_price.toLocaleString('en-NG', {
                     currency: 'NGN',

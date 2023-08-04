@@ -3,8 +3,8 @@ export interface Product {
   title: string
   category: string
   description: string[]
-  list_price: number
-  net_price: number
+  list_price: number | string
+  net_price: number | string
   quantity_available: number
   created_at: string
   media: {
@@ -40,6 +40,7 @@ export function isProducts(products: unknown): products is Product[] {
 }
 
 export function isProduct(product: unknown): product is Product {
+  console.log(product)
   return (
     typeof product === 'object' &&
     product !== null &&
@@ -48,12 +49,20 @@ export function isProduct(product: unknown): product is Product {
     typeof (product as Product).description === 'object' &&
     typeof (product as Product).description !== null &&
     typeof (product as Product).category === 'string' &&
-    typeof (product as Product).list_price === 'number' &&
-    typeof (product as Product).net_price === 'number' &&
+    (typeof (product as Product).list_price === 'number' ||
+      typeof (product as Product).list_price === 'string') &&
+    (typeof (product as Product).net_price === 'number' ||
+      typeof (product as Product).net_price === 'string') &&
     typeof (product as Product).quantity_available === 'number' &&
     typeof (product as Product).created_at === 'string' &&
     typeof (product as Product).media === 'object' &&
     typeof (product as Product).media !== null &&
-    typeof (product as Product).media[0].filename === 'string'
+    typeof (product as Product).media[0].filename === 'string' &&
+    (product as Product).media.every(
+      (media) => typeof media.filename === 'string'
+    ) &&
+    (product as Product).media.every(
+      (media) => typeof media.filepath === 'string'
+    )
   )
 }

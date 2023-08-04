@@ -6,6 +6,7 @@ import { Card, CardContent, CardFooter } from '../ui/card'
 import { Product } from './types'
 import { useAtom } from 'jotai'
 import { isMobileAtom } from '@/atoms'
+import { Price } from './utils/price'
 
 export const ProductsSubComponent = ({
   totalProducts,
@@ -53,25 +54,10 @@ export const ProductsSubComponent = ({
                     .replace(/\u00A0/g, ' ') + '...'}
                 </h4>
                 <div className="w-full flex flex-wrap justify-between">
-                  <p className="">
-                    {product?.net_price.toLocaleString('en-NG', {
-                      currency: 'NGN',
-                      style: 'currency',
-                    })}
-                  </p>
-                  {((product?.list_price - product?.net_price) /
-                    product?.list_price) *
-                    100 >
-                    5 && (
-                    <p className="">
-                      {Math.ceil(
-                        ((product?.list_price - product?.net_price) /
-                          product?.list_price) *
-                          100
-                      )}
-                      % off
-                    </p>
-                  )}
+                  <Price
+                    netPrice={product?.net_price}
+                    listPrice={product?.list_price}
+                  />
                 </div>
               </CardFooter>
             </Card>
