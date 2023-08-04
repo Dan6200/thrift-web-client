@@ -40,7 +40,6 @@ export function isProducts(products: unknown): products is Product[] {
 }
 
 export function isProduct(product: unknown): product is Product {
-  console.log(product)
   return (
     typeof product === 'object' &&
     product !== null &&
