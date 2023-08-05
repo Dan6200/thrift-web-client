@@ -4,7 +4,6 @@ export interface RegisterFormState {
   email: string | null
   phone: string | null
   password: string
-  confirm_password?: string
+  confirm_password: string
   dob: Date
-  country: string
 }

@@ -24,8 +24,12 @@ export const schema = joi
       .pattern(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,}$/
       ),
+    confirm_password: joi
+      .string()
+      .pattern(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,}$/
+      ),
     dob: joi.date().required(),
-    country: joi.string().required(),
   })
   .or('email', 'phone')
   .required()

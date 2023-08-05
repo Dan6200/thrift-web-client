@@ -9,7 +9,7 @@ import {
   FormLabel,
   FormMessage,
 } from '../../ui/form'
-import { Calendar as CalendarIcon } from 'lucide-react'
+import { Calendar as CalendarIcon, Check, ChevronsUpDown } from 'lucide-react'
 import { UseFormReturn } from 'react-hook-form'
 import {
   Popover,
@@ -29,7 +29,13 @@ import {
 } from '@/components/ui/select'
 import country, { CountryProperty } from 'country-codes-list'
 import { useState } from 'react'
-import { SelectProps } from '@mui/material'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '@/components/ui/command'
 
 export const FirstName = ({
   form,
@@ -71,6 +77,28 @@ export const LastName = ({
   />
 )
 
+export const Phone = ({
+  form,
+}: {
+  form: UseFormReturn<RegisterFormState, any, undefined>
+}) => {
+  return (
+    <FormField
+      control={form.control}
+      name="phone"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel className="block">Phone number</FormLabel>
+          <FormControl>
+            <Input {...(field as InputProps)} placeholder="08012345678" />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}
+
 export const Email = ({
   form,
 }: {
@@ -86,8 +114,7 @@ export const Email = ({
           <Input {...(field as InputProps)} placeholder="myemail@mail.com" />
         </FormControl>
         <FormDescription>
-          Enter email, phone number or both for easy sign in and account
-          recovery
+          You may optionally enter your email, phone number or both
         </FormDescription>
         <FormMessage />
       </FormItem>
@@ -107,7 +134,7 @@ export const Password = ({
       <FormItem>
         <FormLabel>Choose a Secure Password</FormLabel>
         <FormControl>
-          <Input {...(field as InputProps)} />
+          <Input type="password" {...(field as InputProps)} />
         </FormControl>
         <FormMessage />
       </FormItem>
@@ -127,7 +154,7 @@ export const ConfirmPassword = ({
       <FormItem>
         <FormLabel>Confirm Password</FormLabel>
         <FormControl>
-          <Input {...(field as InputProps)} />
+          <Input type="password" {...(field as InputProps)} />
         </FormControl>
         <FormMessage />
       </FormItem>
@@ -186,6 +213,7 @@ export const DOB = ({
   />
 )
 
+/*
 export const Country = ({
   form,
 }: {
@@ -221,7 +249,9 @@ export const Country = ({
     />
   )
 }
+	 */
 
+/*
 export const Phone = ({
   form,
 }: {
@@ -237,20 +267,58 @@ export const Phone = ({
       render={({ field }) => (
         <FormItem>
           <FormLabel className="block">Phone number</FormLabel>
-          <FormControl>
-            <Select {...(field as any)}>
-              <SelectTrigger className="inline-flex p-1 sm:px-3 sm:py-2 align-baseline mr-2 w-[25%]">
-                <SelectValue className="w-[20%]" placeholder="+234" />
-              </SelectTrigger>
-              <SelectContent className="h-64 sm:h-80 overflow-y-scroll disable-scrollbars">
-                {codes.map((code) => (
-                  <SelectItem key={code} value={code}>
-                    +{code}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </FormControl>
+          <Popover>
+            <PopoverTrigger
+              asChild
+              className="inline-flex p-1 sm:px-3 sm:py-2 align-baseline mr-2 w-[25%]"
+            >
+              <FormControl>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  className={cn(
+                    'w-[20%] justify-between',
+                    !field.value && 'text-muted-foreground'
+                  )}
+                >
+                  {field.value
+                    ? codes.find((cc) => cc === field.value)
+                    : 'Select Country Code'}
+                </Button>
+                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </FormControl>
+            </PopoverTrigger>
+            <PopoverContent className="h-64 sm:h-80 overflow-y-scroll disable-scrollbars">
+              {codes.map((code) => (
+                <SelectItem key={code} value={code}>
+                  +{code}
+                </SelectItem>
+              ))}
+            </PopoverContent>
+          </Popover>
+          <Command>
+            <CommandInput placeholder="Search Country Code" />
+            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandGroup>
+              {codes.map((cc) => (
+                <CommandItem
+                  value={cc}
+                  key={cc}
+                  onSelect={() => {
+                    form.setValue('countryCallingCode', cc)
+                  }}
+                >
+                  <Check
+                    className={cn(
+                      'mr-2 h-4 w-4',
+                      cc === field.value ? 'opacity-100' : 'opacity-0'
+                    )}
+                  />
+                  {cc}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </Command>
           <FormControl>
             <Input
               {...(field as InputProps)}
@@ -264,3 +332,4 @@ export const Phone = ({
     />
   )
 }
+*/

@@ -34,7 +34,6 @@ export function RegisterForm() {
         <Password form={form} />
         <ConfirmPassword form={form} />
         <DOB form={form} />
-        <Country form={form} />
         <Button type="submit">Submit</Button>
       </form>
     </Form>

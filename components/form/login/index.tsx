@@ -4,17 +4,8 @@ import { Button } from '../../ui/button'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { formSchema } from './schema'
-import { LoginFormState, LoginInputProps } from './types'
-import {
-  Form,
-  FormControl,
-  FormItem,
-  FormField,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { LoginFormState } from './types'
+import { Form } from '@/components/ui/form'
 import { Password, TabbedContactField } from './form-fields'
 
 const server = 'https://thrift-dev.onrender.com/v1/auth/login'
