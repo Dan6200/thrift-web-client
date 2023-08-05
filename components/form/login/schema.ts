@@ -1,26 +1,18 @@
 import joi from 'joi'
 import { LoginFormState } from './types'
 
-export const formSchema = joi
+export const schema = joi
   .object<LoginFormState>()
   .keys({
-    email: joi
-      .string()
-      .pattern(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      )
-      .allow(''),
-    phone: joi
-      .string()
-      .pattern(
-        /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/
-      )
-      .allow(''),
+    email: joi.string().allow(''),
+    phone: joi.string().allow(''),
     password: joi
       .string()
-      .pattern(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,}$/
-      ),
+      .required()
+      .messages({ 'any.required': 'Please enter your password' }),
   })
   .or('email', 'phone')
   .required()
+  .messages({
+    'object.missing': 'Must provide either your Email or Phone number',
+  })

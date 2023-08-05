@@ -13,7 +13,7 @@ import {
 } from '../register/form-fields'
 import { RegisterFormState } from './types'
 import submitHandler from './submit-handler'
-import useFromProps from './use-from-props'
+import useFromProps from './use-form-props'
 import { useEffect } from 'react'
 
 export function RegisterForm() {
@@ -24,13 +24,10 @@ export function RegisterForm() {
   const {
     formState: { errors },
   } = form
+  // forward the form object error to email and phone
   useEffect(() => {
     if (errors['']?.message) {
       setError('email', {
-        type: errors?.['']?.type,
-        message: errors?.['']?.message,
-      })
-      setError('phone', {
         type: errors?.['']?.type,
         message: errors?.['']?.message,
       })

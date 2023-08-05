@@ -2,43 +2,43 @@
 import axios, { AxiosResponse } from 'axios'
 import { Button } from '../../ui/button'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { joiResolver } from '@hookform/resolvers/joi'
-import { formSchema } from './schema'
 import { LoginFormState } from './types'
 import { Form } from '@/components/ui/form'
 import { Password, TabbedContactField } from './form-fields'
+import { useEffect } from 'react'
+import useFormProps from './use-form-props'
 
 const server = 'https://thrift-dev.onrender.com/v1/auth/login'
 
 export function LoginForm() {
-  const form = useForm<LoginFormState>({
-    resolver: async (data, context, options) => {
-      // debug input schema
-      console.log('formData', data)
-      console.log(
-        'validation result',
-        await joiResolver(formSchema)(data, context, options)
-      )
-      return joiResolver(formSchema)(data, context, options)
-    },
-  })
-  const { handleSubmit } = form
+  const form = useForm<LoginFormState>(useFormProps)
+  const {
+    formState: { errors },
+    setError,
+    handleSubmit,
+  } = form
+  // forward the form object error to email and phone
+  useEffect(() => {
+    if (errors['']?.message) {
+      setError('email', {
+        type: errors?.['']?.type,
+        message: errors?.['']?.message,
+      })
+    }
+  }, [errors?.['']])
 
   const submit: SubmitHandler<LoginFormState> = async (
     data: LoginFormState,
     e
   ) => {
     e?.preventDefault()
-    console.log('runs')
     const formData = data
-    console.log('Data', formData)
     let response: AxiosResponse<'token', string> | null = null
     try {
       response = await axios.post(server, formData)
     } catch (err) {
       throw err
     }
-    alert('Login successful!')
     console.log(response?.data)
   }
 

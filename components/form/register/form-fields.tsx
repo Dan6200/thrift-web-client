@@ -179,6 +179,10 @@ export const DOB = ({
           <PopoverContent className="w-auto p-0" align="start">
             <Calendar
               mode="single"
+              className="h-80"
+              captionLayout="dropdown"
+              fromYear={new Date().getFullYear() - 100}
+              toYear={new Date().getFullYear()}
               selected={field.value}
               onSelect={field.onChange}
               disabled={(date) =>

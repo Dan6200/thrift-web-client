@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
 import { BaseSyntheticEvent } from 'react'
-import { UseFormReturn } from 'react-hook-form'
 import { RegisterFormState } from './types'
 
 const SERVER = 'https://thrift-dev.onrender.com/v1/auth/register'
