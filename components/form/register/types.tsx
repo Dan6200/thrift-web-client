@@ -6,4 +6,5 @@ export interface RegisterFormState {
   password: string
   confirm_password: string
   dob: Date
+  ['']: string
 }

@@ -9,7 +9,7 @@ import {
   FormLabel,
   FormMessage,
 } from '../../ui/form'
-import { Calendar as CalendarIcon, Check, ChevronsUpDown } from 'lucide-react'
+import { Calendar as CalendarIcon } from 'lucide-react'
 import { UseFormReturn } from 'react-hook-form'
 import {
   Popover,
@@ -20,22 +20,6 @@ import { Calendar } from '@/components/ui/calendar'
 import { RegisterFormState } from '../register/types'
 import { cn } from '@/lib/utils'
 import { format } from 'date-fns'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import country, { CountryProperty } from 'country-codes-list'
-import { useState } from 'react'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '@/components/ui/command'
 
 export const FirstName = ({
   form,
@@ -204,9 +188,6 @@ export const DOB = ({
             />
           </PopoverContent>
         </Popover>
-        <FormDescription>
-          Your date of birth is used to calculate your age.
-        </FormDescription>
         <FormMessage />
       </FormItem>
     )}

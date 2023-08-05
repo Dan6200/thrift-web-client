@@ -4,7 +4,6 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { Form } from '../../ui/form'
 import {
   ConfirmPassword,
-  Country,
   DOB,
   Email,
   FirstName,
@@ -15,12 +14,28 @@ import {
 import { RegisterFormState } from './types'
 import submitHandler from './submit-handler'
 import useFromProps from './use-from-props'
+import { useEffect } from 'react'
 
 export function RegisterForm() {
   const form = useForm<RegisterFormState>(useFromProps)
   const { handleSubmit } = form
   const submit: SubmitHandler<RegisterFormState> = submitHandler
-
+  const { setError } = form
+  const {
+    formState: { errors },
+  } = form
+  useEffect(() => {
+    if (errors['']?.message) {
+      setError('email', {
+        type: errors?.['']?.type,
+        message: errors?.['']?.message,
+      })
+      setError('phone', {
+        type: errors?.['']?.type,
+        message: errors?.['']?.message,
+      })
+    }
+  }, [errors?.['']])
   return (
     <Form {...form}>
       <form
