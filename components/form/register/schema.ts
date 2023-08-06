@@ -81,6 +81,3 @@ export const schema = joi
   .or('email', 'phone')
   .required()
   .custom(customValidation)
-// .messages({
-//   'object.missing': 'Must provide either your Email or Phone number',
-// })

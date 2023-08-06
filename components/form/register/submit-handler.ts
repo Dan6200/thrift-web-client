@@ -1,20 +1,20 @@
 import axios, { AxiosResponse } from 'axios'
-import { BaseSyntheticEvent } from 'react'
-import { RegisterFormState } from './types'
+import { RegisterFormState, ResponseData } from './types'
 
 const SERVER = 'https://thrift-dev.onrender.com/v1/auth/register'
-export default async (data: RegisterFormState, e?: BaseSyntheticEvent) => {
-  e?.preventDefault()
+export default async (setUserToken: any, data: RegisterFormState) => {
   const formData = data
   const { confirm_password, ...userData } = formData
-  console.log('formData', formData)
-  console.log('userData', userData)
-  let response: AxiosResponse<any, any> | null = null
-  try {
-    response = await axios.post(SERVER, userData)
-  } catch (err) {
-    throw err
+  if (formData.email === '') {
+    userData.email = null
+  } else if (formData.phone === '') {
+    userData.phone = null
   }
-  alert('User created successfully')
-  console.log(response?.data)
+  const response: AxiosResponse<ResponseData> = await axios.post(
+    SERVER,
+    userData
+  )
+  if (!response) throw new Error('Unable to register, please try later')
+  const { token } = response?.data
+  if (token) setUserToken(token)
 }

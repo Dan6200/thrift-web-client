@@ -17,3 +17,7 @@ export interface LoginInputProps extends InputProps {
   placeholder?: '08012345678' | 'myemailaddress1234@mail.com'
   type: 'email' | 'phone' | 'password'
 }
+
+export interface ResponseData {
+  token: string
+}

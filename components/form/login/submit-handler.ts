@@ -1,17 +1,20 @@
 import axios, { AxiosResponse } from 'axios'
-import { BaseSyntheticEvent } from 'react'
-import { LoginFormState } from './types'
+import { LoginFormState, ResponseData } from './types'
 
-const SERVER = 'https://thrift-dev.onrender.com/v1/auth/register'
+const SERVER = 'https://thrift-dev.onrender.com/v1/auth/login'
 
-export default async (data: LoginFormState, e?: BaseSyntheticEvent) => {
-  e?.preventDefault()
-  const formData = data
-  let response: AxiosResponse<'token', string> | null = null
-  try {
-    response = await axios.post(SERVER, formData)
-  } catch (err) {
-    throw err
+export default async (setUserToken: any, data: LoginFormState) => {
+  const loginData = data
+  if (data.email === '') {
+    loginData.email = null
+  } else if (data.phone === '') {
+    loginData.phone = null
   }
-  console.log(response?.data)
+  const response: AxiosResponse<ResponseData> = await axios.post(
+    SERVER,
+    loginData
+  )
+  if (!response) throw new Error('Unable to login, please try later')
+  const { token } = response?.data
+  if (token) setUserToken(token)
 }

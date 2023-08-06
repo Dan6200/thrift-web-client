@@ -1,6 +1,6 @@
 'use client'
 import { Product } from './types'
-import { useAtom } from 'jotai'
+import { useAtomValue } from 'jotai'
 import { ProductsSubComponent } from './sub-component'
 import { pageNumAtom } from '@/atoms'
 
@@ -9,7 +9,7 @@ import { pageNumAtom } from '@/atoms'
 export const Products = ({ products }: { products: Product[] }) => {
   const itemsPerPage = 50
   const totalProducts = products.length
-  const [pageNum] = useAtom(pageNumAtom)
+  const pageNum = useAtomValue(pageNumAtom)
   const productsToDisplay = products.slice(
     pageNum * itemsPerPage - itemsPerPage,
     pageNum * itemsPerPage

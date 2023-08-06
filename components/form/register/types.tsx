@@ -8,3 +8,7 @@ export interface RegisterFormState {
   dob: Date
   ['']: string
 }
+
+export interface ResponseData {
+  token: string
+}

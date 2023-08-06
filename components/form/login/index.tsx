@@ -1,5 +1,4 @@
 'use client'
-import axios, { AxiosResponse } from 'axios'
 import { Button } from '../../ui/button'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { LoginFormState } from './types'
@@ -8,11 +7,12 @@ import { Password, TabbedContactField } from './form-fields'
 import { useEffect } from 'react'
 import useFormProps from './use-form-props'
 import submitHandler from './submit-handler'
-
-const server = 'https://thrift-dev.onrender.com/v1/auth/login'
+import { useSetAtom } from 'jotai'
+import { userTokenAtom } from '@/atoms'
 
 export function LoginForm() {
   const form = useForm<LoginFormState>(useFormProps)
+  const setUserToken = useSetAtom(userTokenAtom)
   const {
     formState: { errors },
     setError,
@@ -34,7 +34,10 @@ export function LoginForm() {
     }
   }, [fieldLessError])
 
-  const submit: SubmitHandler<LoginFormState> = submitHandler
+  const submit: SubmitHandler<LoginFormState> = submitHandler.bind(
+    null,
+    setUserToken
+  )
 
   return (
     <Form {...form}>
@@ -43,7 +46,7 @@ export function LoginForm() {
         onSubmit={handleSubmit(submit)}
       >
         <TabbedContactField form={form} />
-        <Password form={form} />
+        <Password type="password" form={form} />
         <Button className="mt-4" type="submit">
           Submit
         </Button>

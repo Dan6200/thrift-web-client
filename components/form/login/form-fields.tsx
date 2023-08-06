@@ -44,7 +44,7 @@ export const Password = ({
       <FormItem>
         <FormLabel>Password</FormLabel>
         <FormControl>
-          <Input {...(field as LoginInputProps)} />
+          <Input {...(field as LoginInputProps)} type="password" />
         </FormControl>
         <FormMessage />
       </FormItem>

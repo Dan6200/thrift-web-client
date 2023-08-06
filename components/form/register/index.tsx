@@ -13,21 +13,25 @@ import {
 } from '../register/form-fields'
 import { RegisterFormState } from './types'
 import submitHandler from './submit-handler'
-import useFromProps from './use-form-props'
+import useFormProps from './use-form-props'
 import { useEffect } from 'react'
+import { userTokenAtom } from '@/atoms/index'
+import { useSetAtom } from 'jotai'
 
 export function RegisterForm() {
-  const form = useForm<RegisterFormState>(useFromProps)
+  const setUserToken = useSetAtom(userTokenAtom)
+  const form = useForm<RegisterFormState>(useFormProps)
   const { handleSubmit } = form
-  const submit: SubmitHandler<RegisterFormState> = submitHandler
+  const submit: SubmitHandler<RegisterFormState> = submitHandler.bind(
+    null,
+    setUserToken
+  )
   const { setError } = form
   const {
     formState: { errors },
   } = form
   // forward the form object error to email and phone
   const fieldLessError = errors['']
-  console.log(fieldLessError)
-  console.log(errors)
   useEffect(() => {
     if (fieldLessError?.message) {
       setError('email', {
