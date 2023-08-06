@@ -4,7 +4,7 @@ import { ProductImage } from './image'
 import Paginate from '../pagination'
 import { Card, CardContent, CardFooter } from '../ui/card'
 import { Product } from './types'
-import { useAtom } from 'jotai'
+import { useAtomValue } from 'jotai'
 import { isMobileAtom } from '@/atoms'
 import { Price } from './utils/price'
 
@@ -17,14 +17,7 @@ export const ProductsSubComponent = ({
   itemsPerPage?: number
   productsToDisplay: Product[]
 }) => {
-  const [isMobile, setIsMobile] = useAtom(isMobileAtom)
-  if (typeof window !== 'undefined') {
-    if (window.innerWidth > 400) {
-      setIsMobile(false)
-    } else {
-      setIsMobile(true)
-    }
-  }
+  const isMobile = useAtomValue(isMobileAtom)
   const MAX_TITLE_LEN = isMobile ? 40 : 80
   return (
     <div className="mx-auto">

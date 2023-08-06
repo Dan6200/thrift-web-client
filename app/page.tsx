@@ -12,7 +12,7 @@ export default async function Home() {
   if (!isProductData(productData)) {
     throw new Error('Invalid product data')
   }
-
+  // Move these to child components to use clients
   return (
     <div className="mx-auto w-full">
       <Nav />

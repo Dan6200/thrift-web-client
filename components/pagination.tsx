@@ -1,6 +1,6 @@
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
-import { useAtom } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import { styled } from '@mui/material/styles'
 import { isMobileAtom, pageNumAtom } from '@/atoms'
 
@@ -31,11 +31,7 @@ const StyledPagination = styled(Pagination)(() => ({
 // use StyledPagination in place of Pagination
 
 export default function Paginate({ count }: { count: number }) {
-  const [isMobile, setIsMobile] = useAtom(isMobileAtom)
-  if (typeof window !== 'undefined') {
-    if (window.innerWidth >= 400) setIsMobile(false)
-    else setIsMobile(true)
-  }
+  const isMobile = useAtomValue(isMobileAtom)
   const [page, setPage] = useAtom(pageNumAtom)
 
   return (

@@ -46,7 +46,7 @@ export function LoginForm() {
         onSubmit={handleSubmit(submit)}
       >
         <TabbedContactField form={form} />
-        <Password type="password" form={form} />
+        <Password form={form} />
         <Button className="mt-4" type="submit">
           Submit
         </Button>

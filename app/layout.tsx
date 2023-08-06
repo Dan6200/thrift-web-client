@@ -1,4 +1,6 @@
+// cspell:ignore Resizer
 'use strict'
+import { Resizer } from '@/components/handle-resize'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 import Providers from './providers'
@@ -17,7 +19,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Providers>{children}</Providers>
+          <Providers>
+            <Resizer>{children}</Resizer>
+          </Providers>
         </ThemeProvider>
       </body>
     </html>
