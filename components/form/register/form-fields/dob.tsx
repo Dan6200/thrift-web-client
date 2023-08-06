@@ -44,9 +44,14 @@ export const DOB = ({
       return new Date(0, i).toLocaleString('en-US', { month: 'long' })
     })
   )
+  const [years] = useState<number[]>(
+    Array.from({ length: 120 }, (_, yr) => {
+      return new Date().getFullYear() - yr
+    })
+  )
   const [date, setDate] = useState<Date>()
+  const [open, setOpen] = useState<boolean>(false)
 
-  console.log(date)
   return (
     <FormField
       control={form.control}
@@ -73,15 +78,76 @@ export const DOB = ({
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
+            <PopoverContent className="w-auto p-0 hello" align="start">
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    role="combobox"
+                    className={cn(
+                      'px-3 w-full justify-between',
+                      !date && 'text-muted-foreground'
+                    )}
+                  >
+                    {date ? date.getFullYear() : 'Select year...'}
+                    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 " />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-fit">
+                  <Command className="w-40">
+                    <CommandInput
+                      placeholder="Pick year..."
+                      className="h-9 w-fit"
+                    />
+                    <CommandEmpty>
+                      Enter a year between {years[0]} and {years.at(-1)}.
+                    </CommandEmpty>
+                    <CommandGroup className="h-64 w-full overflow-y-scroll disable-scrollbars">
+                      {years.map((yr) => (
+                        <CommandItem
+                          value={yr.toString()}
+                          key={yr}
+                          className="w-full"
+                          onSelect={(val) => {
+                            setDate(new Date(+val, date?.getMonth() ?? 0))
+                            setOpen(false)
+                          }}
+                        >
+                          {yr}
+                          <CheckIcon
+                            className={cn(
+                              'ml-auto h-4 w-4',
+                              date?.getFullYear() === yr
+                                ? 'opacity-100'
+                                : 'opacity-0'
+                            )}
+                          />
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </Command>
+                </PopoverContent>
+              </Popover>
               <Select
                 onValueChange={(value) =>
-                  setDate(new Date(new Date().getFullYear(), parseInt(value)))
+                  setDate(
+                    new Date(
+                      (date ?? new Date()).getFullYear(),
+                      parseInt(value)
+                    )
+                  )
                 }
               >
                 <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Pick month..." />
+                  <SelectTrigger
+                    className={cn(!date && 'text-muted-foreground')}
+                  >
+                    <SelectValue
+                      placeholder={
+                        date ? months[date.getMonth()] : 'Select month...'
+                      }
+                    />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -107,42 +173,4 @@ export const DOB = ({
       )}
     />
   )
-}
-{
-  /*
-              <div>
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  className={cn(
-                    'w-[200px] justify-between',
-                    !field.value && 'text-muted-foreground'
-                  )}
-                >
-                  {field.value
-                    ? months.find((month) => new Date(month) === field.value)
-                    : 'Select month'}
-                  <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                </Button>
-              </div>
-              <Command>
-                <CommandInput placeholder="Pick month..." className="h-9" />
-                <CommandEmpty>Enter a valid month.</CommandEmpty>
-                <CommandGroup>
-                  {months.map((month) => (
-                    <CommandItem value={month} key={month} onSelect={() => {}}>
-                      {month}
-                      <CheckIcon
-                        className={cn(
-                          'ml-auto h-4 w-4',
-                          new Date(month) === field.value
-                            ? 'opacity-100'
-                            : 'opacity-0'
-                        )}
-                      />
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              </Command>
-								*/
 }
