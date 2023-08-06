@@ -20,91 +20,13 @@ import { Calendar } from '@/components/ui/calendar'
 import { RegisterFormState } from '../register/types'
 import { cn } from '@/lib/utils'
 import { format } from 'date-fns'
-
-export const FirstName = ({
-  form,
-}: {
-  form: UseFormReturn<RegisterFormState, any, undefined>
-}) => (
-  <FormField
-    control={form.control}
-    name="first_name"
-    render={({ field }) => (
-      <FormItem>
-        <FormLabel>First Name</FormLabel>
-        <FormControl>
-          <Input placeholder="First" {...(field as InputProps)} />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    )}
-  />
-)
-
-export const LastName = ({
-  form,
-}: {
-  form: UseFormReturn<RegisterFormState, any, undefined>
-}) => (
-  <FormField
-    control={form.control}
-    name="last_name"
-    render={({ field }) => (
-      <FormItem>
-        <FormLabel>Last Name</FormLabel>
-        <FormControl>
-          <Input placeholder="Last" {...(field as InputProps)} />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    )}
-  />
-)
-
-export const Phone = ({
-  form,
-}: {
-  form: UseFormReturn<RegisterFormState, any, undefined>
-}) => {
-  return (
-    <FormField
-      control={form.control}
-      name="phone"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel className="block">Phone number</FormLabel>
-          <FormControl>
-            <Input {...(field as InputProps)} placeholder="08012345678" />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  )
-}
-
-export const Email = ({
-  form,
-}: {
-  form: UseFormReturn<RegisterFormState, any, undefined>
-}) => (
-  <FormField
-    control={form.control}
-    name="email"
-    render={({ field }) => (
-      <FormItem>
-        <FormLabel>Enter your Email</FormLabel>
-        <FormControl>
-          <Input {...(field as InputProps)} placeholder="myemail@mail.com" />
-        </FormControl>
-        <FormDescription>
-          You may optionally enter your email, phone number or both
-        </FormDescription>
-        <FormMessage />
-      </FormItem>
-    )}
-  />
-)
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 export const Password = ({
   form,
@@ -177,12 +99,23 @@ export const DOB = ({
             </FormControl>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
+            <Select
+              onValueChange={(value) =>
+                setDate(addDays(new Date(), parseInt(value)))
+              }
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select" />
+              </SelectTrigger>
+              <SelectContent position="popper">
+                <SelectItem value="0">Today</SelectItem>
+                <SelectItem value="1">Tomorrow</SelectItem>
+                <SelectItem value="3">In 3 days</SelectItem>
+                <SelectItem value="7">In a week</SelectItem>
+              </SelectContent>
+            </Select>
             <Calendar
               mode="single"
-              className="h-80"
-              captionLayout="dropdown"
-              fromYear={new Date().getFullYear() - 100}
-              toYear={new Date().getFullYear()}
               selected={field.value}
               onSelect={field.onChange}
               disabled={(date) =>
