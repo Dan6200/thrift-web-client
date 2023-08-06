@@ -86,7 +86,7 @@ export const DOB = ({
                     variant="outline"
                     role="combobox"
                     className={cn(
-                      'px-3 w-full justify-between',
+                      'px-3 w-full justify-between mb-2',
                       !date && 'text-muted-foreground'
                     )}
                   >
@@ -139,17 +139,13 @@ export const DOB = ({
                   )
                 }
               >
-                <FormControl>
-                  <SelectTrigger
-                    className={cn(!date && 'text-muted-foreground')}
-                  >
-                    <SelectValue
-                      placeholder={
-                        date ? months[date.getMonth()] : 'Select month...'
-                      }
-                    />
-                  </SelectTrigger>
-                </FormControl>
+                <SelectTrigger className={cn(!date && 'text-muted-foreground')}>
+                  <SelectValue
+                    placeholder={
+                      date ? months[date.getMonth()] : 'Select month...'
+                    }
+                  />
+                </SelectTrigger>
                 <SelectContent>
                   {months.map((month, index) => (
                     <SelectItem value={index.toString()}>{month}</SelectItem>

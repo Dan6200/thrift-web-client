@@ -4,7 +4,7 @@ import { LoginFormState } from './types'
 
 const SERVER = 'https://thrift-dev.onrender.com/v1/auth/register'
 
-export default async (data: LoginFormState, e: BaseSyntheticEvent) => {
+export default async (data: LoginFormState, e?: BaseSyntheticEvent) => {
   e?.preventDefault()
   const formData = data
   let response: AxiosResponse<'token', string> | null = null

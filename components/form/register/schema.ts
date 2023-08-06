@@ -1,6 +1,15 @@
 // Purpose: Joi schema for account data
-import joi from 'joi'
+import joi, { CustomHelpers } from 'joi'
 import { RegisterFormState } from './types'
+
+const customValidation = (value: any, helpers: CustomHelpers) => {
+  if (!value.email && !value.phone) {
+    return helpers.message({
+      custom: 'Must provide either your Email or Phone number',
+    })
+  }
+  return value
+}
 
 export const schema = joi
   .object<RegisterFormState>()
@@ -71,6 +80,7 @@ export const schema = joi
   })
   .or('email', 'phone')
   .required()
-  .messages({
-    'object.missing': 'Must provide either your Email or Phone number',
-  })
+  .custom(customValidation)
+// .messages({
+//   'object.missing': 'Must provide either your Email or Phone number',
+// })

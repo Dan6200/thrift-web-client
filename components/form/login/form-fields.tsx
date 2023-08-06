@@ -87,10 +87,7 @@ export const Phone = ({
       <FormItem>
         <FormLabel>Phone</FormLabel>
         <FormControl>
-          <Input
-            placeholder="08012345678    |    +234012345678"
-            {...(field as LoginInputProps)}
-          />
+          <Input placeholder="08012345678" {...(field as LoginInputProps)} />
         </FormControl>
         <FormMessage />
       </FormItem>

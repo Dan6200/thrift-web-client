@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { ModeToggle } from '../dark-mode-toggle'
+import { Button } from '../ui/button'
 
 export function Nav() {
   return (
@@ -9,7 +10,14 @@ export function Nav() {
         <Link href="/" className="text-2xl font-bold">
           Thrift eCommerce
         </Link>
-        <ModeToggle />
+        <div className="flex w-64 justify-between">
+          <Link href="/auth/login">
+            <Button type="button" className="text-md">
+              Login
+            </Button>
+          </Link>
+          <ModeToggle />
+        </div>
       </div>
       <div className="mx-auto w-[90%] mt-2 bg-red-500 text-center text-white p-2">
         <p>

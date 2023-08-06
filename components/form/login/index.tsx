@@ -7,6 +7,7 @@ import { Form } from '@/components/ui/form'
 import { Password, TabbedContactField } from './form-fields'
 import { useEffect } from 'react'
 import useFormProps from './use-form-props'
+import submitHandler from './submit-handler'
 
 const server = 'https://thrift-dev.onrender.com/v1/auth/login'
 
@@ -17,30 +18,23 @@ export function LoginForm() {
     setError,
     handleSubmit,
   } = form
+
   // forward the form object error to email and phone
+  const fieldLessError = errors['']
   useEffect(() => {
-    if (errors['']?.message) {
+    if (fieldLessError?.message) {
       setError('email', {
-        type: errors?.['']?.type,
-        message: errors?.['']?.message,
+        type: fieldLessError?.type,
+        message: fieldLessError?.message,
+      })
+      setError('phone', {
+        type: fieldLessError?.type,
+        message: fieldLessError?.message,
       })
     }
-  }, [errors?.['']])
+  }, [fieldLessError])
 
-  const submit: SubmitHandler<LoginFormState> = async (
-    data: LoginFormState,
-    e
-  ) => {
-    e?.preventDefault()
-    const formData = data
-    let response: AxiosResponse<'token', string> | null = null
-    try {
-      response = await axios.post(server, formData)
-    } catch (err) {
-      throw err
-    }
-    console.log(response?.data)
-  }
+  const submit: SubmitHandler<LoginFormState> = submitHandler
 
   return (
     <Form {...form}>

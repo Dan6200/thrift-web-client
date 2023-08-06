@@ -9,6 +9,7 @@ import {
   FormMessage,
 } from '../../../ui/form'
 import { RegisterFormState } from '../types'
+
 export const Email = ({
   form,
 }: {

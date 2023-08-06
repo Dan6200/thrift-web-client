@@ -25,14 +25,22 @@ export function RegisterForm() {
     formState: { errors },
   } = form
   // forward the form object error to email and phone
+  const fieldLessError = errors['']
+  console.log(fieldLessError)
+  console.log(errors)
   useEffect(() => {
-    if (errors['']?.message) {
+    if (fieldLessError?.message) {
       setError('email', {
-        type: errors?.['']?.type,
-        message: errors?.['']?.message,
+        type: fieldLessError?.type,
+        message: fieldLessError?.message,
+      })
+      setError('phone', {
+        type: fieldLessError?.type,
+        message: fieldLessError?.message,
       })
     }
-  }, [errors?.['']])
+  }, [fieldLessError])
+
   return (
     <Form {...form}>
       <form
