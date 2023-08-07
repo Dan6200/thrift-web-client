@@ -1,20 +1,23 @@
 // cspell:ignore Resizer
 'use client'
-import { isMobileAtom } from '@/atoms'
+import { isSmallScreenAtom } from '@/atoms'
 import { useSetAtom } from 'jotai'
 import { PropsWithChildren, useEffect } from 'react'
 
 export const Resizer = ({ children }: PropsWithChildren) => {
-  const setIsMobile = useSetAtom(isMobileAtom)
-  const handleResize = (setIsMobile: any, _e?: UIEvent) => {
-    setIsMobile(window.innerWidth <= 400 ? true : false)
+  const setIsSmallScreen = useSetAtom(isSmallScreenAtom)
+  const handleResize = (setIsSmallScreen: any, _e?: UIEvent) => {
+    setIsSmallScreen(window.innerWidth <= 700 ? true : false)
   }
   useEffect(() => {
-    window.addEventListener('resize', handleResize.bind(window, setIsMobile))
+    window.addEventListener(
+      'resize',
+      handleResize.bind(window, setIsSmallScreen)
+    )
     return () =>
       window.removeEventListener(
         'resize',
-        handleResize.bind(window, setIsMobile)
+        handleResize.bind(window, setIsSmallScreen)
       )
   })
   return <>{children}</>

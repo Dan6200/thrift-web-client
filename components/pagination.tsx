@@ -2,7 +2,7 @@ import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 import { useAtom, useAtomValue } from 'jotai'
 import { styled } from '@mui/material/styles'
-import { isMobileAtom, pageNumAtom } from '@/atoms'
+import { isSmallScreenAtom, pageNumAtom } from '@/atoms'
 
 const StyledPagination = styled(Pagination)(() => ({
   '& .MuiPagination-ul': {
@@ -31,7 +31,7 @@ const StyledPagination = styled(Pagination)(() => ({
 // use StyledPagination in place of Pagination
 
 export default function Paginate({ count }: { count: number }) {
-  const isMobile = useAtomValue(isMobileAtom)
+  const isSmallScreen = useAtomValue(isSmallScreenAtom)
   const [page, setPage] = useAtom(pageNumAtom)
 
   return (
@@ -41,10 +41,10 @@ export default function Paginate({ count }: { count: number }) {
         count={count}
         shape="rounded"
         page={page}
-        size={isMobile ? 'medium' : 'large'}
+        size={isSmallScreen ? 'medium' : 'large'}
         onChange={(_, page) => setPage(page)}
-        siblingCount={isMobile ? 0 : 2}
-        boundaryCount={isMobile ? 1 : 2}
+        siblingCount={isSmallScreen ? 0 : 2}
+        boundaryCount={isSmallScreen ? 1 : 2}
       />
     </Stack>
   )

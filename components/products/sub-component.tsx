@@ -5,7 +5,7 @@ import Paginate from '../pagination'
 import { Card, CardContent, CardFooter } from '../ui/card'
 import { Product } from './types'
 import { useAtomValue } from 'jotai'
-import { isMobileAtom } from '@/atoms'
+import { isSmallScreenAtom } from '@/atoms'
 import { Price } from './utils/price'
 
 export const ProductsSubComponent = ({
@@ -17,8 +17,8 @@ export const ProductsSubComponent = ({
   itemsPerPage?: number
   productsToDisplay: Product[]
 }) => {
-  const isMobile = useAtomValue(isMobileAtom)
-  const MAX_TITLE_LEN = isMobile ? 40 : 80
+  const isSmallScreen = useAtomValue(isSmallScreenAtom)
+  const MAX_TITLE_LEN = isSmallScreen ? 40 : 80
   return (
     <div className="mx-auto">
       {totalProducts && itemsPerPage && (

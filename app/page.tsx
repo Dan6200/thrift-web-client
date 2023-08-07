@@ -5,6 +5,7 @@ import getProducts from './products/get-products'
 import { isProductData } from '@/components/products/types'
 import { ProductsHome } from '@/components/products/home-page'
 import { MoveRight } from 'lucide-react'
+import { Slideshow } from '@/components/slideshow'
 
 export default async function Home() {
   // fetch and display products on home page
@@ -20,6 +21,7 @@ export default async function Home() {
         <h1 className="w-full mx-auto my-16 text-4xl font-bold text-center">
           Welcome to Thrift eCommerce
         </h1>
+        <Slideshow />
         <div className="w-48 mb-16 flex justify-between mx-auto">
           <Link href="/auth/login">
             <Button type="button" className="text-md">
