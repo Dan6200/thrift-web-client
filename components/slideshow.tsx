@@ -8,15 +8,15 @@ import { isSmallScreenAtom } from '@/atoms'
 
 export function Slideshow(props: PropsWithChildren) {
   const isSmallScreen = useAtomValue(isSmallScreenAtom)
-  const items = [
+  const images = [
     { src: '/lenovo-thinkpad-t-series.jpg', alt: 'Lenovo laptop' },
-    { src: '/amazon-img.jpeg', alt: '' },
-    { src: '/L1M_DT_HERO._SX3000_QL85_FMpng_.png', alt: '' },
+    { src: '/amazon-img.jpeg', alt: 'Wedding outfit' },
+    { src: '/L1M_DT_HERO._SX3000_QL85_FMpng_.png', alt: 'Summer wear' },
   ]
   if (!isSmallScreen)
     return (
       <Carousel className="h-[32rem] mb-8">
-        {items.map(({ src, alt }: any) => (
+        {images.map(({ src, alt }: any) => (
           <Link href="/products">
             <Image
               key={src}
