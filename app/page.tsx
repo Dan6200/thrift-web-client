@@ -22,15 +22,18 @@ export default async function Home() {
           Welcome to Thrift eCommerce
         </h1>
         <Slideshow />
-        <div className="w-48 mb-16 flex justify-between mx-auto">
-          <Link href="/auth/login">
-            <Button type="button" className="text-md">
-              Login
+        <div className="w-72 mb-16 flex justify-between mx-auto">
+          <Link href="/products">
+            <Button type="button" className="w-32 capitalize font-bold text-md">
+              Buy now
             </Button>
           </Link>
-          <Link href="/auth/register">
-            <Button type="button" className="text-md">
-              Register
+          <Link href="/create-store">
+            <Button
+              type="button"
+              className="bg-background text-foreground shadow-md dark:bg-neutral-800 dark:border-neutral-600 dark:hover:bg-neutral-700 w-32 capitalize font-semibold hover:font-bold hover:bg-gray-50 border text-md"
+            >
+              Sell now
             </Button>
           </Link>
         </div>

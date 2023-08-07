@@ -14,7 +14,7 @@ export interface LoginInputProps extends InputProps {
   value: string | undefined
   name: 'email' | 'phone' | 'password'
   ref: RefCallBack
-  placeholder?: '08012345678' | 'myemailaddress1234@mail.com'
+  placeholder?: '08012345678' | 'myemail@mail.com'
   type: 'email' | 'phone' | 'password'
 }
 

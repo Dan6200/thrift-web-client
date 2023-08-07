@@ -9,6 +9,7 @@ import useFormProps from './use-form-props'
 import submitHandler from './submit-handler'
 import { useSetAtom } from 'jotai'
 import { userTokenAtom } from '@/atoms'
+import Link from 'next/link'
 
 export function LoginForm() {
   const form = useForm<LoginFormState>(useFormProps)
@@ -47,9 +48,18 @@ export function LoginForm() {
       >
         <TabbedContactField form={form} />
         <Password form={form} />
-        <Button className="mt-4" type="submit">
+        <Button className="mt-4 mb-8" type="submit">
           Submit
         </Button>
+        <p className="text-center">
+          Don't have an account?{' '}
+          <Link
+            href="/auth/register"
+            className="dark:text-blue-200 text-blue-700"
+          >
+            Sign up
+          </Link>
+        </p>
       </form>
     </Form>
   )

@@ -65,7 +65,7 @@ export const Email = ({
         <FormLabel>Email</FormLabel>
         <FormControl>
           <Input
-            placeholder="myemailaddress1234@mail.com"
+            placeholder="myemail@mail.com"
             {...(field as LoginInputProps)}
           />
         </FormControl>

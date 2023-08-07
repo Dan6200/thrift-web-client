@@ -17,6 +17,7 @@ import useFormProps from './use-form-props'
 import { useEffect } from 'react'
 import { userTokenAtom } from '@/atoms/index'
 import { useSetAtom } from 'jotai'
+import Link from 'next/link'
 
 export function RegisterForm() {
   const setUserToken = useSetAtom(userTokenAtom)
@@ -58,7 +59,15 @@ export function RegisterForm() {
         <Password form={form} />
         <ConfirmPassword form={form} />
         <DOB form={form} />
-        <Button type="submit">Submit</Button>
+        <Button className="mt-4 mb-8" type="submit">
+          Submit
+        </Button>
+        <p className="text-center">
+          Already have an account?{' '}
+          <Link href="/auth/login" className="dark:text-blue-200 text-blue-700">
+            Sign in
+          </Link>
+        </p>
       </form>
     </Form>
   )
