@@ -24,7 +24,7 @@ export const ProductsSubComponent = ({
       {totalProducts && itemsPerPage && (
         <Paginate count={Math.ceil(totalProducts / itemsPerPage)} />
       )}
-      <div className="w-full sm:px-4 sm:py-2 md:px-8 md:py-4 mx-auto place-items-center grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+      <div className="w-full sm:px-4 sm:py-2 md:px-8 md:py-4 mx-auto place-items-center grid grid-cols-2 gap-2 sm:gap-5 sm:grid-cols-3 lg:grid-cols-4">
         {productsToDisplay.map((product) => (
           <Link
             href={`/products/${product?.product_id}`}

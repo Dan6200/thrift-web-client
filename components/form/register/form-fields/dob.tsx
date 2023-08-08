@@ -51,6 +51,7 @@ export const DOB = ({
   )
   const [date, setDate] = useState<Date>()
   const [open, setOpen] = useState<boolean>(false)
+  const [secondaryOpen, setSecondaryOpen] = useState<boolean>(false)
 
   return (
     <FormField
@@ -59,7 +60,7 @@ export const DOB = ({
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <FormLabel>Date of birth</FormLabel>
-          <Popover>
+          <Popover open={secondaryOpen} onOpenChange={setSecondaryOpen}>
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
@@ -157,7 +158,10 @@ export const DOB = ({
                 month={date}
                 onMonthChange={setDate}
                 selected={field.value}
-                onSelect={field.onChange}
+                onSelect={(...e) => {
+                  setSecondaryOpen(false)
+                  field.onChange(...e)
+                }}
                 disabled={(date) =>
                   date > new Date() || date < new Date('1900-01-01')
                 }
