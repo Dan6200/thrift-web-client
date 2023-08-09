@@ -4,6 +4,7 @@ import { Card, CardContent } from '../../ui/card'
 import { GoBackLink } from '../go-back-link'
 import { ProductImage } from '../image'
 import { Product } from '../types'
+import { Price } from './utils/price'
 
 export function Product({ product }: { product: Product }) {
   const displayImg = product?.media?.find((img) => img?.is_display_image)
@@ -13,7 +14,7 @@ export function Product({ product }: { product: Product }) {
         <MoveLeft className="inline mr-4" />
         Go back
       </GoBackLink>
-      <h2 className="sm:text-3xl font-bold text-justify mb-16 break-words">
+      <h2 className="sm:text-2xl font-bold text-justify mb-16 break-words">
         {/* remove &nbsp;, that breaks the ui */}
         {product?.title.replace(/\u00A0/, ' ')}
       </h2>
@@ -27,24 +28,10 @@ export function Product({ product }: { product: Product }) {
             className="object-cover py-4 border-b w-full sm:w-96 rounded-sm"
           />
           <div className="flex flex-col my-4 p-2 sm:p-4 w-full sm:w-96 justify-between sm:h-48">
-            <div className="w-full flex justify-between">
-              <p>
-                price:{'\u00A0'.repeat(4)}
-                {product?.net_price.toLocaleString('en-NG', {
-                  currency: 'NGN',
-                  style: 'currency',
-                })}
-              </p>
-              {parseFloat(product?.net_price as string).toFixed(2) !==
-                parseFloat(product?.list_price as string).toFixed(2) && (
-                <p className="mb-4 line-through dark:text-gray-700">
-                  {product?.list_price.toLocaleString('en-NG', {
-                    currency: 'NGN',
-                    style: 'currency',
-                  })}
-                </p>
-              )}
-            </div>
+            <Price
+              netPrice={product?.net_price}
+              listPrice={product?.list_price}
+            />
             <div className="flex mb-4">
               <p>
                 items left:{'\u00A0'.repeat(4)}
