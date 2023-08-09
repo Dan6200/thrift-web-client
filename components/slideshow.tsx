@@ -15,7 +15,7 @@ export function Slideshow(props: PropsWithChildren) {
   ]
   if (!isSmallScreen)
     return (
-      <Carousel className="h-[32rem] mb-8">
+      <Carousel className="h-[32rem] shadow-sm mb-8">
         {images.map(({ src, alt }: any) => (
           <Link href="/products">
             <Image
@@ -31,4 +31,5 @@ export function Slideshow(props: PropsWithChildren) {
         ))}
       </Carousel>
     )
+  return null
 }

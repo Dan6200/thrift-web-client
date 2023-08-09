@@ -31,7 +31,7 @@ export default async function Home() {
           <Link href="/create-store">
             <Button
               type="button"
-              className="bg-background text-foreground shadow-md dark:bg-neutral-800 dark:border-neutral-600 dark:hover:bg-neutral-700 w-32 capitalize font-semibold hover:font-bold hover:bg-gray-50 border text-md"
+              className="bg-background text-foreground shadow-md dark:bg-background dark:border-neutral-600 dark:hover:bg-neutral-800 w-32 capitalize font-semibold hover:font-bold hover:bg-gray-50 border text-md"
             >
               Sell now
             </Button>
