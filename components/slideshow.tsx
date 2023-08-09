@@ -17,7 +17,7 @@ export function Slideshow(props: PropsWithChildren) {
     return (
       <Carousel className="h-[32rem] shadow-sm mb-8">
         {images.map(({ src, alt }: any) => (
-          <Link href="/products">
+          <Link key={src} href="/products">
             <Image
               key={src}
               src={src}

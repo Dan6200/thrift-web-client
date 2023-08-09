@@ -33,7 +33,7 @@ export function LoginForm() {
         message: fieldLessError?.message,
       })
     }
-  }, [fieldLessError])
+  }, [setError, fieldLessError])
 
   const submit: SubmitHandler<LoginFormState> = submitHandler.bind(
     null,
@@ -52,7 +52,7 @@ export function LoginForm() {
           Submit
         </Button>
         <p className="text-center">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <Link
             href="/auth/register"
             className="dark:text-blue-200 text-blue-700"

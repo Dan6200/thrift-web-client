@@ -149,7 +149,9 @@ export const DOB = ({
                 </SelectTrigger>
                 <SelectContent>
                   {months.map((month, index) => (
-                    <SelectItem value={index.toString()}>{month}</SelectItem>
+                    <SelectItem key={index} value={index.toString()}>
+                      {month}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>

@@ -44,7 +44,7 @@ export function RegisterForm() {
         message: fieldLessError?.message,
       })
     }
-  }, [fieldLessError])
+  }, [fieldLessError, setError])
 
   return (
     <Form {...form}>
