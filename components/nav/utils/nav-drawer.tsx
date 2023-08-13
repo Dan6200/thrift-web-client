@@ -12,9 +12,13 @@ import {
 } from '@/components/ui/accordion'
 import { PanelRightClose } from 'lucide-react'
 import { components } from './nav-components'
+import { useAtomValue } from 'jotai'
+import { userTokenAtom } from '@/atoms'
+import { ModeToggle } from '@/components/dark-mode-toggle'
 
 export const NavDrawer = () => {
   const [isOpen, toggleDrawer] = useState(false)
+  const userToken = useAtomValue(userTokenAtom)
   return (
     <div className="max-w-none flex flex-row items-center justify-between w-full px-4 py-4  border-b shadow-md dark:bg-background  dark:shadow-none">
       <Link href="/" className="text-2xl font-bold">
@@ -103,6 +107,20 @@ export const NavDrawer = () => {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
+          <div className="flex space-x-4">
+            {userToken ? (
+              <Link href="/account" className="hover:underline">
+                Manage Account
+              </Link>
+            ) : (
+              <Link href="/auth/login">
+                <Button type="button" className="py-1 px-3">
+                  Sign In
+                </Button>
+              </Link>
+            )}
+            <ModeToggle />
+          </div>
         </div>
       </SwipeableDrawer>
     </div>

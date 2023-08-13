@@ -87,7 +87,7 @@ export function NavMenu() {
       </div>
       <div className="flex space-x-4">
         {userToken ? (
-          <Link href="/docs" legacyBehavior passHref>
+          <Link href="/account" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Manage Account
             </NavigationMenuLink>
