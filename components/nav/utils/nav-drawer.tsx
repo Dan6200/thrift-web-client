@@ -107,14 +107,14 @@ export const NavDrawer = () => {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div className="flex space-x-4">
+          <div className="flex flex-col items-center space-y-4">
             {userToken ? (
               <Link href="/account" className="hover:underline">
                 Manage Account
               </Link>
             ) : (
-              <Link href="/auth/login">
-                <Button type="button" className="py-1 px-3">
+              <Link href="/auth/login" className="w-full">
+                <Button type="button" className="w-full py-1 px-3">
                   Sign In
                 </Button>
               </Link>

@@ -21,10 +21,7 @@ import { components } from '../utils/nav-components'
 export function NavMenu() {
   const userToken = useAtomValue(userTokenAtom)
   return (
-    <NavigationMenu
-      orientation="vertical"
-      className="max-w-none flex flex-row items-center justify-between w-full px-4 py-4  border-b shadow-md dark:bg-background  dark:shadow-none"
-    >
+    <NavigationMenu className="max-w-none flex flex-row items-center justify-between w-full px-4 py-4  border-b shadow-md dark:bg-background  dark:shadow-none">
       <div className="justify-start flex">
         <Link href="/" className="text-2xl font-bold">
           Thrift Commerce
