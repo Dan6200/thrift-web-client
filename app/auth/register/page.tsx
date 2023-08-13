@@ -9,7 +9,7 @@ export default function Register() {
       <div className="container mx-auto p-4 my-20">
         <Card className="w-full sm:w-96 mx-auto">
           <CardHeader className="w-full mx-auto text-2xl font-bold text-center">
-            Register
+            Create An Account
           </CardHeader>
           <CardContent>
             <RegisterForm />
