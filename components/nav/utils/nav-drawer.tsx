@@ -38,7 +38,7 @@ export const NavDrawer = () => {
           >
             <PanelRightClose />
           </Button>
-          <Accordion type="single" collapsible>
+          <Accordion type="single" collapsible className="my-8">
             <AccordionItem value="item-1">
               <AccordionTrigger className="hover:no-underline">
                 Welcome
@@ -88,12 +88,13 @@ export const NavDrawer = () => {
             <AccordionItem value="item-2">
               <AccordionTrigger>Browse Categories</AccordionTrigger>
               <AccordionContent>
-                <ul>
+                <ul className="grid gap-3 p-4">
                   {components.map((component) => (
                     <Link
                       key={component.title}
                       title={component.title}
                       href={component.href}
+                      className="hover:underline"
                     >
                       {component.description}
                     </Link>
