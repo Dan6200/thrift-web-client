@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Moon, Sun } from 'lucide-react'
+import { Moon, Smartphone, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
 import { Button } from '@/components/ui/button'
@@ -19,49 +19,55 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { Select, SelectItem } from './ui/select'
-import { SelectTrigger } from '@radix-ui/react-select'
 
 export function ModeToggle() {
   const isSmallScreen = useAtomValue(isSmallScreenAtom)
   const { setTheme } = useTheme()
-  console.log(isSmallScreen)
-
-  return (
-    <>
-      {isSmallScreen ? (
-        <SelectComp setTheme={setTheme} />
-      ) : (
-        <DropDown setTheme={setTheme} />
-      )}
-    </>
+  return isSmallScreen ? (
+    <AccordionComp setTheme={setTheme} />
+  ) : (
+    <DropDown setTheme={setTheme} />
   )
 }
 
-const SelectComp = ({ setTheme }: { setTheme: (theme: string) => void }) => (
-  <Select>
-    <SelectItem value="item-3" className="w-full">
-      <SelectTrigger>
-        <p>Toggle theme</p>
-      </SelectTrigger>
-      <SelectContent>
-        <ul>
-          <li>
-            <a className="hover:underline" onClick={() => setTheme('light')}>
-              Light
-            </a>
-          </li>
-          <li>
-            <a onClick={() => setTheme('dark')}>Dark</a>
-          </li>
-          <li>
-            <a onClick={() => setTheme('system')}>System</a>
-          </li>
-        </ul>
+export const AccordionComp = ({
+  setTheme,
+}: {
+  setTheme: (theme: string) => void
+}) => (
+  <Accordion type="single" collapsible className="w-full">
+    <AccordionItem value="item-1">
+      <AccordionTrigger className="active:no-underline">
+        Toggle theme
+      </AccordionTrigger>
+      <AccordionContent>
+        <div className="flex flex-col space-y-3 p-4 items-center">
+          <a
+            onClick={() => setTheme('light')}
+            className="block active:bg-neutral-300 dark:active:bg-neutral-700 h-9 w-full  p-2 "
+          >
+            Light
+            <Sun className="h-[1.2rem] inline ml-4 w-[1.2rem]" />
+          </a>
+          <a
+            onClick={() => setTheme('dark')}
+            className="block active:bg-neutral-300 dark:active:bg-neutral-700 h-9 w-full  p-2 "
+          >
+            Dark
+            <Moon className="h-[1.2rem] inline ml-4 w-[1.2rem]" />
+          </a>
+          <a
+            onClick={() => setTheme('system')}
+            className="block active:bg-neutral-300 dark:active:bg-neutral-700 h-9 w-full  p-2 "
+          >
+            System <Smartphone className="h-[1.2rem] inline ml-4 w-[1.2rem]" />
+          </a>
+        </div>
       </AccordionContent>
-    </SelectItem>
-  </Select>
+    </AccordionItem>
+  </Accordion>
 )
+
 const DropDown = ({ setTheme }: { setTheme: (theme: string) => void }) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
