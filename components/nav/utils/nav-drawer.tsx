@@ -2,7 +2,7 @@
 import { Button, SwipeableDrawer } from '@mui/material'
 import { useState } from 'react'
 
-export const Drawer = () => {
+export const NavDrawer = () => {
   const [isOpen, toggleDrawer] = useState(false)
   return (
     <>

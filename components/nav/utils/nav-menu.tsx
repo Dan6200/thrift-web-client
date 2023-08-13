@@ -2,8 +2,8 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
-import { ModeToggle } from '../dark-mode-toggle'
-import { Button } from '../ui/button'
+import { ModeToggle } from '../../dark-mode-toggle'
+import { Button } from '../../ui/button'
 import { useAtomValue } from 'jotai'
 import { userTokenAtom } from '@/atoms'
 import {
@@ -15,8 +15,8 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
-import { ListItem } from './utils/list-item'
-import { components } from './utils/nav-components'
+import { ListItem } from '../utils/list-item'
+import { components } from '../utils/nav-components'
 
 export function NavMenu() {
   const userToken = useAtomValue(userTokenAtom)
