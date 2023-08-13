@@ -6,8 +6,8 @@ import { isSmallScreenAtom, pageNumAtom } from '@/atoms'
 
 const StyledPagination = styled(Pagination)(() => ({
   '& .MuiPagination-ul': {
-    'min-width': '4rem', // set the desired width here
-    'justify-content': 'space-between',
+    minWidth: '4rem', // set the desired width here
+    justifyContent: 'space-between',
     margin: '0 auto',
   },
   '& .Mui-selected': {

@@ -4,7 +4,14 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { HamburgerMenuIcon } from '@radix-ui/react-icons'
 import { Button } from '@/components/ui/button'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 import { PanelRightClose } from 'lucide-react'
+import { components } from './nav-components'
 
 export const NavDrawer = () => {
   const [isOpen, toggleDrawer] = useState(false)
@@ -22,7 +29,7 @@ export const NavDrawer = () => {
         onClose={() => toggleDrawer(false)}
         onOpen={() => toggleDrawer(true)}
       >
-        <div className="container border-2 p-4 bg-background text-foreground h-full w-[70vw]">
+        <div className="container border p-4 bg-background text-foreground h-full w-[70vw]">
           <Button
             onClick={() => toggleDrawer(false)}
             variant="outline"
@@ -31,7 +38,70 @@ export const NavDrawer = () => {
           >
             <PanelRightClose />
           </Button>
-          <div className="flex flex-row p-4">Menu</div>
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="hover:no-underline">
+                Welcome
+              </AccordionTrigger>
+              <AccordionContent>
+                <ul className="grid gap-3 p-4">
+                  <li>
+                    <Link
+                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                      href="/"
+                    >
+                      <div className="mb-2 mt-4 text-lg font-medium">
+                        Thrift Commerce
+                      </div>
+                      <p className="text-sm leading-tight text-muted-foreground">
+                        Shop new handpicked deals in categories such as
+                        electronics, computers & tablets, fashion & fashion
+                        accessories etc.
+                      </p>
+                    </Link>
+                  </li>
+                  <Link
+                    href="/deals/new-arrivals"
+                    title="New Arrivals"
+                    className="hover:underline"
+                  >
+                    New Arrivals for fashion and fashion accessories.
+                  </Link>
+                  <Link
+                    href="/deals/electronics"
+                    title="Deals on Electronics"
+                    className="hover:underline"
+                  >
+                    Hot new deals on electronic items such as TVs, mobile phones
+                    and household electronics
+                  </Link>
+                  <Link
+                    href="/deals/computers"
+                    title="Computer Deals"
+                    className="hover:underline"
+                  >
+                    Hot new deals on computers and computer accessories.
+                  </Link>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2">
+              <AccordionTrigger>Browse Categories</AccordionTrigger>
+              <AccordionContent>
+                <ul>
+                  {components.map((component) => (
+                    <Link
+                      key={component.title}
+                      title={component.title}
+                      href={component.href}
+                    >
+                      {component.description}
+                    </Link>
+                  ))}
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </SwipeableDrawer>
     </div>
