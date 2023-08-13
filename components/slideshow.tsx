@@ -16,6 +16,7 @@ export function Slideshow(props: PropsWithChildren) {
     { src: '/pexels-pixabay-459762.jpg', alt: '' },
     { src: '/pexels-harsh-kushwaha-1721558.jpg', alt: '' },
     { src: '/pexels-noah-erickson-404280.jpg', alt: '' },
+    { src: '/pexels-designecologist-1779487.jpg', alt: '' },
   ]
   return (
     <Carousel className="h-96 md:h-[30rem] md:w-[80vw] mx-auto shadow-sm mb-8">
