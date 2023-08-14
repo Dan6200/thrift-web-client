@@ -9,28 +9,50 @@ import { isSmallScreenAtom } from '@/atoms'
 export function Slideshow(props: PropsWithChildren) {
   const isSmallScreen = useAtomValue(isSmallScreenAtom)
   const images = [
-    { src: '/pexels-ovan-62689.jpg', alt: '' },
-    { src: '/pexels-elvis-2528118.jpg', alt: '' },
-    { src: '/pexels-athena-2043590.jpg', alt: '' },
-    { src: '/pexels-pixabay-159376.jpg', alt: '' },
-    { src: '/pexels-pixabay-459762.jpg', alt: '' },
-    { src: '/pexels-harsh-kushwaha-1721558.jpg', alt: '' },
-    { src: '/pexels-noah-erickson-404280.jpg', alt: '' },
-    { src: '/pexels-designecologist-1779487.jpg', alt: '' },
+    { src: '/books-glasses-sweater.jpg', alt: '' },
+    { src: '/desktop.jpg', alt: '' },
+    { src: '/dress-shoes.jpg', alt: '' },
+    { src: '/keyboard-headphones.jpg', alt: '' },
+    { src: '/shirt-phone-jeans.jpg', alt: '' },
+    { src: '/smartwatch.jpg', alt: '' },
   ]
+  const smallerImages = [
+    { src: '/smartwatch-mobile.jpg', alt: '' },
+    { src: '/shirt-phone-jeans-mobile.jpg', alt: '' },
+    { src: '/keyboard-headphones-mobile.jpg', alt: '' },
+    { src: '/dress-shoes-mobile.jpg', alt: '' },
+    { src: '/desktop-mobile.jpg', alt: '' },
+    { src: '/books-glasses-sweater-mobile.jpg', alt: '' },
+  ]
+  const imgList = isSmallScreen ? smallerImages : images
   return (
-    <Carousel className="h-96 md:h-[30rem] md:w-[80vw] mx-auto shadow-sm mb-8">
-      {images.map(({ src, alt }: any) => (
+    <Carousel className="w-[50vw] mx-auto shadow-sm mb-8">
+      {imgList.map(({ src, alt }: any) => (
         <Link key={src} href="/products">
-          <Image
-            key={src}
-            src={src}
-            alt={alt}
-            width={isSmallScreen ? 800 : 1000}
-            height={isSmallScreen ? 400 : 800}
-            className="object-cover object-center w-full h-80 md:h-[27rem]"
-            {...props}
-          />
+          {isSmallScreen ? (
+            <Image
+              key={src}
+              src={src}
+              alt={alt}
+              width={600}
+              height={1000}
+              className=""
+              {...props}
+            />
+          ) : (
+            <Image
+              id="large"
+              key={src}
+              src={src}
+              alt={alt}
+              width={1920}
+              height={800}
+              objectFit="cover"
+              objectPosition="center"
+              className="h-[80vh]"
+              {...props}
+            />
+          )}
         </Link>
       ))}
     </Carousel>
