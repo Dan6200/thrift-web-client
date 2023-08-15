@@ -18,9 +18,13 @@ export default async function Home() {
     <div className="mx-auto w-full">
       <Nav />
       <div className="container w-full mx-auto my-10 p-4">
-        <h1 className="w-full mx-auto my-16 text-4xl font-bold text-center">
-          Welcome to Thrift eCommerce
+        <h1 className="w-full mx-auto mt-16 mb-8 text-4xl font-bold text-center">
+          Welcome to Thrift eCommerce Platform
         </h1>
+        <p className="w-full mx-auto my-4 text-lg text-center">
+          Buy and sell products of any category, find the lowest prices on
+          Thrift!!!
+        </p>
         <Slideshow />
         <div className="w-72 mb-16 flex justify-between mx-auto">
           <Link href="/products">

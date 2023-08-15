@@ -22,11 +22,31 @@ export const NavDrawer = () => {
   return (
     <div className="max-w-none flex flex-row items-center justify-between w-full px-4 py-4  border-b shadow-md dark:shadow-none">
       <Link href="/" className="text-2xl font-bold">
-        Thrift Commerce
+        Thrift
       </Link>
-      <Button onClick={() => toggleDrawer(true)} variant="outline" size="icon">
-        <HamburgerMenuIcon />
-      </Button>
+      <div className="flex items-center space-x-4">
+        {user?.token ? (
+          <Link
+            href="/account"
+            className="active:bg-neutral-300 dark:active:bg-neutral-700"
+          >
+            Manage Account
+          </Link>
+        ) : (
+          <Link href="/auth/login">
+            <Button type="button" className="py-1 px-3">
+              Sign In
+            </Button>
+          </Link>
+        )}
+        <Button
+          onClick={() => toggleDrawer(true)}
+          variant="outline"
+          size="icon"
+        >
+          <HamburgerMenuIcon />
+        </Button>
+      </div>
       <SwipeableDrawer
         anchor="right"
         open={isOpen}
@@ -108,22 +128,6 @@ export const NavDrawer = () => {
             </AccordionItem>
             <ModeToggle />
           </Accordion>
-          <div className="overflow-visible flex flex-col items-center space-y-4">
-            {user?.token ? (
-              <Link
-                href="/account"
-                className="active:bg-neutral-300 dark:active:bg-neutral-700"
-              >
-                Manage Account
-              </Link>
-            ) : (
-              <Link href="/auth/login" className="w-full">
-                <Button type="button" className="w-full py-1 px-3">
-                  Sign In
-                </Button>
-              </Link>
-            )}
-          </div>
         </div>
       </SwipeableDrawer>
     </div>
