@@ -65,7 +65,7 @@ export const NavDrawer = () => {
           <Accordion type="single" collapsible className="my-8">
             <AccordionItem value="item-1">
               <AccordionTrigger className="hover:no-underline">
-                Welcome
+                Welcome{user && `, ${user.first_name}`}
               </AccordionTrigger>
               <AccordionContent>
                 <div className="flex flex-col space-y-3 p-4">

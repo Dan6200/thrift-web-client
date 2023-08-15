@@ -18,8 +18,8 @@ export default async function Home() {
     <div className="mx-auto w-full">
       <Nav />
       <div className="container w-full mx-auto my-10 p-4">
-        <h1 className="w-full mx-auto mt-16 mb-8 text-4xl font-bold text-center">
-          Welcome to Thrift eCommerce Platform
+        <h1 className="w-full mx-auto mt-16 mb-8 text-4xl sm:text-5xl md:text-6xl font-bold text-center">
+          Welcome to Thrift
         </h1>
         <p className="w-full mx-auto my-4 text-lg text-center">
           Buy and sell products of any category, find the lowest prices on
@@ -29,7 +29,7 @@ export default async function Home() {
         <div className="w-72 mb-16 flex justify-between mx-auto">
           <Link href="/products">
             <Button type="button" className="w-32 capitalize font-bold text-md">
-              Buy now
+              Browse
             </Button>
           </Link>
           <Link href="/create-store">
@@ -37,7 +37,7 @@ export default async function Home() {
               type="button"
               className="bg-background text-foreground shadow-md dark:bg-background dark:border-neutral-600 dark:hover:bg-neutral-800 w-32 capitalize font-semibold hover:font-bold hover:bg-gray-50 border text-md"
             >
-              Sell now
+              Start selling
             </Button>
           </Link>
         </div>
