@@ -3,7 +3,7 @@ import { LoginFormState, ResponseData } from './types'
 
 const SERVER = 'https://thrift-dev.onrender.com/v1/auth/login'
 
-export default async (setUserToken: any, data: LoginFormState) => {
+export default async (setUser: any, data: LoginFormState) => {
   const loginData = data
   if (data.email === '') {
     loginData.email = null
@@ -16,5 +16,5 @@ export default async (setUserToken: any, data: LoginFormState) => {
   )
   if (!response) throw new Error('Unable to login, please try later')
   const { token } = response?.data
-  if (token) setUserToken(token)
+  if (token) setUser({ token })
 }

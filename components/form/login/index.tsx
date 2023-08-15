@@ -8,12 +8,12 @@ import { useEffect } from 'react'
 import useFormProps from './use-form-props'
 import submitHandler from './submit-handler'
 import { useSetAtom } from 'jotai'
-import { userTokenAtom } from '@/atoms'
+import { userAtom } from '@/atoms'
 import Link from 'next/link'
 
 export function LoginForm() {
   const form = useForm<LoginFormState>(useFormProps)
-  const setUserToken = useSetAtom(userTokenAtom)
+  const setUser = useSetAtom(userAtom)
   const {
     formState: { errors },
     setError,
@@ -37,7 +37,7 @@ export function LoginForm() {
 
   const submit: SubmitHandler<LoginFormState> = submitHandler.bind(
     null,
-    setUserToken
+    setUser
   )
 
   return (

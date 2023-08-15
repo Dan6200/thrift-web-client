@@ -13,12 +13,12 @@ import {
 import { PanelRightClose } from 'lucide-react'
 import { components } from './nav-components'
 import { useAtomValue } from 'jotai'
-import { userTokenAtom } from '@/atoms'
+import { userAtom } from '@/atoms'
 import { ModeToggle } from '@/components/dark-mode-toggle'
 
 export const NavDrawer = () => {
   const [isOpen, toggleDrawer] = useState(false)
-  const userToken = useAtomValue(userTokenAtom)
+  const user = useAtomValue(userAtom)
   return (
     <div className="max-w-none flex flex-row items-center justify-between w-full px-4 py-4  border-b shadow-md dark:shadow-none">
       <Link href="/" className="text-2xl font-bold">
@@ -109,7 +109,7 @@ export const NavDrawer = () => {
             <ModeToggle />
           </Accordion>
           <div className="overflow-visible flex flex-col items-center space-y-4">
-            {userToken ? (
+            {user?.token ? (
               <Link
                 href="/account"
                 className="active:bg-neutral-300 dark:active:bg-neutral-700"

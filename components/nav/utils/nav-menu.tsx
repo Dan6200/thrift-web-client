@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { ModeToggle } from '../../dark-mode-toggle'
 import { Button } from '../../ui/button'
 import { useAtomValue } from 'jotai'
-import { userTokenAtom } from '@/atoms'
+import { userAtom } from '@/atoms'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -19,7 +19,7 @@ import { ListItem } from '../utils/list-item'
 import { components } from '../utils/nav-components'
 
 export function NavMenu() {
-  const userToken = useAtomValue(userTokenAtom)
+  const user = useAtomValue(userAtom)
   return (
     <NavigationMenu className="max-w-none flex flex-row items-center justify-between w-full px-4 py-4  border-b shadow-md dark:bg-background  dark:shadow-none">
       <div className="justify-start flex">
@@ -83,7 +83,7 @@ export function NavMenu() {
         </NavigationMenuList>
       </div>
       <div className="flex space-x-4">
-        {userToken ? (
+        {user?.token ? (
           <Link href="/account" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Manage Account

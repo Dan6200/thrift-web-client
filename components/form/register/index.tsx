@@ -15,17 +15,17 @@ import { RegisterFormState } from './types'
 import submitHandler from './submit-handler'
 import useFormProps from './use-form-props'
 import { useEffect } from 'react'
-import { userTokenAtom } from '@/atoms/index'
+import { userAtom } from '@/atoms/index'
 import { useSetAtom } from 'jotai'
 import Link from 'next/link'
 
 export function RegisterForm() {
-  const setUserToken = useSetAtom(userTokenAtom)
+  const setUser = useSetAtom(userAtom)
   const form = useForm<RegisterFormState>(useFormProps)
   const { handleSubmit } = form
   const submit: SubmitHandler<RegisterFormState> = submitHandler.bind(
     null,
-    setUserToken
+    setUser
   )
   const { setError } = form
   const {
