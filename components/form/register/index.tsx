@@ -18,6 +18,14 @@ import { Fragment, useEffect } from 'react'
 import { userAtom } from '@/atoms/index'
 import { useSetAtom } from 'jotai'
 import Link from 'next/link'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 
 export function RegisterForm() {
   const setUser = useSetAtom(userAtom)
@@ -51,11 +59,6 @@ export function RegisterForm() {
 
   return (
     <Fragment>
-      {rootError?.message && (
-        <p className="text-destructive font-bold my-8">
-          Error: {rootError?.message}
-        </p>
-      )}
       <Form {...form}>
         <form
           className="flex flex-col w-full m-auto"
@@ -82,6 +85,34 @@ export function RegisterForm() {
           </p>
         </form>
       </Form>
+      {rootError?.message && (
+        <Dialog defaultOpen={!!rootError?.message}>
+          <DialogContent className="overflow-hidden w-[90vw] md:w-full rounded-md">
+            <DialogHeader>
+              <DialogTitle className="font-semibold italic text-destructive mt-4">
+                There was an error while creating account...
+              </DialogTitle>
+              <DialogDescription className="pt-4 capitalize text-md font-bold ">
+                {rootError?.message}
+              </DialogDescription>
+            </DialogHeader>
+            {rootError?.message.includes('exists') && (
+              <DialogFooter className="font-normal flex-row mb-4 justify-center text-neutral-700 italic">
+                <p>
+                  Did you mean to &nbsp;
+                  <Link
+                    href="/auth/login"
+                    className="dark:text-blue-200 text-blue-700"
+                  >
+                    Sign in
+                  </Link>
+                  &nbsp; instead?
+                </p>
+              </DialogFooter>
+            )}
+          </DialogContent>
+        </Dialog>
+      )}
     </Fragment>
   )
 }

@@ -3,6 +3,7 @@ import joi, { CustomHelpers } from 'joi'
 import { RegisterFormState } from './types'
 
 const customValidation = (value: any, helpers: CustomHelpers) => {
+  console.log(value)
   if (!value.email && !value.phone) {
     return helpers.message({
       custom: 'Must provide either your Email or Phone number',
@@ -79,6 +80,9 @@ export const schema = joi
       .messages({ 'any.required': 'Please provide your Date of birth' }),
   })
   .or('email', 'phone')
+  .messages({
+    'object.missing': 'Must provide either your Email or Phone number',
+  })
   .required()
   .custom(customValidation)
 // +:t)tGL%gde~2mb
