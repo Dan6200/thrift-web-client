@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import { UseFormSetError } from 'react-hook-form'
 import { RegisterFormState, ResponseData } from './types'
 
@@ -18,19 +18,33 @@ export default async (
   let response: AxiosResponse<ResponseData> | null = null
   try {
     response = await axios.post(SERVER, userData)
-    if (response == null)
-      throw new Error('Unable to register, please try later')
+    if (response == null) {
+      setError('root', {
+        type: 'server',
+        message:
+          'An error occurred while trying to create an account. Please try again later',
+      })
+      return
+    }
     const { data } = response
     if (data) {
       const { token } = data
       if (token) setUser({ token })
     }
   } catch (err) {
-    if (response && response.status >= 400) {
-      setError('root', {
-        type: 'server',
-        message: response.data?.message as string,
-      })
+    if (err instanceof AxiosError && err.response) {
+      if (err.response && err.response.status >= 400) {
+        setError('root', {
+          type: 'server',
+          message: err.response.data?.message as string,
+        })
+      } else {
+        setError('root', {
+          type: 'server',
+          message:
+            'An error occurred while trying to create an account. Please try again later',
+        })
+      }
     }
   }
 }

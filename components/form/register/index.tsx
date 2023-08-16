@@ -14,7 +14,7 @@ import {
 import { RegisterFormState } from './types'
 import submitHandler from './submit-handler'
 import useFormProps from './use-form-props'
-import { useEffect } from 'react'
+import { Fragment, useEffect } from 'react'
 import { userAtom } from '@/atoms/index'
 import { useSetAtom } from 'jotai'
 import Link from 'next/link'
@@ -46,30 +46,42 @@ export function RegisterForm() {
       })
     }
   }, [fieldLessError, setError])
+  const rootError = errors['root']
+  console.log(errors)
 
   return (
-    <Form {...form}>
-      <form
-        className="flex flex-col w-full m-auto"
-        onSubmit={handleSubmit(submit)}
-      >
-        <FirstName form={form} />
-        <LastName form={form} />
-        <Email form={form} />
-        <Phone form={form} />
-        <Password form={form} />
-        <ConfirmPassword form={form} />
-        <DOB form={form} />
-        <Button className="mt-4 mb-8" type="submit">
-          Submit
-        </Button>
-        <p className="text-center">
-          Already have an account?{' '}
-          <Link href="/auth/login" className="dark:text-blue-200 text-blue-700">
-            Sign in
-          </Link>
+    <Fragment>
+      {rootError?.message && (
+        <p className="text-destructive font-bold my-8">
+          Error: {rootError?.message}
         </p>
-      </form>
-    </Form>
+      )}
+      <Form {...form}>
+        <form
+          className="flex flex-col w-full m-auto"
+          onSubmit={handleSubmit(submit)}
+        >
+          <FirstName form={form} />
+          <LastName form={form} />
+          <Email form={form} />
+          <Phone form={form} />
+          <Password form={form} />
+          <ConfirmPassword form={form} />
+          <DOB form={form} />
+          <Button className="mt-4 mb-8" type="submit">
+            Submit
+          </Button>
+          <p className="text-center">
+            Already have an account?{' '}
+            <Link
+              href="/auth/login"
+              className="dark:text-blue-200 text-blue-700"
+            >
+              Sign in
+            </Link>
+          </p>
+        </form>
+      </Form>
+    </Fragment>
   )
 }
