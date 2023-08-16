@@ -23,11 +23,12 @@ export function RegisterForm() {
   const setUser = useSetAtom(userAtom)
   const form = useForm<RegisterFormState>(useFormProps)
   const { handleSubmit } = form
+  const { setError } = form
   const submit: SubmitHandler<RegisterFormState> = submitHandler.bind(
     null,
-    setUser
+    setUser,
+    setError
   )
-  const { setError } = form
   const {
     formState: { errors },
   } = form

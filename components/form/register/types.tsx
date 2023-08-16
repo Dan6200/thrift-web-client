@@ -10,5 +10,6 @@ export interface RegisterFormState {
 }
 
 export interface ResponseData {
-  token: string
+  message?: string
+  token?: string
 }
