@@ -62,7 +62,7 @@ export const schema = joi
       .min(8)
       .message('Must be at least 8 characters')
       .pattern(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,}$/
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*+\-~^:;`._=\/\\{}\[\]\(\)])[A-Za-z\d!@#$%^&*+\-~^_:;`.=\/\\{}\[\]\(\)]{8,}$/
       )
       .message(
         'Passwords must have at least one lowercase letter, one uppercase letter, a digit and one special character'
@@ -81,3 +81,4 @@ export const schema = joi
   .or('email', 'phone')
   .required()
   .custom(customValidation)
+// +:t)tGL%gde~2mb

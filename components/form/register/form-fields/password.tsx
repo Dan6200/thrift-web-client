@@ -21,7 +21,11 @@ export const Password = ({
       <FormItem>
         <FormLabel>Choose a Secure Password</FormLabel>
         <FormControl>
-          <Input type="password" {...(field as InputProps)} />
+          <Input
+            type="password"
+            {...(field as InputProps)}
+            autoComplete="new-password"
+          />
         </FormControl>
         <FormMessage />
       </FormItem>

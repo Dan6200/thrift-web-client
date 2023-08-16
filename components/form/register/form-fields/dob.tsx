@@ -1,6 +1,7 @@
 import { UseFormReturn } from 'react-hook-form'
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -33,6 +34,11 @@ import {
   CommandItem,
 } from '@/components/ui/command'
 import { CaretSortIcon } from '@radix-ui/react-icons'
+
+const twelveYearsAgo = new Date()
+twelveYearsAgo.setFullYear(twelveYearsAgo.getFullYear() - 12)
+const hundredYearsAgo = new Date()
+hundredYearsAgo.setFullYear(hundredYearsAgo.getFullYear() - 100)
 
 export const DOB = ({
   form,
@@ -165,12 +171,15 @@ export const DOB = ({
                   field.onChange(...e)
                 }}
                 disabled={(date) =>
-                  date > new Date() || date < new Date('1900-01-01')
+                  date > twelveYearsAgo || date < hundredYearsAgo
                 }
                 initialFocus
               />
             </PopoverContent>
           </Popover>
+          <FormDescription>
+            Must be older than 12 years of age to register as a user.
+          </FormDescription>
           <FormMessage />
         </FormItem>
       )}
