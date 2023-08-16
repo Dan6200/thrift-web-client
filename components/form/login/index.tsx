@@ -18,9 +18,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { useRouter } from 'next/navigation'
 
 export function LoginForm() {
   const form = useForm<LoginFormState>(useFormProps)
+  const router = useRouter()
   const setUser = useSetAtom(userAtom)
   const {
     formState: { errors },
@@ -42,12 +44,12 @@ export function LoginForm() {
       })
     }
   }, [setError, fieldLessError])
-  console.log(form.watch('email'))
 
   const submit: SubmitHandler<LoginFormState> = submitHandler.bind(
     null,
     setUser,
-    setError
+    setError,
+    router
   )
   const rootError = errors['root']
 

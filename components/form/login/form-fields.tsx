@@ -37,48 +37,32 @@ export const Password = ({
   form,
 }: {
   form: UseFormReturn<LoginFormState, any, undefined>
-}) => {
-  const passwdRef = useRef<HTMLInputElement | null>(null)
-  useEffect(() => {
-    if (passwdRef !== null) {
-      const passwdEl = passwdRef.current
-      passwdEl?.addEventListener('change', handleChange)
-      passwdEl?.dispatchEvent(new Event('change', { bubbles: true }))
-      console.log(passwdEl)
-      return () => passwdEl?.removeEventListener('change', handleChange)
-    }
-  }, [])
-  const handleChange = (e: Event) => {
-    console.log('runs')
-    console.log((e.target as HTMLInputElement).value)
-  }
-  return (
-    <FormField
-      control={form.control}
-      name="password"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Password</FormLabel>
-          <FormControl>
-            <Input
-              {...(field as LoginInputProps)}
-              type="password"
-              autoComplete="current-password"
-              {...form.register('password', {
-                onInput: (ev: Event) =>
-                  form.setValue(
-                    'password',
-                    (ev.target as HTMLInputElement).value
-                  ),
-              } as RegisterOptions<LoginFormState, 'password'>)}
-            />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  )
-}
+}) => (
+  <FormField
+    control={form.control}
+    name="password"
+    render={({ field }) => (
+      <FormItem>
+        <FormLabel>Password</FormLabel>
+        <FormControl>
+          <Input
+            {...(field as LoginInputProps)}
+            type="password"
+            autoComplete="current-password"
+            {...form.register('password', {
+              onInput: (ev: Event) =>
+                form.setValue(
+                  'password',
+                  (ev.target as HTMLInputElement).value
+                ),
+            } as RegisterOptions<LoginFormState, 'password'>)}
+          />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    )}
+  />
+)
 
 export const Email = ({
   form,
@@ -95,13 +79,10 @@ export const Email = ({
           <Input
             placeholder="myemail@mail.com"
             {...(field as LoginInputProps)}
-            {...form.register('password', {
+            {...form.register('email', {
               onInput: (ev: Event) =>
-                form.setValue(
-                  'password',
-                  (ev.target as HTMLInputElement).value
-                ),
-            } as RegisterOptions<LoginFormState, 'password'>)}
+                form.setValue('email', (ev.target as HTMLInputElement).value),
+            } as RegisterOptions<LoginFormState, 'email'>)}
             autoComplete="email"
           />
         </FormControl>
@@ -126,13 +107,10 @@ export const Phone = ({
           <Input
             placeholder="08012345678"
             {...(field as LoginInputProps)}
-            {...form.register('password', {
+            {...form.register('phone', {
               onInput: (ev: Event) =>
-                form.setValue(
-                  'password',
-                  (ev.target as HTMLInputElement).value
-                ),
-            } as RegisterOptions<LoginFormState, 'password'>)}
+                form.setValue('phone', (ev.target as HTMLInputElement).value),
+            } as RegisterOptions<LoginFormState, 'phone'>)}
             autoComplete="tel"
           />
         </FormControl>

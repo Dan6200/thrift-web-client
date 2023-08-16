@@ -30,7 +30,8 @@ export const NavDrawer = () => {
             href="/account"
             className="active:bg-neutral-300 dark:active:bg-neutral-700"
           >
-            Hello{user?.token && `, ${user?.first_name}`}
+            Hello
+            {user && user.token && user.first_name && `, ${user.first_name}`}
           </Link>
         ) : (
           <Link href="/auth/login">
@@ -65,7 +66,7 @@ export const NavDrawer = () => {
           <Accordion type="single" collapsible className="my-8">
             <AccordionItem value="item-1">
               <AccordionTrigger className="hover:no-underline">
-                Welcome{user && `, ${user.first_name}`}
+                Welcome
               </AccordionTrigger>
               <AccordionContent>
                 <div className="flex flex-col space-y-3 p-4">

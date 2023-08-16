@@ -1,13 +1,14 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import { useRouter } from 'next/router'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
 import { UseFormSetError } from 'react-hook-form'
 import { LoginFormState, ResponseData } from './types'
 
-const SERVER = 'https://thrift-dev.onrender.com/v1/auth/login'
+const SERVER = 'https://thrift-dev.onrender.com/v1'
 
 export default async (
   setUser: any,
   setError: UseFormSetError<LoginFormState>,
+  router: AppRouterInstance,
   data: LoginFormState
 ) => {
   const loginData = data
@@ -18,7 +19,7 @@ export default async (
   }
   let response: AxiosResponse<ResponseData> | null = null
   try {
-    response = await axios.post(SERVER, loginData)
+    response = await axios.post(SERVER + '/auth/login', loginData)
     if (response == null) {
       setError('root', {
         type: 'server',
@@ -30,10 +31,13 @@ export default async (
     const { data } = response
     if (data) {
       const { token } = data
-      if (token) setUser({ token })
+      const user = await fetch(SERVER + '/account', {
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((res) => res.json())
+      if (token) setUser({ ...user, token })
     }
     // re-route to home
-    useRouter().push('/')
+    router.push('/')
   } catch (err) {
     if (err instanceof AxiosError && err.response) {
       if (err.response && err.response.status >= 400) {

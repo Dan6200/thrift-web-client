@@ -26,6 +26,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { useRouter } from 'next/navigation'
 
 export function RegisterForm() {
   const setUser = useSetAtom(userAtom)
@@ -35,7 +36,8 @@ export function RegisterForm() {
   const submit: SubmitHandler<RegisterFormState> = submitHandler.bind(
     null,
     setUser,
-    setError
+    setError,
+    useRouter()
   )
   const {
     formState: { errors },

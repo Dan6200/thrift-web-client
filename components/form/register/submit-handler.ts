@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
 import { useRouter } from 'next/router'
 import { UseFormSetError } from 'react-hook-form'
 import { RegisterFormState, ResponseData } from './types'
@@ -7,6 +8,7 @@ const SERVER = 'https://thrift-dev.onrender.com/v1'
 export default async (
   setUser: any,
   setError: UseFormSetError<RegisterFormState>,
+  router: AppRouterInstance,
   data: RegisterFormState
 ) => {
   const formData = data
@@ -30,14 +32,13 @@ export default async (
     const { data } = response
     if (data) {
       const { token } = data
-      const user = await fetch(
-        SERVER + '/account' + { headers: { Authorization: `Bearer ${token}` } }
-      ).then((res) => res.json())
-      console.log(user)
+      const user = await fetch(SERVER + '/account', {
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((res) => res.json())
       if (token) setUser({ ...user, token })
     }
     // re-route to home
-    useRouter().push('/')
+    router.push('/')
   } catch (err) {
     if (err instanceof AxiosError && err.response) {
       if (err.response && err.response.status >= 400) {
