@@ -10,6 +10,7 @@ export interface LoginFormState {
 
 export interface LoginInputProps extends InputProps {
   onChange: (...event: any[]) => {}
+  onInput: (...event: any[]) => {}
   onBlur: Noop
   value: string | undefined
   name: 'email' | 'phone' | 'password'

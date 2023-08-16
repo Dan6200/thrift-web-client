@@ -30,7 +30,7 @@ export const NavDrawer = () => {
             href="/account"
             className="active:bg-neutral-300 dark:active:bg-neutral-700"
           >
-            Manage Account
+            Hello{user?.token && `, ${user?.first_name}`}
           </Link>
         ) : (
           <Link href="/auth/login">

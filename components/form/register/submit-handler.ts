@@ -1,8 +1,9 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
+import { useRouter } from 'next/router'
 import { UseFormSetError } from 'react-hook-form'
 import { RegisterFormState, ResponseData } from './types'
 
-const SERVER = 'https://thrift-dev.onrender.com/v1/auth/register'
+const SERVER = 'https://thrift-dev.onrender.com/v1'
 export default async (
   setUser: any,
   setError: UseFormSetError<RegisterFormState>,
@@ -17,7 +18,7 @@ export default async (
   }
   let response: AxiosResponse<ResponseData> | null = null
   try {
-    response = await axios.post(SERVER, userData)
+    response = await axios.post(SERVER + '/auth/register', userData)
     if (response == null) {
       setError('root', {
         type: 'server',
@@ -29,8 +30,14 @@ export default async (
     const { data } = response
     if (data) {
       const { token } = data
-      if (token) setUser({ token })
+      const user = await fetch(
+        SERVER + '/account' + { headers: { Authorization: `Bearer ${token}` } }
+      ).then((res) => res.json())
+      console.log(user)
+      if (token) setUser({ ...user, token })
     }
+    // re-route to home
+    useRouter().push('/')
   } catch (err) {
     if (err instanceof AxiosError && err.response) {
       if (err.response && err.response.status >= 400) {

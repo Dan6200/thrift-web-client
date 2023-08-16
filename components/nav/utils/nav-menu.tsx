@@ -88,7 +88,7 @@ export function NavMenu() {
         {user?.token ? (
           <Link href="/account" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Manage Account
+              Hello{user?.token && `, ${user?.first_name}`}
             </NavigationMenuLink>
           </Link>
         ) : (

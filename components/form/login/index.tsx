@@ -42,6 +42,7 @@ export function LoginForm() {
       })
     }
   }, [setError, fieldLessError])
+  console.log(form.watch('email'))
 
   const submit: SubmitHandler<LoginFormState> = submitHandler.bind(
     null,

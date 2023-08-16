@@ -9,7 +9,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { UseFormReturn } from 'react-hook-form'
+import { RegisterOptions, UseFormReturn } from 'react-hook-form'
+import { useEffect, useRef } from 'react'
 
 export const TabbedContactField = ({
   form,
@@ -36,21 +37,48 @@ export const Password = ({
   form,
 }: {
   form: UseFormReturn<LoginFormState, any, undefined>
-}) => (
-  <FormField
-    control={form.control}
-    name="password"
-    render={({ field }) => (
-      <FormItem>
-        <FormLabel>Password</FormLabel>
-        <FormControl>
-          <Input {...(field as LoginInputProps)} type="password" />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    )}
-  />
-)
+}) => {
+  const passwdRef = useRef<HTMLInputElement | null>(null)
+  useEffect(() => {
+    if (passwdRef !== null) {
+      const passwdEl = passwdRef.current
+      passwdEl?.addEventListener('change', handleChange)
+      passwdEl?.dispatchEvent(new Event('change', { bubbles: true }))
+      console.log(passwdEl)
+      return () => passwdEl?.removeEventListener('change', handleChange)
+    }
+  }, [])
+  const handleChange = (e: Event) => {
+    console.log('runs')
+    console.log((e.target as HTMLInputElement).value)
+  }
+  return (
+    <FormField
+      control={form.control}
+      name="password"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Password</FormLabel>
+          <FormControl>
+            <Input
+              {...(field as LoginInputProps)}
+              type="password"
+              autoComplete="current-password"
+              {...form.register('password', {
+                onInput: (ev: Event) =>
+                  form.setValue(
+                    'password',
+                    (ev.target as HTMLInputElement).value
+                  ),
+              } as RegisterOptions<LoginFormState, 'password'>)}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}
 
 export const Email = ({
   form,
@@ -67,6 +95,14 @@ export const Email = ({
           <Input
             placeholder="myemail@mail.com"
             {...(field as LoginInputProps)}
+            {...form.register('password', {
+              onInput: (ev: Event) =>
+                form.setValue(
+                  'password',
+                  (ev.target as HTMLInputElement).value
+                ),
+            } as RegisterOptions<LoginFormState, 'password'>)}
+            autoComplete="email"
           />
         </FormControl>
         <FormMessage />
@@ -87,7 +123,18 @@ export const Phone = ({
       <FormItem>
         <FormLabel>Phone</FormLabel>
         <FormControl>
-          <Input placeholder="08012345678" {...(field as LoginInputProps)} />
+          <Input
+            placeholder="08012345678"
+            {...(field as LoginInputProps)}
+            {...form.register('password', {
+              onInput: (ev: Event) =>
+                form.setValue(
+                  'password',
+                  (ev.target as HTMLInputElement).value
+                ),
+            } as RegisterOptions<LoginFormState, 'password'>)}
+            autoComplete="tel"
+          />
         </FormControl>
         <FormMessage />
       </FormItem>

@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
+import { useRouter } from 'next/router'
 import { UseFormSetError } from 'react-hook-form'
 import { LoginFormState, ResponseData } from './types'
 
@@ -31,6 +32,8 @@ export default async (
       const { token } = data
       if (token) setUser({ token })
     }
+    // re-route to home
+    useRouter().push('/')
   } catch (err) {
     if (err instanceof AxiosError && err.response) {
       if (err.response && err.response.status >= 400) {
