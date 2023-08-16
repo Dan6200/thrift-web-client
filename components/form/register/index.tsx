@@ -55,7 +55,6 @@ export function RegisterForm() {
     }
   }, [fieldLessError, setError])
   const rootError = errors['root']
-  console.log(errors)
 
   return (
     <Fragment>
