@@ -18,6 +18,7 @@ import {
 import { ListItem } from '../utils/list-item'
 import { components } from '../utils/nav-components'
 import { UserCircle2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 export function NavMenu() {
   const user = useAtomValue(userAtom)
@@ -85,14 +86,14 @@ export function NavMenu() {
       </div>
       <div className="flex space-x-4">
         {user?.token ? (
-          <Link href="/account" legacyBehavior passHref className="w-80">
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+          <Link href="/account" legacyBehavior passHref>
+            <NavigationMenuLink className={cn(navigationMenuTriggerStyle())}>
               Hello
               {user && user.token && user.first_name && (
-                <div className="w-full">
+                <span className="w-20 flex items-center justify-between">
                   , {user.first_name}
                   <UserCircle2 />
-                </div>
+                </span>
               )}
             </NavigationMenuLink>
           </Link>

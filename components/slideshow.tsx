@@ -7,6 +7,7 @@ import { useAtomValue } from 'jotai'
 import { isSmallScreenAtom } from '@/atoms'
 
 export function Slideshow(props: PropsWithChildren) {
+  return null
   const isSmallScreen = useAtomValue(isSmallScreenAtom)
   const images = []
   const smallerImages = []
