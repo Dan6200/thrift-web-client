@@ -2,7 +2,7 @@
 import { SwipeableDrawer } from '@mui/material'
 import Link from 'next/link'
 import { useState } from 'react'
-import { HamburgerMenuIcon } from '@radix-ui/react-icons'
+import { Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Accordion,
@@ -10,7 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { PanelRightClose } from 'lucide-react'
+import { PanelRightClose, UserCircle2 } from 'lucide-react'
 import { components } from './nav-components'
 import { useAtomValue } from 'jotai'
 import { userAtom } from '@/atoms'
@@ -30,8 +30,7 @@ export const NavDrawer = () => {
             href="/account"
             className="active:bg-neutral-300 dark:active:bg-neutral-700"
           >
-            Hello
-            {user && user.token && user.first_name && `, ${user.first_name}`}
+            <UserCircle2 />
           </Link>
         ) : (
           <Link href="/auth/login">
@@ -45,7 +44,7 @@ export const NavDrawer = () => {
           variant="outline"
           size="icon"
         >
-          <HamburgerMenuIcon />
+          <Menu />
         </Button>
       </div>
       <SwipeableDrawer
@@ -66,7 +65,7 @@ export const NavDrawer = () => {
           <Accordion type="single" collapsible className="my-8">
             <AccordionItem value="item-1">
               <AccordionTrigger className="hover:no-underline">
-                Welcome
+                Welcome{user?.token && `, ${user.first_name}`}
               </AccordionTrigger>
               <AccordionContent>
                 <div className="flex flex-col space-y-3 p-4">
@@ -129,6 +128,11 @@ export const NavDrawer = () => {
             </AccordionItem>
             <ModeToggle />
           </Accordion>
+          <Link href="/auth/login">
+            <Button className="w-full text-destructive font-semibold text-md">
+              Sign out
+            </Button>
+          </Link>
         </div>
       </SwipeableDrawer>
     </div>

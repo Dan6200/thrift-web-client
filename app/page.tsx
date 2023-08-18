@@ -22,7 +22,7 @@ export default async function Home() {
           Welcome to Thrift
         </h1>
         <p className="w-full mx-auto my-4 text-lg text-center">
-          Buy and sell products of any category, find the lowest prices on
+          Buy and sell products of any category. Find the lowest prices on
           Thrift!!!
         </p>
         <Slideshow />
