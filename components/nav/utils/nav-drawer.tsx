@@ -1,5 +1,6 @@
 // cspell:ignore SwipeableDrawer
 import { SwipeableDrawer } from '@mui/material'
+import axios from 'axios'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Menu } from 'lucide-react'
@@ -12,13 +13,14 @@ import {
 } from '@/components/ui/accordion'
 import { PanelRightClose, UserCircle2 } from 'lucide-react'
 import { components } from './nav-components'
-import { useAtomValue } from 'jotai'
+import { useAtom } from 'jotai'
 import { userAtom } from '@/atoms'
 import { ModeToggle } from '@/components/dark-mode-toggle'
+import { logout } from './logout'
 
 export const NavDrawer = () => {
   const [isOpen, toggleDrawer] = useState(false)
-  const user = useAtomValue(userAtom)
+  const [user, setUser] = useAtom(userAtom)
   return (
     <div className="max-w-none flex flex-row items-center justify-between w-full px-4 py-4  border-b shadow-md dark:shadow-none">
       <Link href="/" className="text-2xl font-bold">
@@ -128,11 +130,14 @@ export const NavDrawer = () => {
             </AccordionItem>
             <ModeToggle />
           </Accordion>
-          <Link href="/auth/login">
-            <Button className="w-full text-destructive font-semibold text-md">
+          {user && (
+            <Button
+              className="w-full text-destructive text-md"
+              onClick={user ? logout.bind(null, user, setUser) : undefined}
+            >
               Sign out
             </Button>
-          </Link>
+          )}
         </div>
       </SwipeableDrawer>
     </div>

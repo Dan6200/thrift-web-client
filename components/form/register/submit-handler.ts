@@ -1,10 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
-import { useRouter } from 'next/router'
 import { UseFormSetError } from 'react-hook-form'
 import { RegisterFormState, ResponseData } from './types'
 
-const SERVER = 'https://thrift-dev.onrender.com/v1'
 export default async (
   setUser: any,
   setError: UseFormSetError<RegisterFormState>,
@@ -20,7 +18,10 @@ export default async (
   }
   let response: AxiosResponse<ResponseData> | null = null
   try {
-    response = await axios.post(SERVER + '/auth/register', userData)
+    response = await axios.post(
+      process.env.NEXT_PUBLIC_SERVER + '/auth/register',
+      userData
+    )
     if (response == null) {
       setError('root', {
         type: 'server',
@@ -32,7 +33,7 @@ export default async (
     const { data } = response
     if (data) {
       const { token } = data
-      const user = await fetch(SERVER + '/account', {
+      const user = await fetch(process.env.NEXT_PUBLIC_SERVER + '/account', {
         headers: { Authorization: `Bearer ${token}` },
       }).then((res) => res.json())
       if (token) setUser({ ...user, token })
