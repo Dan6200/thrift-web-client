@@ -18,10 +18,11 @@ export default async (
   }
   let response: AxiosResponse<ResponseData> | null = null
   try {
-    response = await axios.post(
-      process.env.NEXT_PUBLIC_SERVER + '/auth/register',
-      userData
-    )
+    if (process.env.NEXT_PUBLIC_SERVER)
+      response = await axios.post(
+        process.env.NEXT_PUBLIC_SERVER + '/auth/register',
+        userData
+      )
     if (response == null) {
       setError('root', {
         type: 'server',
@@ -33,10 +34,12 @@ export default async (
     const { data } = response
     if (data) {
       const { token } = data
-      const user = await fetch(process.env.NEXT_PUBLIC_SERVER + '/account', {
-        headers: { Authorization: `Bearer ${token}` },
-      }).then((res) => res.json())
-      if (token) setUser({ ...user, token })
+      if (process.env.NEXT_PUBLIC_SERVER) {
+        const user = await fetch(process.env.NEXT_PUBLIC_SERVER + '/account', {
+          headers: { Authorization: `Bearer ${token}` },
+        }).then((res) => res.json())
+        if (token) setUser({ ...user, token })
+      }
     }
     // re-route to home
     router.push('/')
