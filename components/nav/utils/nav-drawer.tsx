@@ -12,17 +12,27 @@ import {
 } from '@/components/ui/accordion'
 import { PanelRightClose, UserCircle2 } from 'lucide-react'
 import { components } from './nav-components'
-import { useAtom } from 'jotai'
-import { userAtom } from '@/atoms'
 import { ModeToggle } from '@/components/dark-mode-toggle'
 import { logout } from './logout'
+import { UserAccount } from '@/components/user-account/types'
+import { useSetAtom } from 'jotai'
 
-export const NavDrawer = () => {
+type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
+
+export const NavDrawer = ({
+  user,
+  setUser,
+}: {
+  user: UserAccount | null
+  setUser: SetUser
+}) => {
   const [isOpen, toggleDrawer] = useState(false)
-  const [user, setUser] = useAtom(userAtom)
   return (
-    <div className="max-w-none flex flex-row items-center justify-between w-full px-4 py-4  border-b shadow-md dark:shadow-none">
-      <Link href="/" className="text-2xl font-bold">
+    <div className="max-w-none border-b flex flex-row items-center justify-between w-full px-4 py-4 bg-background shadow-md dark:shadow-none">
+      <Link
+        href="/"
+        className="text-2xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold"
+      >
         Thrift
       </Link>
       <div className="flex items-center space-x-4">
