@@ -14,8 +14,8 @@ import { PanelRightClose, UserCircle2 } from 'lucide-react'
 import { components } from './nav-components'
 import { ModeToggle } from '@/components/dark-mode-toggle'
 import { logout } from './logout'
-import { UserAccount } from '@/components/user-account/types'
 import { useSetAtom } from 'jotai'
+import { UserAccount } from '@/components/user-account/types'
 
 type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
 
@@ -45,7 +45,10 @@ export const NavDrawer = ({
           </Link>
         ) : (
           <Link href="/auth/login">
-            <Button type="button" className="py-1 px-3">
+            <Button
+              type="button"
+              className="bg-gradient-to-r from-primary to-secondary py-1 px-3 font-semibold"
+            >
               Sign In
             </Button>
           </Link>

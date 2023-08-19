@@ -7,6 +7,8 @@ import { Product } from './types'
 import { useAtomValue } from 'jotai'
 import { isSmallScreenAtom } from '@/atoms'
 import { Price } from './utils/price'
+import { Button } from '@/components/ui/button'
+import { Plus, ShoppingCart } from 'lucide-react'
 
 export const ProductsSubComponent = ({
   totalProducts,
@@ -32,14 +34,14 @@ export const ProductsSubComponent = ({
             className="active:bg-blue-100"
             key={product?.product_id}
           >
-            <Card className="w-full sm:w-[30vw] md:w-[25vw] lg:w-[22vw] h-[22rem] overflow-hidden rounded-sm">
-              <CardContent className="bg-white border-b p-0 w-full flex items-center h-44">
+            <Card className="w-full sm:w-[30vw] md:w-[25vw] lg:w-[22vw] h-[23rem] overflow-hidden rounded-sm">
+              <CardContent className="bg-white border-b p-0 w-full flex items-center h-40">
                 <ProductImage
                   className="object-contain w-full max-h-40"
                   imgData={product?.media?.find((img) => img?.is_display_image)}
                 />
               </CardContent>
-              <CardFooter className="p-2 sm:p-4 flex flex-col items-center justify-between h-40">
+              <CardFooter className="p-2 sm:p-4 flex flex-col items-center justify-between h-52">
                 <h4 className="my-4 w-full whitespace-normal break-words">
                   {/* remove &nbsp; that breaks ui */}
                   {product?.title
@@ -51,6 +53,21 @@ export const ProductsSubComponent = ({
                     netPrice={product?.net_price}
                     listPrice={product?.list_price}
                   />
+                </div>
+                <div className="flex w-full mt-4 justify-between">
+                  <Button className="p-1 h-9 w-20" variant={'outline'}>
+                    {isSmallScreen ? (
+                      <>
+                        <ShoppingCart />
+                        <Plus className="w-4" />
+                      </>
+                    ) : (
+                      'Add To Cart'
+                    )}
+                  </Button>
+                  <Button className="p-1 h-9 w-20" variant="outline">
+                    Buy Now
+                  </Button>
                 </div>
               </CardFooter>
             </Card>

@@ -18,13 +18,13 @@ import { ListItem } from '../utils/list-item'
 import { components } from '../utils/nav-components'
 import { UserCircle2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { UserAccount } from '@/components/user-account/types'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { logout } from './logout'
+import { UserAccount } from '@/components/user-account/types'
 
 type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
 
@@ -127,7 +127,10 @@ export function NavMenu({
           </Link>
         ) : (
           <Link href="/auth/login">
-            <Button type="button" className="py-1 px-3">
+            <Button
+              type="button"
+              className="bg-gradient-to-r from-primary to-secondary py-1 px-3"
+            >
               Sign In
             </Button>
           </Link>
