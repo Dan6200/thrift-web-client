@@ -4,8 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { ModeToggle } from '../../dark-mode-toggle'
 import { Button } from '../../ui/button'
-import { useAtomValue } from 'jotai'
-import { userTokenAtom } from '@/atoms'
+import { useSetAtom } from 'jotai'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -17,14 +16,33 @@ import {
 } from '@/components/ui/navigation-menu'
 import { ListItem } from '../utils/list-item'
 import { components } from '../utils/nav-components'
+import { UserCircle2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { UserAccount } from '@/components/user-account/types'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import { logout } from './logout'
 
-export function NavMenu() {
-  const userToken = useAtomValue(userTokenAtom)
+type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
+
+export function NavMenu({
+  user,
+  setUser,
+}: {
+  user: UserAccount | null
+  setUser: SetUser
+}) {
   return (
-    <NavigationMenu className="max-w-none flex flex-row items-center justify-between w-full px-4 py-4  border-b shadow-md dark:bg-background  dark:shadow-none">
+    <NavigationMenu className="max-w-none border-b flex flex-row items-center justify-between w-full px-4 py-4  shadow-md dark:bg-background  dark:shadow-none">
       <div className="justify-start flex">
-        <Link href="/" className="text-2xl font-bold">
-          Thrift Commerce
+        <Link
+          href="/"
+          className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent text-2xl font-bold"
+        >
+          Thrift
         </Link>
         <NavigationMenuList className="ml-16">
           <NavigationMenuItem>
@@ -83,11 +101,29 @@ export function NavMenu() {
         </NavigationMenuList>
       </div>
       <div className="flex space-x-4">
-        {userToken ? (
+        {user?.token ? (
           <Link href="/account" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Manage Account
-            </NavigationMenuLink>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="outline" className="border-none">
+                  Hello
+                  {user && user.token && user.first_name && (
+                    <span className="w-20 flex items-center justify-between">
+                      , {user.first_name}
+                      <UserCircle2 />
+                    </span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <Button
+                  className="w-full text-destructive text-md"
+                  onClick={user ? logout.bind(null, user, setUser) : undefined}
+                >
+                  Sign out
+                </Button>
+              </PopoverContent>
+            </Popover>
           </Link>
         ) : (
           <Link href="/auth/login">

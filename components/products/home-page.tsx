@@ -19,7 +19,7 @@ export const ProductsHome = ({ products }: { products: Product[] }) => {
 
   return (
     <div className="mx-auto">
-      <h4 className="w-full mx-auto my-8 text-xl font-bold text-center">
+      <h4 className="w-full mx-auto my-4 text-xl font-bold text-center">
         New Arrivals
       </h4>
       <ProductsSubComponent productsToDisplay={productsToDisplay} />

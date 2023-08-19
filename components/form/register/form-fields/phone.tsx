@@ -22,7 +22,11 @@ export const Phone = ({
         <FormItem>
           <FormLabel className="block">Phone number</FormLabel>
           <FormControl>
-            <Input {...(field as InputProps)} placeholder="08012345678" />
+            <Input
+              {...(field as InputProps)}
+              placeholder="08012345678"
+              autoComplete="tel"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

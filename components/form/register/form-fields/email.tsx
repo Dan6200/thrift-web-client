@@ -1,4 +1,5 @@
 import { Input, InputProps } from '@/components/ui/input'
+import { forwardRef } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import {
   FormControl,
@@ -22,7 +23,11 @@ export const Email = ({
       <FormItem>
         <FormLabel>Enter your Email</FormLabel>
         <FormControl>
-          <Input {...(field as InputProps)} placeholder="myemail@mail.com" />
+          <Input
+            {...(field as InputProps)}
+            placeholder="myemail@mail.com"
+            autoComplete="email"
+          />
         </FormControl>
         <FormDescription>
           You may optionally enter your email, phone number or both

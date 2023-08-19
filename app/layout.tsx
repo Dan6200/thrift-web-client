@@ -7,7 +7,7 @@ import Providers from './providers'
 
 export const metadata = {
   title: 'Thrift eCommerce',
-  description: 'A thrift store for the modern age.',
+  description: 'An eCommerce store for the modern Nigerian.',
 }
 
 export default function RootLayout({

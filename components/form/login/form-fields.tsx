@@ -9,7 +9,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { UseFormReturn } from 'react-hook-form'
+import { RegisterOptions, UseFormReturn } from 'react-hook-form'
+import { useEffect, useRef } from 'react'
 
 export const TabbedContactField = ({
   form,
@@ -44,7 +45,18 @@ export const Password = ({
       <FormItem>
         <FormLabel>Password</FormLabel>
         <FormControl>
-          <Input {...(field as LoginInputProps)} type="password" />
+          <Input
+            {...(field as LoginInputProps)}
+            type="password"
+            autoComplete="current-password"
+            {...form.register('password', {
+              onInput: (ev: Event) =>
+                form.setValue(
+                  'password',
+                  (ev.target as HTMLInputElement).value
+                ),
+            } as RegisterOptions<LoginFormState, 'password'>)}
+          />
         </FormControl>
         <FormMessage />
       </FormItem>
@@ -67,6 +79,11 @@ export const Email = ({
           <Input
             placeholder="myemail@mail.com"
             {...(field as LoginInputProps)}
+            {...form.register('email', {
+              onInput: (ev: Event) =>
+                form.setValue('email', (ev.target as HTMLInputElement).value),
+            } as RegisterOptions<LoginFormState, 'email'>)}
+            autoComplete="email"
           />
         </FormControl>
         <FormMessage />
@@ -87,7 +104,15 @@ export const Phone = ({
       <FormItem>
         <FormLabel>Phone</FormLabel>
         <FormControl>
-          <Input placeholder="08012345678" {...(field as LoginInputProps)} />
+          <Input
+            placeholder="08012345678"
+            {...(field as LoginInputProps)}
+            {...form.register('phone', {
+              onInput: (ev: Event) =>
+                form.setValue('phone', (ev.target as HTMLInputElement).value),
+            } as RegisterOptions<LoginFormState, 'phone'>)}
+            autoComplete="tel"
+          />
         </FormControl>
         <FormMessage />
       </FormItem>

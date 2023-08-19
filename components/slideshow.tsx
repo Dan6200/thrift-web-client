@@ -7,30 +7,39 @@ import { useAtomValue } from 'jotai'
 import { isSmallScreenAtom } from '@/atoms'
 
 export function Slideshow(props: PropsWithChildren) {
+  return null
   const isSmallScreen = useAtomValue(isSmallScreenAtom)
-  const images = [
-    { src: '/pexels-ovan-62689.jpg', alt: '' },
-    { src: '/pexels-elvis-2528118.jpg', alt: '' },
-    { src: '/pexels-athena-2043590.jpg', alt: '' },
-    { src: '/pexels-pixabay-159376.jpg', alt: '' },
-    { src: '/pexels-pixabay-459762.jpg', alt: '' },
-    { src: '/pexels-harsh-kushwaha-1721558.jpg', alt: '' },
-    { src: '/pexels-noah-erickson-404280.jpg', alt: '' },
-    { src: '/pexels-designecologist-1779487.jpg', alt: '' },
-  ]
+  const images = []
+  const smallerImages = []
+  const imgList = isSmallScreen ? smallerImages : images
   return (
-    <Carousel className="h-96 md:h-[30rem] md:w-[80vw] mx-auto shadow-sm mb-8">
-      {images.map(({ src, alt }: any) => (
-        <Link key={src} href="/products">
-          <Image
-            key={src}
-            src={src}
-            alt={alt}
-            width={isSmallScreen ? 800 : 1000}
-            height={isSmallScreen ? 400 : 800}
-            className="object-cover object-center w-full h-80 md:h-[27rem]"
-            {...props}
-          />
+    <Carousel className="w-[70vw] md:w-[50vw] mx-auto shadow-sm mb-8">
+      {imgList.map(({ src, alt, category }: any) => (
+        <Link key={src} href={`/categories/${category}`}>
+          {isSmallScreen ? (
+            <Image
+              key={src}
+              src={src}
+              alt={alt}
+              width={600}
+              height={1000}
+              className=""
+              {...props}
+            />
+          ) : (
+            <Image
+              id="large"
+              key={src}
+              src={src}
+              alt={alt}
+              width={1920}
+              height={1200}
+              objectFit="cover"
+              objectPosition="center"
+              className="h-[80vh]"
+              {...props}
+            />
+          )}
         </Link>
       ))}
     </Carousel>

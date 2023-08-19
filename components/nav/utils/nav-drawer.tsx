@@ -2,7 +2,7 @@
 import { SwipeableDrawer } from '@mui/material'
 import Link from 'next/link'
 import { useState } from 'react'
-import { HamburgerMenuIcon } from '@radix-ui/react-icons'
+import { Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Accordion,
@@ -10,23 +10,54 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { PanelRightClose } from 'lucide-react'
+import { PanelRightClose, UserCircle2 } from 'lucide-react'
 import { components } from './nav-components'
-import { useAtomValue } from 'jotai'
-import { userTokenAtom } from '@/atoms'
 import { ModeToggle } from '@/components/dark-mode-toggle'
+import { logout } from './logout'
+import { UserAccount } from '@/components/user-account/types'
+import { useSetAtom } from 'jotai'
 
-export const NavDrawer = () => {
+type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
+
+export const NavDrawer = ({
+  user,
+  setUser,
+}: {
+  user: UserAccount | null
+  setUser: SetUser
+}) => {
   const [isOpen, toggleDrawer] = useState(false)
-  const userToken = useAtomValue(userTokenAtom)
   return (
-    <div className="max-w-none flex flex-row items-center justify-between w-full px-4 py-4  border-b shadow-md dark:shadow-none">
-      <Link href="/" className="text-2xl font-bold">
-        Thrift Commerce
+    <div className="max-w-none border-b flex flex-row items-center justify-between w-full px-4 py-4 bg-background shadow-md dark:shadow-none">
+      <Link
+        href="/"
+        className="text-2xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold"
+      >
+        Thrift
       </Link>
-      <Button onClick={() => toggleDrawer(true)} variant="outline" size="icon">
-        <HamburgerMenuIcon />
-      </Button>
+      <div className="flex items-center space-x-4">
+        {user?.token ? (
+          <Link
+            href="/account"
+            className="active:bg-neutral-300 dark:active:bg-neutral-700"
+          >
+            <UserCircle2 />
+          </Link>
+        ) : (
+          <Link href="/auth/login">
+            <Button type="button" className="py-1 px-3">
+              Sign In
+            </Button>
+          </Link>
+        )}
+        <Button
+          onClick={() => toggleDrawer(true)}
+          variant="outline"
+          size="icon"
+        >
+          <Menu />
+        </Button>
+      </div>
       <SwipeableDrawer
         anchor="right"
         open={isOpen}
@@ -45,7 +76,7 @@ export const NavDrawer = () => {
           <Accordion type="single" collapsible className="my-8">
             <AccordionItem value="item-1">
               <AccordionTrigger className="hover:no-underline">
-                Welcome
+                Welcome{user?.token && `, ${user.first_name}`}
               </AccordionTrigger>
               <AccordionContent>
                 <div className="flex flex-col space-y-3 p-4">
@@ -108,22 +139,14 @@ export const NavDrawer = () => {
             </AccordionItem>
             <ModeToggle />
           </Accordion>
-          <div className="overflow-visible flex flex-col items-center space-y-4">
-            {userToken ? (
-              <Link
-                href="/account"
-                className="active:bg-neutral-300 dark:active:bg-neutral-700"
-              >
-                Manage Account
-              </Link>
-            ) : (
-              <Link href="/auth/login" className="w-full">
-                <Button type="button" className="w-full py-1 px-3">
-                  Sign In
-                </Button>
-              </Link>
-            )}
-          </div>
+          {user && (
+            <Button
+              className="w-full text-destructive text-md"
+              onClick={user ? logout.bind(null, user, setUser) : undefined}
+            >
+              Sign out
+            </Button>
+          )}
         </div>
       </SwipeableDrawer>
     </div>
