@@ -45,10 +45,7 @@ export const NavDrawer = ({
           </Link>
         ) : (
           <Link href="/auth/login">
-            <Button
-              type="button"
-              className="bg-gradient-to-r from-primary to-secondary py-1 px-3 font-semibold"
-            >
+            <Button type="button" className="py-1 px-3 text-md h-8">
               Sign In
             </Button>
           </Link>

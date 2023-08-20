@@ -23,7 +23,6 @@ export type ProductData = {
 export function isProductData(
   productData: unknown
 ): productData is ProductData {
-  debugger
   return (
     typeof productData === 'object' &&
     productData !== null &&

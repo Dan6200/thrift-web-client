@@ -127,10 +127,7 @@ export function NavMenu({
           </Link>
         ) : (
           <Link href="/auth/login">
-            <Button
-              type="button"
-              className="bg-gradient-to-r from-primary to-secondary py-1 px-3"
-            >
+            <Button type="button" className="text-md py-1 px-3">
               Sign In
             </Button>
           </Link>

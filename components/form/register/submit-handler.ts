@@ -41,8 +41,8 @@ export default async (
         if (token) setUser({ ...user, token })
       }
     }
-    // re-route to home
-    router.push('/')
+    // re-route to previous page
+    router.back()
   } catch (err) {
     if (err instanceof AxiosError && err.response) {
       if (err.response && err.response.status >= 400) {

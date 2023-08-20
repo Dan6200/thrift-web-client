@@ -55,7 +55,7 @@ export const ProductsSubComponent = ({
                   />
                 </div>
                 <div className="flex w-full mt-4 justify-between">
-                  <Button className="p-1 h-9 w-20" variant={'outline'}>
+                  <Button className="p-1 h-9 w-20 sm:w-32" variant={'outline'}>
                     {isSmallScreen ? (
                       <>
                         <ShoppingCart />
@@ -65,7 +65,7 @@ export const ProductsSubComponent = ({
                       'Add To Cart'
                     )}
                   </Button>
-                  <Button className="p-1 h-9 w-20" variant="outline">
+                  <Button className="p-1 h-9 w-20 sm:w-32" variant="outline">
                     Buy Now
                   </Button>
                 </div>
