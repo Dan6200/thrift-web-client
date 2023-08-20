@@ -19,6 +19,7 @@ import {
   DialogTrigger,
 } from '../ui/dialog'
 import { UserAccount } from '../user-account/types'
+import { BuyNow } from './utils/by-now'
 
 export const ProductsSubComponent = ({
   user,
@@ -86,34 +87,12 @@ export const ProductsSubComponent = ({
                     'Add To Cart'
                   )}
                 </Button>
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button
-                      className="hover:bg-neutral-700 p-1 h-9 w-20 sm:w-[9vw]"
-                      variant="outline"
-                    >
-                      Buy Now
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="w-[80vw] h-[80vh] sm:w-[80vw] md:w-[70vw] max-w-none">
-                    <DialogHeader>
-                      <DialogTitle>Purchase Item</DialogTitle>
-                    </DialogHeader>
-                    <ProductImage
-                      className="object-contain w-[20vw] max-h-40"
-                      imgData={product?.media?.find(
-                        (img) => img?.is_display_image
-                      )}
-                    />
-                    <DialogFooter>
-                      {user ? (
-                        <Button>Continue With Purchase</Button>
-                      ) : (
-                        <Button>Add Shipping Info</Button>
-                      )}
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
+                <BuyNow
+                  user={user}
+                  imgData={product?.media?.find((img) => img?.is_display_image)}
+                  netPrice={product?.net_price}
+                  listPrice={product?.list_price}
+                />
               </div>
             </CardFooter>
           </Card>
