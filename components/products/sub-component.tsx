@@ -9,12 +9,24 @@ import { isSmallScreenAtom } from '@/atoms'
 import { Price } from './utils/price'
 import { Button } from '@/components/ui/button'
 import { Plus, ShoppingCart } from 'lucide-react'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '../ui/dialog'
+import { UserAccount } from '../user-account/types'
 
 export const ProductsSubComponent = ({
+  user,
   totalProducts,
   itemsPerPage,
   productsToDisplay,
 }: {
+  user: UserAccount
   totalProducts?: number
   itemsPerPage?: number
   productsToDisplay: Product[]
@@ -28,20 +40,28 @@ export const ProductsSubComponent = ({
       )}
       <div className="w-full sm:px-4 sm:py-2 md:px-8 md:py-4 mx-auto place-items-center grid grid-cols-2 gap-2 sm:gap-5 sm:grid-cols-3 lg:grid-cols-4">
         {productsToDisplay.map((product) => (
-          <Link
-            href={`/products/${product?.product_id}`}
-            passHref
-            className="active:bg-blue-100"
+          <Card
             key={product?.product_id}
+            className="w-full sm:w-[30vw] md:w-[25vw] lg:w-[22vw] h-[24rem] overflow-hidden rounded-sm"
           >
-            <Card className="w-full sm:w-[30vw] md:w-[25vw] lg:w-[22vw] h-[23rem] overflow-hidden rounded-sm">
-              <CardContent className="bg-white border-b p-0 w-full flex items-center h-40">
+            <Link
+              href={`/products/${product?.product_id}`}
+              passHref
+              className="active:bg-blue-100"
+            >
+              <CardContent className="bg-white border-b p-0 w-full flex items-center h-44">
                 <ProductImage
                   className="object-contain w-full max-h-40"
                   imgData={product?.media?.find((img) => img?.is_display_image)}
                 />
               </CardContent>
-              <CardFooter className="p-2 sm:p-4 flex flex-col items-center justify-between h-52">
+            </Link>
+            <CardFooter className="p-2 sm:p-4 flex flex-col items-center justify-between h-44">
+              <Link
+                href={`/products/${product?.product_id}`}
+                passHref
+                className="active:bg-blue-100"
+              >
                 <h4 className="my-4 w-full whitespace-normal break-words">
                   {/* remove &nbsp; that breaks ui */}
                   {product?.title
@@ -54,24 +74,49 @@ export const ProductsSubComponent = ({
                     listPrice={product?.list_price}
                   />
                 </div>
-                <div className="flex w-full mt-4 justify-between">
-                  <Button className="p-1 h-9 w-20 sm:w-32" variant={'outline'}>
-                    {isSmallScreen ? (
-                      <>
-                        <ShoppingCart />
-                        <Plus className="w-4" />
-                      </>
-                    ) : (
-                      'Add To Cart'
-                    )}
-                  </Button>
-                  <Button className="p-1 h-9 w-20 sm:w-32" variant="outline">
-                    Buy Now
-                  </Button>
-                </div>
-              </CardFooter>
-            </Card>
-          </Link>
+              </Link>
+              <div className="flex w-full mt-4 justify-between">
+                <Button className="p-1 h-9 w-20 sm:w-[9vw]" variant={'outline'}>
+                  {isSmallScreen ? (
+                    <>
+                      <ShoppingCart />
+                      <Plus className="w-4" />
+                    </>
+                  ) : (
+                    'Add To Cart'
+                  )}
+                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      className="hover:bg-neutral-700 p-1 h-9 w-20 sm:w-[9vw]"
+                      variant="outline"
+                    >
+                      Buy Now
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="w-[80vw] h-[80vh] sm:w-[80vw] md:w-[70vw] max-w-none">
+                    <DialogHeader>
+                      <DialogTitle>Purchase Item</DialogTitle>
+                    </DialogHeader>
+                    <ProductImage
+                      className="object-contain w-[20vw] max-h-40"
+                      imgData={product?.media?.find(
+                        (img) => img?.is_display_image
+                      )}
+                    />
+                    <DialogFooter>
+                      {user ? (
+                        <Button>Continue With Purchase</Button>
+                      ) : (
+                        <Button>Add Shipping Info</Button>
+                      )}
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </CardFooter>
+          </Card>
         ))}
       </div>
       {totalProducts && itemsPerPage && (
