@@ -2,6 +2,7 @@ import { atom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import { Product } from '@/components/products/types'
 import { UserAccount } from '@/components/user-account/types'
+import ShippingInfo from '@/components/shipping-info/types'
 
 export const pageAtom = atom(0)
 export const productsAtom = atom<Product[]>([])
@@ -11,4 +12,7 @@ export const userAtom = atomWithStorage<UserAccount | null>(
   'user_account_details',
   null
 )
-export const shippingInfoAtom = atom(null)
+export const shippingInfoAtom = atomWithStorage<ShippingInfo | null>(
+  'shipping-info',
+  null
+)

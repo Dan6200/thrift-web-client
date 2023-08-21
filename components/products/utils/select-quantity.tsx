@@ -1,26 +1,36 @@
 'use client'
 import { ProductImage } from '../image'
 import { Button } from '@/components/ui/button'
-import { DialogFooter, DialogHeader, DialogTitle } from '../../ui/dialog'
-import { Minus, Plus } from 'lucide-react'
+import {
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '../../ui/dialog'
+import { ArrowLeft, Minus, Plus } from 'lucide-react'
 import { CardContent } from '@/components/ui/card'
 import { Dispatch, SetStateAction } from 'react'
 import { ImgData } from '../types'
+import ShippingInfo from '@/components/shipping-info/types'
 
-export const ConfirmPurchase = ({
+export const SelectQuantity = ({
   quantity,
   quantityAvailable,
   setQuantity,
   shippingInfo,
   imgData,
   netPrice,
+  setIsAddingShipping,
+  setIsAddingCard,
 }: {
   quantity: number
   quantityAvailable: number
   setQuantity: Dispatch<SetStateAction<number>>
   shippingInfo: ShippingInfo | null
   imgData: ImgData
-  netPrice: number
+  netPrice: string | number
+  setIsAddingShipping: Dispatch<SetStateAction<boolean>>
+  setIsAddingCard: Dispatch<SetStateAction<boolean>>
 }) => (
   <>
     <DialogHeader>
@@ -74,9 +84,13 @@ export const ConfirmPurchase = ({
         </p>
       </div>
       {shippingInfo ? (
-        <Button>Continue With Purchase</Button>
+        <Button onClick={() => setIsAddingCard(true)}>
+          Continue With Purchase
+        </Button>
       ) : (
-        <Button>Add Shipping Info</Button>
+        <Button onClick={() => setIsAddingShipping(true)}>
+          Add Shipping Info
+        </Button>
       )}
     </DialogFooter>
   </>
