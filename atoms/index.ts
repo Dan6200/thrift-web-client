@@ -11,3 +11,4 @@ export const userAtom = atomWithStorage<UserAccount | null>(
   'user_account_details',
   null
 )
+export const shippingInfoAtom = atom(null)

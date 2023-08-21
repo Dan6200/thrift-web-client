@@ -9,31 +9,19 @@ import { isSmallScreenAtom } from '@/atoms'
 import { Price } from './utils/price'
 import { Button } from '@/components/ui/button'
 import { Plus, ShoppingCart } from 'lucide-react'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '../ui/dialog'
-import { UserAccount } from '../user-account/types'
-import { BuyNow } from './utils/by-now'
+import { BuyNow } from './utils/buy-now'
 
 export const ProductsSubComponent = ({
-  user,
   totalProducts,
   itemsPerPage,
   productsToDisplay,
 }: {
-  user: UserAccount
   totalProducts?: number
   itemsPerPage?: number
   productsToDisplay: Product[]
 }) => {
   const isSmallScreen = useAtomValue(isSmallScreenAtom)
-  const MAX_TITLE_LEN = isSmallScreen ? 40 : 80
+  const MAX_TITLE_LEN = isSmallScreen ? 50 : 90
   return (
     <div className="mx-auto">
       {totalProducts && itemsPerPage && (
@@ -57,13 +45,13 @@ export const ProductsSubComponent = ({
                 />
               </CardContent>
             </Link>
-            <CardFooter className="p-2 sm:p-4 flex flex-col items-center justify-between h-44">
+            <CardFooter className="p-2 sm:p-4 flex flex-col items-center justify-between h-52">
               <Link
                 href={`/products/${product?.product_id}`}
                 passHref
-                className="active:bg-blue-100"
+                className="active:bg-blue-100 flex flex-col justify-between h-40"
               >
-                <h4 className="my-4 w-full whitespace-normal break-words">
+                <h4 className="my-2 w-full whitespace-normal break-words">
                   {/* remove &nbsp; that breaks ui */}
                   {product?.title
                     .slice(0, MAX_TITLE_LEN)
@@ -77,7 +65,7 @@ export const ProductsSubComponent = ({
                 </div>
               </Link>
               <div className="flex w-full mt-4 justify-between">
-                <Button className="p-1 h-9 w-20 sm:w-[9vw]" variant={'outline'}>
+                <Button className="p-1 h-9 w-16 sm:w-[9vw]" variant={'outline'}>
                   {isSmallScreen ? (
                     <>
                       <ShoppingCart />
@@ -88,10 +76,10 @@ export const ProductsSubComponent = ({
                   )}
                 </Button>
                 <BuyNow
-                  user={user}
                   imgData={product?.media?.find((img) => img?.is_display_image)}
                   netPrice={product?.net_price}
                   listPrice={product?.list_price}
+                  quantityAvailable={product?.quantity_available}
                 />
               </div>
             </CardFooter>

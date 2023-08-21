@@ -18,7 +18,7 @@ export const ProductsHome = ({ products }: { products: Product[] }) => {
   const productsToDisplay = products.slice(0, itemsPerPage)
 
   return (
-    <div className="mx-auto px-4">
+    <div className="mx-auto">
       <h4 className="w-full mx-auto my-4 text-xl font-bold text-center">
         New Arrivals
       </h4>

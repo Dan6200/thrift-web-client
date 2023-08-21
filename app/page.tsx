@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     <div className="mx-auto w-full">
       <Nav />
-      <div className="container w-full mx-auto p-0">
+      <div className="container w-full mx-auto p-4">
         <Welcome />
         <ProductsHome products={productData.products} />
         <Link
