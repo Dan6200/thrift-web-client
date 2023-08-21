@@ -53,7 +53,7 @@ export function ShippingInfoForm() {
         >
           <RecipientFirstName form={form} />
           <RecipientLastName form={form} />
-          <Email form={form} />
+          <Address form={form} />
           <Phone form={form} />
           <Password form={form} />
           <ConfirmPassword form={form} />

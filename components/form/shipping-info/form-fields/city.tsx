@@ -7,21 +7,21 @@ import {
   FormLabel,
   FormMessage,
 } from '../../../ui/form'
-import { RegisterFormState } from '../types'
+import { ShippingInfoFormType } from '../types'
 
-export const ConfirmPassword = ({
+export const City = ({
   form,
 }: {
-  form: UseFormReturn<RegisterFormState, any, undefined>
+  form: UseFormReturn<ShippingInfoFormType, any, undefined>
 }) => (
   <FormField
     control={form.control}
-    name="confirm_password"
+    name="city"
     render={({ field }) => (
       <FormItem>
-        <FormLabel>Confirm Password</FormLabel>
+        <FormLabel>City/Town</FormLabel>
         <FormControl>
-          <Input type="password" {...(field as InputProps)} />
+          <Input placeholder="Name of City" {...(field as InputProps)} />
         </FormControl>
         <FormMessage />
       </FormItem>
