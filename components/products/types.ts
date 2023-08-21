@@ -64,3 +64,12 @@ export function isProduct(product: unknown): product is Product {
     )
   )
 }
+
+export type ImgData =
+  | {
+      filename: string
+      filepath: string
+      description: string
+      is_display_image: boolean
+    }
+  | undefined
