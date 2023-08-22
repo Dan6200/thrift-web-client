@@ -20,7 +20,7 @@ export const Address = ({
     control={form.control}
     name="address"
     render={({ field }) => (
-      <FormItem>
+      <FormItem className="md:w-[45%]">
         <FormLabel>Enter Address</FormLabel>
         <FormControl>
           <Input

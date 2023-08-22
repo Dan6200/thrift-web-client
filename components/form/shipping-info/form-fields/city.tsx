@@ -18,7 +18,7 @@ export const City = ({
     control={form.control}
     name="city"
     render={({ field }) => (
-      <FormItem>
+      <FormItem className="md:w-[45%]">
         <FormLabel>City/Town</FormLabel>
         <FormControl>
           <Input placeholder="Name of City" {...(field as InputProps)} />

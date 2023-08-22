@@ -1,20 +1,10 @@
 // Purpose: Joi schema for account data
-import joi, { CustomHelpers } from 'joi'
-import { RegisterFormState } from './types'
-
-const customValidation = (value: any, helpers: CustomHelpers) => {
-  if (!value.email && !value.phone) {
-    return helpers.message({
-      custom: 'Must provide either your Email or Phone number',
-    })
-  }
-  return value
-}
+import joi from 'joi'
+import { ShippingInfoFormType } from './types'
 
 export const schema = joi
-  .object<RegisterFormState>()
-  .keys({
-    first_name: joi
+  .object<ShippingInfoFormType>({
+    recipient_first_name: joi
       .string()
       .trim()
       .pattern(/^[a-zA-Z]+$/)
@@ -28,7 +18,7 @@ export const schema = joi
         'string.max': 'Must be at most 30 characters',
         'any.required': '"First Name" is required',
       }),
-    last_name: joi
+    recipient_last_name: joi
       .string()
       .trim()
       .alphanum()
@@ -42,45 +32,18 @@ export const schema = joi
         'string.max': 'Must be at most 30 characters',
         'any.required': '"Last Name" is required',
       }),
-    email: joi
-      .string()
-      .trim()
-      .pattern(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      )
-      .message('Please enter a valid email address')
-      .allow(''),
-    phone: joi
+    city: joi.string(),
+    state: joi.string(),
+    delivery_contact: joi
       .string()
       .pattern(
         /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/
       )
       .message('Please enter a valid phone number')
       .allow(''),
-    password: joi
-      .string()
-      .min(8)
-      .message('Must be at least 8 characters')
-      .pattern(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*+\-~^:;`._=\/\\{}\[\]\(\)])[A-Za-z\d!@#$%^&*+\-~^_:;`.=\/\\{}\[\]\(\)]{8,}$/
-      )
-      .message(
-        'Passwords must have at least one lowercase letter, one uppercase letter, a digit and one special character'
-      )
-      .required()
-      .messages({ 'any.required': 'Must enter a password' }),
-    confirm_password: joi
-      .any()
-      .valid(joi.ref('password'))
-      .messages({ 'any.only': 'Passwords do not match!' }),
-    dob: joi
-      .date()
-      .required()
-      .messages({ 'any.required': 'Please provide your Date of birth' }),
   })
   .or('email', 'phone')
   .messages({
     'object.missing': 'Must provide either your Email or Phone number',
   })
   .required()
-  .custom(customValidation)

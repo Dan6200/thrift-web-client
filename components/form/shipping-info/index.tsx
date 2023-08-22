@@ -3,30 +3,24 @@ import { Button } from '@/components/ui/button'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Form } from '../../ui/form'
 import {
-  ConfirmPassword,
-  DOB,
   Address,
   RecipientFirstName,
   RecipientLastName,
-  Password,
-  Phone,
+  City,
+  State,
+  DeliveryContact,
+  DeliveryInstructions,
 } from '../shipping-info/form-fields'
 import { ShippingInfoFormType } from './types'
 import submitHandler from './submit-handler'
 import useFormProps from './use-form-props'
-import { Fragment, useEffect } from 'react'
+import { Fragment } from 'react'
 import { userAtom } from '@/atoms/index'
 import { useSetAtom } from 'jotai'
 import Link from 'next/link'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
+import { Textarea } from '@/components/ui/textarea'
 import { useRouter } from 'next/navigation'
+import { Check } from 'lucide-react'
 
 export function ShippingInfoForm() {
   const setUser = useSetAtom(userAtom)
@@ -39,67 +33,30 @@ export function ShippingInfoForm() {
     setError,
     useRouter()
   )
-  const {
-    formState: { errors },
-  } = form
   // forward the form object error to email and phone
 
   return (
     <Fragment>
       <Form {...form}>
-        <form
-          className="flex flex-col w-full mx-auto"
-          onSubmit={handleSubmit(submit)}
-        >
-          <RecipientFirstName form={form} />
-          <RecipientLastName form={form} />
-          <Address form={form} />
-          <Phone form={form} />
-          <Password form={form} />
-          <ConfirmPassword form={form} />
-          <DOB form={form} />
-          <Button className="mt-4 mb-8" type="submit">
-            Submit
+        <form className="flex flex-col w-full" onSubmit={handleSubmit(submit)}>
+          <div className="w-full space-x-0 flex flex-col md:flex-row md:justify-between">
+            <RecipientFirstName form={form} />
+            <RecipientLastName form={form} />
+          </div>
+          <div className="w-full space-x-0 flex flex-col md:flex-row md:justify-between">
+            <Address form={form} />
+            <City form={form} />
+          </div>
+          <div className="w-full space-x-0 flex flex-col md:flex-row md:justify-between">
+            <State form={form} />
+            <DeliveryContact form={form} />
+          </div>
+          <DeliveryInstructions form={form} />
+          <Button className="md:w-fit md:mx-auto mt-4 mb-8" type="submit">
+            Save <Check className="w-6" />
           </Button>
-          <p className="text-center">
-            Already have an account?{' '}
-            <Link
-              href="/auth/login"
-              className="dark:text-blue-200 text-blue-700"
-            >
-              Sign in
-            </Link>
-          </p>
         </form>
       </Form>
-      {/*rootError?.message && (
-        <Dialog defaultOpen={!!rootError?.message}>
-          <DialogContent className="overflow-hidden w-[90vw] md:w-full rounded-md">
-            <DialogHeader>
-              <DialogTitle className="font-semibold italic text-destructive mt-4">
-                There was an error while creating account...
-              </DialogTitle>
-              <DialogDescription className="pt-4 capitalize text-md font-bold ">
-                {rootError?.message}
-              </DialogDescription>
-            </DialogHeader>
-            {rootError?.message.includes('exists') && (
-              <DialogFooter className="font-normal flex-row mb-4 justify-center text-neutral-700 italic">
-                <p>
-                  Did you mean to &nbsp;
-                  <Link
-                    href="/auth/login"
-                    className="dark:text-blue-200 text-blue-700"
-                  >
-                    Sign in
-                  </Link>
-                  &nbsp; instead?
-                </p>
-              </DialogFooter>
-            )}
-          </DialogContent>
-        </Dialog>
-			)*/}
     </Fragment>
   )
 }

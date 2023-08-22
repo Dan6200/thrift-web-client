@@ -18,7 +18,7 @@ export const RecipientFirstName = ({
     control={form.control}
     name="recipient_first_name"
     render={({ field }) => (
-      <FormItem>
+      <FormItem className="md:w-[45%]">
         <FormLabel>Recipient First Name</FormLabel>
         <FormControl>
           <Input placeholder="First" {...(field as InputProps)} />

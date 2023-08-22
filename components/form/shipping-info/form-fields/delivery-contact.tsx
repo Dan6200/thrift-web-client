@@ -7,20 +7,20 @@ import {
   FormLabel,
   FormMessage,
 } from '../../../ui/form'
-import { RegisterFormState } from '../types'
+import { ShippingInfoFormType } from '../types'
 
-export const Phone = ({
+export const DeliveryContact = ({
   form,
 }: {
-  form: UseFormReturn<RegisterFormState, any, undefined>
+  form: UseFormReturn<ShippingInfoFormType, any, undefined>
 }) => {
   return (
     <FormField
       control={form.control}
-      name="phone"
+      name="delivery_contact"
       render={({ field }) => (
-        <FormItem>
-          <FormLabel className="block">Phone number</FormLabel>
+        <FormItem className="md:w-[45%]">
+          <FormLabel className="block">Delivery Contact</FormLabel>
           <FormControl>
             <Input
               {...(field as InputProps)}
