@@ -8,6 +8,7 @@ import { isSmallScreenAtom, shippingInfoAtom } from '@/atoms'
 import { ImgData } from '../types'
 import { AddShippingInfo } from './add-shipping-info'
 import { SelectQuantity } from './select-quantity'
+import { AddCardInfo } from './add-card-info'
 
 export const BuyNow = ({
   imgData,
@@ -21,9 +22,13 @@ export const BuyNow = ({
 }) => {
   const shippingInfo = useAtomValue(shippingInfoAtom)
   const [isAddingShipping, setIsAddingShipping] = useState(false)
+  const [isSelectingQuantity, setIsSelectingQuantity] = useState(true)
   const [isAddingCard, setIsAddingCard] = useState(false)
   const [quantity, setQuantity] = useState(1)
   const isSmallScreen = useAtomValue(isSmallScreenAtom)
+  console.log('adding shipping', isAddingShipping)
+  console.log('adding card', isAddingCard)
+  console.log('selecting quantity', isSelectingQuantity)
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -37,20 +42,12 @@ export const BuyNow = ({
               <Check className="w-4" />
             </>
           ) : (
-            'Add To Cart'
+            'Buy Now'
           )}
         </Button>
       </DialogTrigger>
       <DialogContent className="overflow-y-scroll rounded-md w-[80vw] p-8 py-16 md:p-16 h-[80vh] sm:w-[80vw] md:w-[70vw] max-w-none">
-        {isAddingShipping ? (
-          isAddingCard ? null : (
-            <AddShippingInfo
-              shippingInfo={shippingInfo}
-              setIsAddingCard={setIsAddingCard}
-              setIsAddingShipping={setIsAddingShipping}
-            />
-          )
-        ) : (
+        {isSelectingQuantity ? (
           <SelectQuantity
             quantity={quantity}
             quantityAvailable={quantityAvailable}
@@ -58,10 +55,22 @@ export const BuyNow = ({
             shippingInfo={shippingInfo}
             imgData={imgData}
             netPrice={netPrice}
+            setIsSelectingQuantity={setIsSelectingQuantity}
             setIsAddingCard={setIsAddingCard}
             setIsAddingShipping={setIsAddingShipping}
           />
-        )}
+        ) : !shippingInfo && isAddingShipping ? (
+          <AddShippingInfo
+            shippingInfo={shippingInfo}
+            setIsAddingCard={setIsAddingCard}
+            setIsAddingShipping={setIsAddingShipping}
+          />
+        ) : isAddingCard ? (
+          <AddCardInfo
+            shippingInfo={shippingInfo}
+            setIsAddingCard={setIsAddingCard}
+          />
+        ) : null}
       </DialogContent>
     </Dialog>
   )

@@ -15,8 +15,9 @@ export const SelectQuantity = ({
   shippingInfo,
   imgData,
   netPrice,
-  setIsAddingShipping,
   setIsAddingCard,
+  setIsAddingShipping,
+  setIsSelectingQuantity,
 }: {
   quantity: number
   quantityAvailable: number
@@ -24,8 +25,9 @@ export const SelectQuantity = ({
   shippingInfo: ShippingInfo | null
   imgData: ImgData
   netPrice: string | number
-  setIsAddingShipping: Dispatch<SetStateAction<boolean>>
   setIsAddingCard: Dispatch<SetStateAction<boolean>>
+  setIsAddingShipping: Dispatch<SetStateAction<boolean>>
+  setIsSelectingQuantity: Dispatch<SetStateAction<boolean>>
 }) => (
   <>
     <DialogHeader>
@@ -79,11 +81,21 @@ export const SelectQuantity = ({
         </p>
       </div>
       {shippingInfo ? (
-        <Button onClick={() => setIsAddingCard(true)}>
-          Continue With Purchase
+        <Button
+          onClick={() => {
+            setIsSelectingQuantity(false)
+            setIsAddingCard(true)
+          }}
+        >
+          Add Card Info
         </Button>
       ) : (
-        <Button onClick={() => setIsAddingShipping(true)}>
+        <Button
+          onClick={() => {
+            setIsSelectingQuantity(false)
+            setIsAddingShipping(true)
+          }}
+        >
           Add Shipping Info
         </Button>
       )}
