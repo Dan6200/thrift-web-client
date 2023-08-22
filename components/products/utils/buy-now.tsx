@@ -26,9 +26,6 @@ export const BuyNow = ({
   const [isAddingCard, setIsAddingCard] = useState(false)
   const [quantity, setQuantity] = useState(1)
   const isSmallScreen = useAtomValue(isSmallScreenAtom)
-  console.log('adding shipping', isAddingShipping)
-  console.log('adding card', isAddingCard)
-  console.log('selecting quantity', isSelectingQuantity)
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -46,7 +43,7 @@ export const BuyNow = ({
           )}
         </Button>
       </DialogTrigger>
-      <DialogContent className="overflow-y-scroll rounded-md w-[80vw] p-8 py-16 md:p-16 h-[80vh] sm:w-[80vw] md:w-[70vw] max-w-none">
+      <DialogContent className="transition-all ease-in-out overflow-y-scroll rounded-md w-[80vw] p-8 py-16 md:p-16 h-[80vh] sm:w-[80vw] md:w-[70vw] max-w-none">
         {isSelectingQuantity ? (
           <SelectQuantity
             quantity={quantity}
@@ -59,18 +56,33 @@ export const BuyNow = ({
             setIsAddingCard={setIsAddingCard}
             setIsAddingShipping={setIsAddingShipping}
           />
-        ) : !shippingInfo && isAddingShipping ? (
+        ) : isAddingShipping ? (
           <AddShippingInfo
             shippingInfo={shippingInfo}
             setIsAddingCard={setIsAddingCard}
             setIsAddingShipping={setIsAddingShipping}
+            setIsSelectingQuantity={setIsSelectingQuantity}
           />
         ) : isAddingCard ? (
           <AddCardInfo
             shippingInfo={shippingInfo}
             setIsAddingCard={setIsAddingCard}
+            setIsAddingShipping={setIsAddingShipping}
+            setIsSelectingQuantity={setIsSelectingQuantity}
           />
-        ) : null}
+        ) : (
+          <SelectQuantity
+            quantity={quantity}
+            quantityAvailable={quantityAvailable}
+            setQuantity={setQuantity}
+            shippingInfo={shippingInfo}
+            imgData={imgData}
+            netPrice={netPrice}
+            setIsSelectingQuantity={setIsSelectingQuantity}
+            setIsAddingCard={setIsAddingCard}
+            setIsAddingShipping={setIsAddingShipping}
+          />
+        )}
       </DialogContent>
     </Dialog>
   )

@@ -11,7 +11,7 @@ import { shippingInfoAtom } from '@/atoms/index'
 import { useSetAtom } from 'jotai'
 import { Check } from 'lucide-react'
 
-export function ShippingInfoForm() {
+export function CardInfoForm() {
   const setShippingInfo = useSetAtom(shippingInfoAtom)
   const form = useForm<CardInfoFormType>(useFormProps)
   const { handleSubmit } = form

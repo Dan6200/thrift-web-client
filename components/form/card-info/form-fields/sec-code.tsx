@@ -20,7 +20,7 @@ export const SecurityCode = ({
       name="security_code"
       render={({ field }) => (
         <FormItem className="md:w-[45%]">
-          <FormLabel className="block">Security Code</FormLabel>
+          <FormLabel className="block">Security Code (CVV)</FormLabel>
           <FormControl>
             <Input {...(field as InputProps)} placeholder="XXX" />
           </FormControl>

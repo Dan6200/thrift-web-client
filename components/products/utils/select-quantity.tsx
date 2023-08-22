@@ -81,14 +81,24 @@ export const SelectQuantity = ({
         </p>
       </div>
       {shippingInfo ? (
-        <Button
-          onClick={() => {
-            setIsSelectingQuantity(false)
-            setIsAddingCard(true)
-          }}
-        >
-          Add Card Info
-        </Button>
+        <div className="flex justify-between w-72">
+          <Button
+            onClick={() => {
+              setIsSelectingQuantity(false)
+              setIsAddingCard(true)
+            }}
+          >
+            Add Card Info
+          </Button>
+          <Button
+            onClick={() => {
+              setIsSelectingQuantity(false)
+              setIsAddingShipping(true)
+            }}
+          >
+            Add Shipping Info
+          </Button>
+        </div>
       ) : (
         <Button
           onClick={() => {

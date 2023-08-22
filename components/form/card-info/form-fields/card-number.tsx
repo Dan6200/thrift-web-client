@@ -24,7 +24,7 @@ export const CardNumber = ({
           <FormControl>
             <Input
               {...(field as InputProps)}
-              placeholder="8888 8888 8888 8888"
+              placeholder="XXXX XXXX XXXX XXXX"
             />
           </FormControl>
           <FormMessage />

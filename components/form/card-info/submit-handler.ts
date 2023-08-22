@@ -1,20 +1,8 @@
-import ShippingInfo from '@/components/shipping-info/types'
+import { CardInfo } from '@/components/card-info/types'
 import { useSetAtom } from 'jotai'
-import { ShippingInfoFormType } from './types'
+import { CardInfoFormType } from './types'
 
-type SetShippingInfo = ReturnType<
-  typeof useSetAtom<ShippingInfo | null, any[], any>
->
+type SetCardInfo = ReturnType<typeof useSetAtom<CardInfo | null, any[], any>>
 
-export default async (
-  setShippingInfo: SetShippingInfo,
-  formData: ShippingInfoFormType
-) => {
-  const { delivery_instructions, ...newFormData } = formData
-  setShippingInfo({
-    ...newFormData,
-    delivery_instructions: delivery_instructions
-      ? delivery_instructions.split('\n')
-      : null,
-  })
-}
+export default async (setCardInfo: SetCardInfo, formData: CardInfoFormType) =>
+  setCardInfo(formData)

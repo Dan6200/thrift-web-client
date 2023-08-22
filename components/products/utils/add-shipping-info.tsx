@@ -10,15 +10,20 @@ export const AddShippingInfo = ({
   shippingInfo,
   setIsAddingShipping,
   setIsAddingCard,
+  setIsSelectingQuantity,
 }: {
   shippingInfo: ShippingInfo | null
   setIsAddingShipping: Dispatch<SetStateAction<boolean>>
   setIsAddingCard: Dispatch<SetStateAction<boolean>>
+  setIsSelectingQuantity: Dispatch<SetStateAction<boolean>>
 }) => (
   <>
     <DialogHeader className="mb-8 flex flex-row items-center space-y-0">
       <a
-        onClick={() => setIsAddingShipping(false)}
+        onClick={() => {
+          setIsAddingShipping(false)
+          setIsSelectingQuantity(true)
+        }}
         className="cursor-pointer mr-4"
       >
         <ArrowLeft />
@@ -28,7 +33,14 @@ export const AddShippingInfo = ({
     <ShippingInfoForm />
     <DialogFooter className="flex flex-col md:flex-row text-lg justify-between items-center md:w-full">
       {shippingInfo && (
-        <Button onClick={() => setIsAddingCard(true)}>Add Card Info</Button>
+        <Button
+          onClick={() => {
+            setIsAddingCard(true)
+            setIsAddingShipping(false)
+          }}
+        >
+          Add Card Info
+        </Button>
       )}
     </DialogFooter>
   </>
