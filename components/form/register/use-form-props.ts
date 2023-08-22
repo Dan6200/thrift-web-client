@@ -7,7 +7,7 @@ import { RegisterFormState } from './types'
 export default {
   resolver: async (data, context, options) => {
     // debug input schema
-    console.log(await joiResolver(schema)(data, context, options))
+    // console.log(await joiResolver(schema)(data, context, options))
     return joiResolver(schema)(data, context, options)
   },
 } as UseFormProps<RegisterFormState, any>

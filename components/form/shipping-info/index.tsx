@@ -15,25 +15,18 @@ import { ShippingInfoFormType } from './types'
 import submitHandler from './submit-handler'
 import useFormProps from './use-form-props'
 import { Fragment } from 'react'
-import { userAtom } from '@/atoms/index'
+import { shippingInfoAtom } from '@/atoms/index'
 import { useSetAtom } from 'jotai'
-import Link from 'next/link'
-import { Textarea } from '@/components/ui/textarea'
-import { useRouter } from 'next/navigation'
 import { Check } from 'lucide-react'
 
 export function ShippingInfoForm() {
-  const setUser = useSetAtom(userAtom)
+  const setShippingInfo = useSetAtom(shippingInfoAtom)
   const form = useForm<ShippingInfoFormType>(useFormProps)
   const { handleSubmit } = form
-  const { setError } = form
   const submit: SubmitHandler<ShippingInfoFormType> = submitHandler.bind(
     null,
-    setUser,
-    setError,
-    useRouter()
+    setShippingInfo
   )
-  // forward the form object error to email and phone
 
   return (
     <Fragment>
@@ -52,7 +45,7 @@ export function ShippingInfoForm() {
             <DeliveryContact form={form} />
           </div>
           <DeliveryInstructions form={form} />
-          <Button className="md:w-fit md:mx-auto mt-4 mb-8" type="submit">
+          <Button className="w-fit mx-auto mt-4 mb-8" type="submit">
             Save <Check className="w-6" />
           </Button>
         </form>

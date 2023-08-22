@@ -25,7 +25,8 @@ export const DeliveryInstructions = ({
           <FormControl>
             <Textarea
               {...field}
-              placeholder="Instructions to leave for the delivery agent"
+              placeholder="Optionally leave Instructions for the delivery agent"
+              className="h-24"
             />
           </FormControl>
           <FormMessage />

@@ -7,10 +7,5 @@ export interface ShippingInfoFormType {
   postal_code: string
   country: string
   delivery_contact: string
-  delivery_instructions: string[]
-}
-
-export interface ResponseData {
-  message?: string
-  token?: string
+  delivery_instructions: string | null
 }

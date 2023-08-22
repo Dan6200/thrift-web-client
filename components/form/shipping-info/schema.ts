@@ -16,7 +16,7 @@ export const schema = joi
         'string.empty': 'Must provide your first name',
         'string.min': 'Must be at least 3 characters',
         'string.max': 'Must be at most 30 characters',
-        'any.required': '"First Name" is required',
+        'any.required': '"Recipient\'s First Name" is required',
       }),
     recipient_last_name: joi
       .string()
@@ -30,20 +30,28 @@ export const schema = joi
         'string.empty': 'Must provide your last name',
         'string.min': 'Must be at least 3 characters',
         'string.max': 'Must be at most 30 characters',
-        'any.required': '"Last Name" is required',
+        'any.required': '"Recipient\'s Last Name" is required',
       }),
-    city: joi.string(),
-    state: joi.string(),
+    address: joi
+      .string()
+      .required()
+      .messages({ 'any.required': 'Please Enter Your Home Address.' }),
+    city: joi.string().required().messages({
+      'any.required': 'Please Enter The Name Of Your City Or Town.',
+    }),
+    state: joi.string().required().messages({
+      'any.required': 'Please Select Your State.',
+    }),
     delivery_contact: joi
       .string()
       .pattern(
         /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/
       )
-      .message('Please enter a valid phone number')
-      .allow(''),
-  })
-  .or('email', 'phone')
-  .messages({
-    'object.missing': 'Must provide either your Email or Phone number',
+      .message('Please Enter A Valid Phone Number')
+      .required()
+      .messages({
+        'any.required': 'Please Enter A Contact We Can Call When Delivering.',
+      }),
+    delivery_instructions: joi.string(),
   })
   .required()

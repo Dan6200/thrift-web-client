@@ -4,11 +4,14 @@ import { DialogFooter, DialogHeader, DialogTitle } from '../../ui/dialog'
 import { ArrowLeft } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
 import { ShippingInfoForm } from '@/components/form/shipping-info'
+import ShippingInfo from '@/components/shipping-info/types'
 
 export const AddShippingInfo = ({
+  shippingInfo,
   setIsAddingShipping,
   setIsAddingCard,
 }: {
+  shippingInfo: ShippingInfo | null
   setIsAddingShipping: Dispatch<SetStateAction<boolean>>
   setIsAddingCard: Dispatch<SetStateAction<boolean>>
 }) => (
@@ -24,7 +27,9 @@ export const AddShippingInfo = ({
     </DialogHeader>
     <ShippingInfoForm />
     <DialogFooter className="flex flex-col md:flex-row text-lg justify-between items-center md:w-full">
-      <Button onClick={() => setIsAddingCard(true)}>Add Card Info</Button>
+      {shippingInfo && (
+        <Button onClick={() => setIsAddingCard(true)}>Add Card Info</Button>
+      )}
     </DialogFooter>
   </>
 )

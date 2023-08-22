@@ -1,13 +1,8 @@
 'use client'
 import { ProductImage } from '../image'
 import { Button } from '@/components/ui/button'
-import {
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '../../ui/dialog'
-import { ArrowLeft, Minus, Plus } from 'lucide-react'
+import { DialogFooter, DialogHeader, DialogTitle } from '../../ui/dialog'
+import { Minus, Plus } from 'lucide-react'
 import { CardContent } from '@/components/ui/card'
 import { Dispatch, SetStateAction } from 'react'
 import { ImgData } from '../types'
@@ -37,9 +32,9 @@ export const SelectQuantity = ({
       <DialogTitle>Purchase Item</DialogTitle>
     </DialogHeader>
     <div className="flex flex-col md:flex-row items-center w-full">
-      <CardContent className="rounded-md bg-white border-b p-0 w-44 flex items-center h-44">
+      <CardContent className="rounded-md bg-white border-b p-0 w-44 sm:w-72 md:w-[50%] flex items-center h-44">
         <ProductImage
-          className="object-contain md:w-[20vw] max-h-40 object-center"
+          className="object-contain sm:w-[80%] mx-auto max-h-40 object-center"
           imgData={imgData}
         />
       </CardContent>

@@ -45,12 +45,7 @@ export const BuyNow = ({
         {isAddingShipping ? (
           isAddingCard ? null : (
             <AddShippingInfo
-              quantity={quantity}
-              quantityAvailable={quantityAvailable}
-              setQuantity={setQuantity}
               shippingInfo={shippingInfo}
-              imgData={imgData}
-              netPrice={netPrice}
               setIsAddingCard={setIsAddingCard}
               setIsAddingShipping={setIsAddingShipping}
             />
