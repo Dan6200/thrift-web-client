@@ -11,7 +11,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { Input, InputProps } from '@/components/ui/input'
 import { UseFormReturn } from 'react-hook-form'
 import {
   FormControl,
@@ -31,7 +30,8 @@ export const State = ({
 }: {
   form: UseFormReturn<ShippingInfoFormType, any, undefined>
 }) => {
-  const states = useState(NaijaStates.states())[0]
+  const states: string[] = NaijaStates.states()
+  const [open, setOpen] = useState(false)
   return (
     <FormField
       control={form.control}
@@ -39,7 +39,7 @@ export const State = ({
       render={({ field }) => (
         <FormItem className="md:w-[45%]">
           <FormLabel>State</FormLabel>
-          <Popover>
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
@@ -53,7 +53,6 @@ export const State = ({
                 >
                   {field.value
                     ? states.find((state: string) => state === field.value)
-                        ?.label
                     : 'Select state'}
                   <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 " />
                 </Button>
@@ -73,7 +72,8 @@ export const State = ({
                       key={state}
                       className="w-full"
                       onSelect={() => {
-                        form.setValue('state', field.value)
+                        form.setValue('state', state)
+                        setOpen(false)
                       }}
                     >
                       {state}
