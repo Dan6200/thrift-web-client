@@ -4,12 +4,21 @@ import { ProductImage } from './image'
 import Paginate from '../pagination'
 import { Card, CardContent, CardFooter } from '../ui/card'
 import { Product } from './types'
-import { useAtomValue } from 'jotai'
-import { isSmallScreenAtom } from '@/atoms'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import {
+  addItemAtom,
+  getTotalAtom,
+  isSmallScreenAtom,
+  shoppingCartAtom,
+} from '@/atoms'
 import { Price } from './utils/price'
 import { Button } from '@/components/ui/button'
-import { Plus, ShoppingCart } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { BuyNow } from './utils/buy-now'
+import { useToast } from '../ui/use-toast'
+import { ShoppingCart as ShoppingCartIcon } from 'lucide-react'
+import { ShoppingCart } from '../shopping-cart/types'
+import { useEffect } from 'react'
 
 export const ProductsSubComponent = ({
   totalProducts,
@@ -22,6 +31,15 @@ export const ProductsSubComponent = ({
 }) => {
   const isSmallScreen = useAtomValue(isSmallScreenAtom)
   const MAX_TITLE_LEN = isSmallScreen ? 50 : 90
+  const [shoppingCart, setShoppingCart] = useAtom(shoppingCartAtom)
+  const addItem = useSetAtom(addItemAtom)
+  const totalItems = useAtomValue(getTotalAtom)
+  const { toast } = useToast()
+  useEffect(() => {
+    toast({
+      title: `${totalItems} Items Added To Cart.`,
+    })
+  }, [totalItems])
   return (
     <div className="mx-auto">
       {totalProducts && itemsPerPage && (
@@ -65,10 +83,18 @@ export const ProductsSubComponent = ({
                 </div>
               </Link>
               <div className="flex w-full mt-4 justify-between">
-                <Button className="p-1 h-9 w-16 sm:w-[9vw]" variant={'outline'}>
+                <Button
+                  className="p-1 h-9 w-16 sm:w-[9vw]"
+                  variant="outline"
+                  onClick={() => {
+                    shoppingCart
+                      ? addItem(product)
+                      : setShoppingCart(new ShoppingCart(product, null))
+                  }}
+                >
                   {isSmallScreen ? (
                     <>
-                      <ShoppingCart />
+                      <ShoppingCartIcon />
                       <Plus className="w-4" />
                     </>
                   ) : (

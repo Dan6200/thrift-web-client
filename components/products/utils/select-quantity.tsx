@@ -81,7 +81,7 @@ export const SelectQuantity = ({
         </p>
       </div>
       {shippingInfo ? (
-        <div className="flex justify-between w-72">
+        <div className="flex flex-col md:flex-row justify-between h-24 md:h-fit md:w-80">
           <Button
             onClick={() => {
               setIsSelectingQuantity(false)
@@ -96,7 +96,7 @@ export const SelectQuantity = ({
               setIsAddingShipping(true)
             }}
           >
-            Add Shipping Info
+            Add New Shipping Info
           </Button>
         </div>
       ) : (

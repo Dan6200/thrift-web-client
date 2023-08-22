@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { ModeToggle } from '../../dark-mode-toggle'
 import { Button } from '../../ui/button'
-import { useSetAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/navigation-menu'
 import { ListItem } from '../utils/list-item'
 import { components } from '../utils/nav-components'
-import { UserCircle2 } from 'lucide-react'
+import { ShoppingCart, UserCircle2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import {
   Popover,
@@ -25,6 +25,7 @@ import {
 } from '@/components/ui/popover'
 import { logout } from './logout'
 import { UserAccount } from '@/components/user-account/types'
+import { getTotalAtom } from '@/atoms'
 
 type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
 
@@ -35,8 +36,9 @@ export function NavMenu({
   user: UserAccount | null
   setUser: SetUser
 }) {
+  const totalItems = useAtomValue(getTotalAtom)
   return (
-    <NavigationMenu className="max-w-none border-b flex flex-row items-center justify-between w-full px-4 py-4  shadow-md dark:bg-background  dark:shadow-none">
+    <NavigationMenu className="max-w-none border-b flex flex-row items-center justify-between w-full px-4 py-2  shadow-md dark:bg-background  dark:shadow-none">
       <div className="justify-start flex">
         <Link
           href="/"
@@ -100,7 +102,15 @@ export function NavMenu({
           </NavigationMenuItem>
         </NavigationMenuList>
       </div>
-      <div className="flex space-x-4">
+      <div className="flex justify-between items-center w-48">
+        <div className="relative h-12 w-12 p-0">
+          <span className="bg-primary w-6 text-center block absolute right-0 top-0 text-sm rounded-full">
+            {totalItems}
+          </span>
+          <Button variant="outline" className="my-2 p-0 w-10">
+            <ShoppingCart className="w-5" />
+          </Button>
+        </div>
         {user?.token ? (
           <Link href="/account" legacyBehavior passHref>
             <Popover>

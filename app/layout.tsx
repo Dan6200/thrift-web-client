@@ -2,6 +2,7 @@
 'use strict'
 import { Resizer } from '@/components/handle-resize'
 import { ThemeProvider } from '@/components/theme-provider'
+import { Toaster } from '@/components/ui/toaster'
 import './globals.css'
 import Providers from './providers'
 
@@ -21,6 +22,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Providers>
             <Resizer>{children}</Resizer>
+            <Toaster />
           </Providers>
         </ThemeProvider>
       </body>
