@@ -6,12 +6,12 @@ import { useAtomValue, useSetAtom } from 'jotai'
 import {
   decreaseItemCountAtom,
   getItemsAtom,
+  getTotalAtom,
   increaseItemCountAtom,
 } from '@/atoms'
 import { Item } from './types'
 import { Button } from '../ui/button'
 import { Minus, PanelRightClose, Plus } from 'lucide-react'
-import { useState } from 'react'
 
 export function ShoppingCartDrawer({
   isOpen,
@@ -23,7 +23,7 @@ export function ShoppingCartDrawer({
   const items = useAtomValue(getItemsAtom)
   const increaseItemCount = useSetAtom(increaseItemCountAtom)
   const decreaseItemCount = useSetAtom(decreaseItemCountAtom)
-  const [total, setTotal] = useState(0)
+  const total = useAtomValue(getTotalAtom)
   return (
     <SwipeableDrawer
       anchor="right"
@@ -45,12 +45,6 @@ export function ShoppingCartDrawer({
         </h2>
         {items.length ? (
           items.map(({ product, count }: Item, index: number) => {
-            //            setTotal(
-            //              total +
-            //                (typeof product.net_price === 'number'
-            //                  ? product.net_price * count
-            //                  : parseFloat(product.net_price) * count)
-            //            )
             return (
               <Card
                 key={product.product_id}
@@ -58,7 +52,7 @@ export function ShoppingCartDrawer({
               >
                 <CardContent className="rounded-md w-full border-b p-2 flex items-center h-24">
                   <ProductImage
-                    className="py-1 object-contain w-32 mx-auto rounded-md bg-white max-h-20 object-center"
+                    className="py-1 object-contain w-32 mx-auto rounded-sm bg-white max-h-20 object-center"
                     imgData={product?.media?.find(
                       (img) => img?.is_display_image
                     )}
@@ -109,15 +103,16 @@ export function ShoppingCartDrawer({
             <p>Click on the &apos;Add to cart button&apos; on the page</p>
           </div>
         )}
-        <div className="flex w-full items-center">
-          <h2 className="text-center text-lg">Total Items: </h2>
-          <p className="text-center">
-            {total.toLocaleString('en-NG', {
+        <div className="flex w-full items-center justify-between text-center text-lg">
+          <h2 className="">Total Items: </h2>
+          <p className="text-xl font-bold text-green-400 dark:text-green-400">
+            {total?.toLocaleString('en-NG', {
               currency: 'NGN',
               style: 'currency',
             })}
           </p>
         </div>
+        <Button className="mx-auto my-4">Add Shipping Info</Button>
       </div>
     </SwipeableDrawer>
   )

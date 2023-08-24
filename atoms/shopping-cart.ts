@@ -1,5 +1,5 @@
 import { Product } from '@/components/products/types'
-import { ShoppingCart } from '@/components/shopping-cart/types'
+import { Item, ShoppingCart } from '@/components/shopping-cart/types'
 import { atom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 
@@ -28,6 +28,17 @@ export const removeItemAtom = atom(null, (get, set, newProduct: Product) => {
 })
 
 export const getTotalAtom = atom((get) => {
+  const shoppingCart = get(shoppingCartAtom)
+  return shoppingCart?.cartItems.reduce<number>((res, { product, count }) => {
+    const price =
+      typeof product.net_price === 'string'
+        ? parseFloat(product.net_price)
+        : product.net_price
+    return res + (typeof res === 'number' ? price * count : 0)
+  }, 0)
+})
+
+export const getTotalCountAtom = atom((get) => {
   const shoppingCart = get(shoppingCartAtom)
   return shoppingCart?.cartItems.length
 })

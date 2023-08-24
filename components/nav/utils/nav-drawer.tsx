@@ -16,7 +16,7 @@ import { ModeToggle } from '@/components/dark-mode-toggle'
 import { logout } from './logout'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { UserAccount } from '@/components/user-account/types'
-import { getTotalAtom } from '@/atoms'
+import { getTotalCountAtom } from '@/atoms'
 
 type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
 
@@ -28,7 +28,7 @@ export const NavDrawer = ({
   setUser: SetUser
 }) => {
   const [isOpen, toggleDrawer] = useState(false)
-  const totalItems = useAtomValue(getTotalAtom)
+  const totalItems = useAtomValue(getTotalCountAtom)
   return (
     <div className="max-w-none border-b flex flex-row items-center justify-between w-full px-4 py-4 bg-background shadow-md dark:shadow-none">
       <Link

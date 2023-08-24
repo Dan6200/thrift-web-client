@@ -7,7 +7,7 @@ import { Product } from './types'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import {
   addItemAtom,
-  getTotalAtom,
+  getTotalCountAtom,
   isSmallScreenAtom,
   shoppingCartAtom,
 } from '@/atoms'
@@ -33,7 +33,7 @@ export const ProductsSubComponent = ({
   const MAX_TITLE_LEN = isSmallScreen ? 50 : 90
   const [shoppingCart, setShoppingCart] = useAtom(shoppingCartAtom)
   const addItem = useSetAtom(addItemAtom)
-  const totalItems = useAtomValue(getTotalAtom)
+  const totalItems = useAtomValue(getTotalCountAtom)
   const { toast } = useToast()
   const [showToast, setShowToast] = useState(false)
   useEffect(() => {
@@ -71,7 +71,7 @@ export const ProductsSubComponent = ({
                 passHref
                 className="active:bg-blue-100 flex flex-col justify-between h-40"
               >
-                <h4 className="hover:text-primary my-2 w-full whitespace-normal break-words">
+                <h4 className="hover:text-primary dark:hover:text-secondary my-2 w-full whitespace-normal break-words">
                   {/* remove &nbsp; that breaks ui */}
                   {product?.title
                     .slice(0, MAX_TITLE_LEN)

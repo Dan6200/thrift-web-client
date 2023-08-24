@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/popover'
 import { logout } from './logout'
 import { UserAccount } from '@/components/user-account/types'
-import { getTotalAtom } from '@/atoms'
+import { getTotalCountAtom } from '@/atoms'
 import { SwipeableDrawer } from '@mui/material'
 import { CardContent } from '@/components/ui/card'
 import { ProductImage } from '@/components/products/image'
@@ -38,7 +38,7 @@ export function NavMenu({
   user: UserAccount | null
   setUser: SetUser
 }) {
-  const totalItems = useAtomValue(getTotalAtom)
+  const totalItems = useAtomValue(getTotalCountAtom)
   const [isOpen, toggleDrawer] = useState(false)
   return (
     <NavigationMenu className="max-w-none border-b flex flex-row items-center justify-between w-full px-4 py-2  shadow-md dark:bg-background  dark:shadow-none">
