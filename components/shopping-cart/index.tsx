@@ -105,7 +105,7 @@ export function ShoppingCartDrawer({
         )}
         <div className="flex w-full items-center justify-between text-center text-lg">
           <h2 className="">Total Items: </h2>
-          <p className="text-xl font-bold text-green-400 dark:text-green-400">
+          <p className="text-xl font-bold text-green-700 dark:text-green-400">
             {total?.toLocaleString('en-NG', {
               currency: 'NGN',
               style: 'currency',

@@ -1,5 +1,5 @@
 import { Input, InputProps } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+import { Textarea, TextareaProps } from '@/components/ui/textarea'
 import { UseFormReturn } from 'react-hook-form'
 import {
   FormControl,
@@ -24,7 +24,7 @@ export const DeliveryInstructions = ({
           <FormLabel className="block">Delivery Instructions</FormLabel>
           <FormControl>
             <Textarea
-              {...field}
+              {...(field as TextareaProps)}
               placeholder="Optionally leave Instructions for the delivery agent"
               className="h-24"
             />
