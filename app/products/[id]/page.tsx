@@ -30,6 +30,8 @@ export default async function ProductPage({
 /**
  * Generate static paths for a few pages
  */
+// Limit static generation to 100 pages
+const LIMIT = 100
 export async function generateStaticParams() {
   const data: unknown = await getProducts()
   if (!isProductData(data)) {
@@ -37,7 +39,9 @@ export async function generateStaticParams() {
   }
   const { products } = data
 
-  return products.map((product) => ({
-    id: product.product_id.toString(),
-  }))
+  return products
+    .map((product) => ({
+      id: product.product_id.toString(),
+    }))
+    .slice(0, LIMIT)
 }

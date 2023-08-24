@@ -10,7 +10,7 @@ export function Product({ product }: { product: Product }) {
   const displayImg = product?.media?.find((img) => img?.is_display_image)
   return (
     <div className="container mx-auto p-5 my-20">
-      <GoBackLink className="text-sm text-blue-700 dark:text-blue-200 mb-8 block">
+      <GoBackLink className="cursor-pointer text-sm text-blue-700 dark:text-blue-200 mb-8 block">
         <MoveLeft className="inline mr-4" />
         Go back
       </GoBackLink>

@@ -12,6 +12,7 @@ import {
 
 import { cn } from '@/lib/utils'
 import { Label } from '@/components/ui/label'
+import { AlertOctagon } from 'lucide-react'
 
 const Form = FormProvider
 
@@ -91,12 +92,15 @@ const FormLabel = React.forwardRef<
   const { error, formItemId } = useFormField()
 
   return (
-    <Label
-      ref={ref}
-      className={cn(error && 'text-destructive', className)}
-      htmlFor={formItemId}
-      {...props}
-    />
+    <div className="flex items-center justify-start">
+      {error && <AlertOctagon className="text-destructive mr-2 w-6" />}
+      <Label
+        ref={ref}
+        className={cn(error && 'text-destructive', className)}
+        htmlFor={formItemId}
+        {...props}
+      />
+    </div>
   )
 })
 FormLabel.displayName = 'FormLabel'

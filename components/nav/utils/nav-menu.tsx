@@ -1,10 +1,10 @@
 // cspell:ignore womens
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { ModeToggle } from '../../dark-mode-toggle'
 import { Button } from '../../ui/button'
-import { useSetAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,19 +12,22 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import { ListItem } from '../utils/list-item'
 import { components } from '../utils/nav-components'
-import { UserCircle2 } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { UserAccount } from '@/components/user-account/types'
+import { ShoppingCart, UserCircle2 } from 'lucide-react'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { logout } from './logout'
+import { UserAccount } from '@/components/user-account/types'
+import { getTotalCountAtom } from '@/atoms'
+import { SwipeableDrawer } from '@mui/material'
+import { CardContent } from '@/components/ui/card'
+import { ProductImage } from '@/components/products/image'
+import { ShoppingCartDrawer } from '@/components/shopping-cart'
 
 type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
 
@@ -35,8 +38,10 @@ export function NavMenu({
   user: UserAccount | null
   setUser: SetUser
 }) {
+  const totalItems = useAtomValue(getTotalCountAtom)
+  const [isOpen, toggleDrawer] = useState(false)
   return (
-    <NavigationMenu className="max-w-none border-b flex flex-row items-center justify-between w-full px-4 py-4  shadow-md dark:bg-background  dark:shadow-none">
+    <NavigationMenu className="max-w-none border-b flex flex-row items-center justify-between w-full px-4 py-2  shadow-md dark:bg-background  dark:shadow-none">
       <div className="justify-start flex">
         <Link
           href="/"
@@ -52,13 +57,13 @@ export function NavMenu({
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
                     <a
-                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary/80 to-secondary text-primary-foreground dark:from-primary/40 dark:to-secondary/50 p-6 no-underline outline-none focus:shadow-md"
                       href="/"
                     >
-                      <div className="mb-2 mt-4 text-lg font-medium">
+                      <div className="mb-2 mt-4 text-lg font-bold">
                         Thrift Commerce
                       </div>
-                      <p className="text-sm leading-tight text-muted-foreground">
+                      <p className="text-sm leading-tight text-primary-foreground dark:text-primary-foreground/80">
                         Shop new handpicked deals in categories such as
                         electronics, computers & tablets, fashion & fashion
                         accessories etc.
@@ -100,7 +105,21 @@ export function NavMenu({
           </NavigationMenuItem>
         </NavigationMenuList>
       </div>
-      <div className="flex space-x-4">
+      <div className="flex justify-between items-center w-48">
+        <div className="relative h-12 w-12 p-0">
+          <span className="bg-primary text-primary-foreground w-6 text-center block absolute right-0 top-0 text-sm rounded-full">
+            {totalItems}
+          </span>
+          <Button
+            variant="outline"
+            className="my-2 p-0 w-10"
+            onClick={() => {
+              toggleDrawer(true)
+            }}
+          >
+            <ShoppingCart className="w-5" />
+          </Button>
+        </div>
         {user?.token ? (
           <Link href="/account" legacyBehavior passHref>
             <Popover>
@@ -127,13 +146,14 @@ export function NavMenu({
           </Link>
         ) : (
           <Link href="/auth/login">
-            <Button type="button" className="py-1 px-3">
+            <Button type="button" className="text-md py-1 px-3">
               Sign In
             </Button>
           </Link>
         )}
         <ModeToggle />
       </div>
+      <ShoppingCartDrawer isOpen={isOpen} toggleDrawer={toggleDrawer} />
     </NavigationMenu>
   )
 }
