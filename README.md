@@ -1,4 +1,4 @@
-# Welcome to Thrift Commerce.
+# Welcome to Thrift.
 
 A website where you can buy and sell any product on your laptop or smartphone, from the comfort of your home.
 

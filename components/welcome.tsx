@@ -15,33 +15,35 @@ export function Welcome() {
           Thrift
         </span>
       </h1>
-      <p className="w-full mx-auto my-10 text-lg text-center">
+      <p className="w-full px-8 sm:px-4 md:px-2 mx-auto mt-10 text-lg text-center">
         Buy and sell products of any category. Find the lowest prices on
         Thrift!!!
       </p>
       <Slideshow />
-      <div className="w-72 mb-16 flex justify-between mx-auto">
+      <div className="w-80 sm:w-96 my-16 flex justify-between mx-auto">
         <Link href="/products">
           <Button
             type="button"
-            className="w-32 bg-gradient-to-r hover:bg-gradient-to-l from-primary to-secondary hover:font-semibold capitalize text-md"
+            className="w-36 bg-gradient-to-r hover:bg-gradient-to-l from-primary to-secondary hover:font-semibold capitalize text-md shadow-sm text-lg hover:shadow-md shadow-primary hover:shadow-primary"
           >
             Browse
           </Button>
         </Link>
-        <Link
-          href="/create-store"
-          className="rounded-md bg-gradient-to-r hover:bg-gradient-to-l from-primary to-secondary w-32 p-[1pt]"
-        >
-          <Button
-            type="button"
-            className="bg-background text-foreground shadow-md dark:bg-background w-full capitalize hover:font-semibold hover:bg-gray-50 text-md"
+        <div className="rounded-md bg-gradient-to-r shadow-sm hover:bg-gradient-to-l hover:shadow-md hover:shadow-secondary shadow-secondary h-9 from-primary to-secondary w-36 p-[1pt]">
+          <Link
+            href="/create-store"
+            className="bg-background block h-full rounded-md"
           >
-            Start selling
-          </Button>
-        </Link>
+            <Button
+              type="button"
+              className="bg-gradient-to-r from-primary to-secondary bg-clip-text h-full text-transparent w-full capitalize font-semibold text-lg"
+            >
+              Start selling
+            </Button>
+          </Link>
+        </div>
       </div>
-      <div className="dark:bg-neutral-600 w-full mx-auto h-[.7pt]"></div>
+      <div className="dark:bg-foreground/20 w-full mx-auto h-[.7pt]"></div>
     </>
   ) : null
 }

@@ -18,7 +18,7 @@ import { BuyNow } from './utils/buy-now'
 import { useToast } from '../ui/use-toast'
 import { ShoppingCart as ShoppingCartIcon } from 'lucide-react'
 import { ShoppingCart } from '../shopping-cart/types'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export const ProductsSubComponent = ({
   totalProducts,
@@ -35,11 +35,13 @@ export const ProductsSubComponent = ({
   const addItem = useSetAtom(addItemAtom)
   const totalItems = useAtomValue(getTotalAtom)
   const { toast } = useToast()
+  const [showToast, setShowToast] = useState(false)
   useEffect(() => {
-    toast({
-      title: `${totalItems} Items Added To Cart.`,
-    })
-  }, [totalItems])
+    if (showToast)
+      toast({
+        title: `${totalItems} Items Added To Cart.`,
+      })
+  }, [showToast, totalItems])
   return (
     <div className="mx-auto">
       {totalProducts && itemsPerPage && (
@@ -49,14 +51,14 @@ export const ProductsSubComponent = ({
         {productsToDisplay.map((product) => (
           <Card
             key={product?.product_id}
-            className="w-full sm:w-[30vw] md:w-[25vw] lg:w-[22vw] h-[24rem] overflow-hidden rounded-sm"
+            className="w-full sm:w-[30vw] md:w-[25vw] lg:w-[22vw] h-[25rem] overflow-hidden rounded-sm"
           >
             <Link
               href={`/products/${product?.product_id}`}
               passHref
-              className="active:bg-blue-100"
+              className="hover:bg-primary/20"
             >
-              <CardContent className="bg-white border-b p-0 w-full flex items-center h-44">
+              <CardContent className="bg-white border-b p-0 w-full flex items-center h-48">
                 <ProductImage
                   className="object-contain w-full max-h-40"
                   imgData={product?.media?.find((img) => img?.is_display_image)}
@@ -69,7 +71,7 @@ export const ProductsSubComponent = ({
                 passHref
                 className="active:bg-blue-100 flex flex-col justify-between h-40"
               >
-                <h4 className="my-2 w-full whitespace-normal break-words">
+                <h4 className="hover:text-primary my-2 w-full whitespace-normal break-words">
                   {/* remove &nbsp; that breaks ui */}
                   {product?.title
                     .slice(0, MAX_TITLE_LEN)
@@ -90,6 +92,7 @@ export const ProductsSubComponent = ({
                     shoppingCart
                       ? addItem(product)
                       : setShoppingCart(new ShoppingCart(product, null))
+                    setShowToast(true)
                   }}
                 >
                   {isSmallScreen ? (

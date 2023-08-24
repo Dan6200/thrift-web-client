@@ -1,6 +1,6 @@
 import { Product } from '@/components/products/types'
 
-type Item = {
+export type Item = {
   product: Product
   count: number
 }
@@ -19,12 +19,14 @@ export class ShoppingCart {
     }
   }
   addItem(product: Product) {
-    const item = {
+    const newItem = {
       product,
       count: 1,
     }
-    this.cartItems.push(item)
-    return true
+    const alreadyExists = this.cartItems.find(
+      (item) => item.product.product_id === newItem.product.product_id
+    )
+    return alreadyExists ? !alreadyExists : !!this.cartItems.push(newItem)
   }
   removeItem(product: Product) {
     const oldLength = this.cartItems.length
@@ -34,17 +36,15 @@ export class ShoppingCart {
     return oldLength >= this.cartItems.length
   }
   increaseCount(index: number) {
-    return this.cartItems[index].count++
-  }
-  decreaseCount(index: number) {
-    return this.cartItems[index].count > 1
-      ? this.cartItems[index].count--
+    return index >= 0 || index < this.cartItems.length
+      ? this.cartItems[index].count++
       : false
   }
-  getItems() {
-    return new Array(...this.cartItems)
-  }
-  getTotal() {
-    return this.cartItems.length
+  decreaseCount(index: number) {
+    return index >= 0 &&
+      index < this.cartItems.length &&
+      this.cartItems[index].count > 1
+      ? this.cartItems[index].count--
+      : false
   }
 }

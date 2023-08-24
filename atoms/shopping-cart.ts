@@ -8,14 +8,44 @@ export const shoppingCartAtom = atomWithStorage<ShoppingCart | null>(
   null
 )
 
-export const addItemAtom = atom(null, (get, set, product: Product) => {
+export const addItemAtom = atom(null, (get, set, newProduct: Product) => {
   const shoppingCart = get(shoppingCartAtom)
   const newShoppingCart = new ShoppingCart(null, shoppingCart)
-  newShoppingCart.addItem(product)
-  set(shoppingCartAtom, newShoppingCart)
+  newShoppingCart.addItem(newProduct) && set(shoppingCartAtom, newShoppingCart)
+})
+
+export const removeItemAtom = atom(null, (get, set, newProduct: Product) => {
+  const shoppingCart = get(shoppingCartAtom)
+  if (
+    shoppingCart?.cartItems.find(
+      ({ product }) => product.product_id === newProduct.product_id
+    )
+  ) {
+    const newShoppingCart = new ShoppingCart(null, shoppingCart)
+    newShoppingCart.removeItem(newProduct)
+    set(shoppingCartAtom, newShoppingCart)
+  }
 })
 
 export const getTotalAtom = atom((get) => {
   const shoppingCart = get(shoppingCartAtom)
   return shoppingCart?.cartItems.length
+})
+
+export const getItemsAtom = atom((get) => {
+  const shoppingCart = get(shoppingCartAtom)
+  if (shoppingCart) return [...shoppingCart?.cartItems]
+  return []
+})
+
+export const increaseItemCountAtom = atom(null, (get, set, index: number) => {
+  const shoppingCart = get(shoppingCartAtom)
+  const newShoppingCart = new ShoppingCart(null, shoppingCart)
+  newShoppingCart.increaseCount(index) && set(shoppingCartAtom, newShoppingCart)
+})
+
+export const decreaseItemCountAtom = atom(null, (get, set, index: number) => {
+  const shoppingCart = get(shoppingCartAtom)
+  const newShoppingCart = new ShoppingCart(null, shoppingCart)
+  newShoppingCart.decreaseCount(index) && set(shoppingCartAtom, newShoppingCart)
 })

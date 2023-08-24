@@ -29,10 +29,7 @@ export const BuyNow = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          className="hover:bg-neutral-700 p-1 h-9 w-16 sm:w-[9vw]"
-          variant="outline"
-        >
+        <Button className="p-1 h-9 w-16 sm:w-[9vw]" variant="outline">
           {isSmallScreen ? (
             <>
               <ShoppingCart />

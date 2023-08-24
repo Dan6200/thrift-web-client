@@ -1,6 +1,6 @@
 // cspell:ignore womens
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { ModeToggle } from '../../dark-mode-toggle'
 import { Button } from '../../ui/button'
@@ -12,12 +12,10 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import { ListItem } from '../utils/list-item'
 import { components } from '../utils/nav-components'
 import { ShoppingCart, UserCircle2 } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import {
   Popover,
   PopoverContent,
@@ -26,6 +24,10 @@ import {
 import { logout } from './logout'
 import { UserAccount } from '@/components/user-account/types'
 import { getTotalAtom } from '@/atoms'
+import { SwipeableDrawer } from '@mui/material'
+import { CardContent } from '@/components/ui/card'
+import { ProductImage } from '@/components/products/image'
+import { ShoppingCartDrawer } from '@/components/shopping-cart'
 
 type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
 
@@ -37,6 +39,7 @@ export function NavMenu({
   setUser: SetUser
 }) {
   const totalItems = useAtomValue(getTotalAtom)
+  const [isOpen, toggleDrawer] = useState(false)
   return (
     <NavigationMenu className="max-w-none border-b flex flex-row items-center justify-between w-full px-4 py-2  shadow-md dark:bg-background  dark:shadow-none">
       <div className="justify-start flex">
@@ -54,13 +57,13 @@ export function NavMenu({
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
                     <a
-                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary/80 to-secondary text-primary-foreground dark:from-primary/40 dark:to-secondary/50 p-6 no-underline outline-none focus:shadow-md"
                       href="/"
                     >
-                      <div className="mb-2 mt-4 text-lg font-medium">
+                      <div className="mb-2 mt-4 text-lg font-bold">
                         Thrift Commerce
                       </div>
-                      <p className="text-sm leading-tight text-muted-foreground">
+                      <p className="text-sm leading-tight text-primary-foreground dark:text-primary-foreground/80">
                         Shop new handpicked deals in categories such as
                         electronics, computers & tablets, fashion & fashion
                         accessories etc.
@@ -104,10 +107,16 @@ export function NavMenu({
       </div>
       <div className="flex justify-between items-center w-48">
         <div className="relative h-12 w-12 p-0">
-          <span className="bg-primary w-6 text-center block absolute right-0 top-0 text-sm rounded-full">
+          <span className="bg-primary text-primary-foreground w-6 text-center block absolute right-0 top-0 text-sm rounded-full">
             {totalItems}
           </span>
-          <Button variant="outline" className="my-2 p-0 w-10">
+          <Button
+            variant="outline"
+            className="my-2 p-0 w-10"
+            onClick={() => {
+              toggleDrawer(true)
+            }}
+          >
             <ShoppingCart className="w-5" />
           </Button>
         </div>
@@ -144,6 +153,7 @@ export function NavMenu({
         )}
         <ModeToggle />
       </div>
+      <ShoppingCartDrawer isOpen={isOpen} toggleDrawer={toggleDrawer} />
     </NavigationMenu>
   )
 }

@@ -2,7 +2,7 @@
 import { SwipeableDrawer } from '@mui/material'
 import Link from 'next/link'
 import { useState } from 'react'
-import { Menu } from 'lucide-react'
+import { Menu, ShoppingCart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Accordion,
@@ -14,8 +14,9 @@ import { PanelRightClose, UserCircle2 } from 'lucide-react'
 import { components } from './nav-components'
 import { ModeToggle } from '@/components/dark-mode-toggle'
 import { logout } from './logout'
-import { useSetAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import { UserAccount } from '@/components/user-account/types'
+import { getTotalAtom } from '@/atoms'
 
 type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
 
@@ -27,6 +28,7 @@ export const NavDrawer = ({
   setUser: SetUser
 }) => {
   const [isOpen, toggleDrawer] = useState(false)
+  const totalItems = useAtomValue(getTotalAtom)
   return (
     <div className="max-w-none border-b flex flex-row items-center justify-between w-full px-4 py-4 bg-background shadow-md dark:shadow-none">
       <Link
@@ -36,6 +38,14 @@ export const NavDrawer = ({
         Thrift
       </Link>
       <div className="flex items-center space-x-4">
+        <div className="relative h-12 w-12 p-0">
+          <span className="bg-primary text-primary-foreground w-6 text-center block absolute right-0 top-0 text-sm rounded-full">
+            {totalItems}
+          </span>
+          <Button variant="outline" className="my-2 p-0 w-10">
+            <ShoppingCart className="w-5" />
+          </Button>
+        </div>
         {user?.token ? (
           <Link
             href="/account"
@@ -64,7 +74,7 @@ export const NavDrawer = ({
         onClose={() => toggleDrawer(false)}
         onOpen={() => toggleDrawer(true)}
       >
-        <div className="container border overflow-scroll p-4 bg-background text-foreground h-full w-[70vw]">
+        <div className="container border overflow-scroll p-4 bg-background text-foreground h-full w-[70vw] sm:w-[50vw]">
           <Button
             onClick={() => toggleDrawer(false)}
             variant="outline"
@@ -81,13 +91,13 @@ export const NavDrawer = ({
               <AccordionContent>
                 <div className="flex flex-col space-y-3 p-4">
                   <Link
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b dark:from-primary/40 dark:to-secondary/50 p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
                     <div className="mb-2 mt-4 text-lg font-medium">
                       Thrift Commerce
                     </div>
-                    <p className="text-sm leading-tight text-muted-foreground">
+                    <p className="text-sm leading-tight text-primary-foreground/80">
                       Shop new handpicked deals in categories such as
                       electronics, computers & tablets, fashion & fashion
                       accessories etc.
