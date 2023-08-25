@@ -40,7 +40,7 @@ export const BuyNow = ({
           )}
         </Button>
       </DialogTrigger>
-      <DialogContent className="transition-all ease-in-out overflow-y-scroll rounded-md w-[80vw] p-8 py-16 md:p-16 h-[80vh] sm:w-[80vw] md:w-[70vw] max-w-none">
+      <DialogContent className="transition-all ease-in-out overflow-y-scroll rounded-md w-[90vw] p-8 py-16 md:p-16 h-[90vh] sm:h-[80vh] sm:w-[80vw] md:w-[70vw] max-w-none">
         {isSelectingQuantity ? (
           <SelectQuantity
             quantity={quantity}

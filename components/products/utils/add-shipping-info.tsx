@@ -18,17 +18,19 @@ export const AddShippingInfo = ({
   setIsSelectingQuantity: Dispatch<SetStateAction<boolean>>
 }) => (
   <>
-    <DialogHeader className="mb-8 flex flex-row items-center space-y-0">
+    <DialogHeader className="mb-2 sm:mb-8 flex h-16 sm:h-8 sm:flex-row flex-col justify-between items-start space-y-0">
       <a
         onClick={() => {
           setIsAddingShipping(false)
           setIsSelectingQuantity(true)
         }}
-        className="cursor-pointer mr-4"
+        className="cursor-pointer mr-2 sm:mr-4"
       >
         <ArrowLeft />
       </a>
-      <DialogTitle>Add Shipping Information</DialogTitle>
+      <DialogTitle className="w-full text-center">
+        Add Shipping Information
+      </DialogTitle>
     </DialogHeader>
     <ShippingInfoForm />
     <DialogFooter className="flex flex-col md:flex-row text-lg justify-between items-center md:w-full">
