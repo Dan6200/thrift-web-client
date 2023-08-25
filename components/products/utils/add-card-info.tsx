@@ -18,7 +18,7 @@ export const AddCardInfo = ({
   setIsSelectingQuantity: Dispatch<SetStateAction<boolean>>
 }) => (
   <>
-    <DialogHeader className="mb-8 flex flex-row items-center space-y-0">
+    <DialogHeader className="mb-2 sm:mb-8 flex h-16 sm:h-8 sm:flex-row flex-col justify-between items-start space-y-0">
       <a
         onClick={() => {
           setIsAddingCard(false)
@@ -30,7 +30,9 @@ export const AddCardInfo = ({
       >
         <ArrowLeft />
       </a>
-      <DialogTitle>Add Card Information</DialogTitle>
+      <DialogTitle className="w-full text-center">
+        Add Card Information
+      </DialogTitle>
     </DialogHeader>
     <CardInfoForm />
     <DialogFooter className="flex flex-col md:flex-row text-lg justify-between items-center md:w-full">

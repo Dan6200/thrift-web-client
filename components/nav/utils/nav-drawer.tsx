@@ -91,13 +91,13 @@ export const NavDrawer = ({
               <AccordionContent>
                 <div className="flex flex-col space-y-3 p-4">
                   <Link
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b dark:from-primary/40 dark:to-secondary/50 p-6 no-underline outline-none focus:shadow-md"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary/80 to-secondary/90 text-primary-foreground dark:from-primary/40 dark:to-secondary/50 p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
                     <div className="mb-2 mt-4 text-lg font-medium">
                       Thrift Commerce
                     </div>
-                    <p className="text-sm leading-tight text-primary-foreground/80">
+                    <p className="text-sm leading-tight text-primary-foreground dark:text-primary-foreground/80">
                       Shop new handpicked deals in categories such as
                       electronics, computers & tablets, fashion & fashion
                       accessories etc.
