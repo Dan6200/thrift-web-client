@@ -80,23 +80,16 @@ export const SelectQuantity = ({
               })}
         </p>
       </div>
-      {shippingInfo ? (
-        <div className="flex flex-col md:flex-row justify-between h-24 md:h-fit md:w-80">
+      {!shippingInfo ? (
+        <div className="flex flex-col md:flex-row justify-between h-24 md:h-fit">
           <Button
             onClick={() => {
               setIsSelectingQuantity(false)
               setIsAddingCard(true)
             }}
+            className="flex mx-auto font-semibold bg-green-600 w-full sm:w-48 md:w-32 h-10 text-lg text-tertiary hover:bg-green-500"
           >
-            Add Card Info
-          </Button>
-          <Button
-            onClick={() => {
-              setIsSelectingQuantity(false)
-              setIsAddingShipping(true)
-            }}
-          >
-            Add New Shipping Info
+            Checkout
           </Button>
         </div>
       ) : (
@@ -105,8 +98,9 @@ export const SelectQuantity = ({
             setIsSelectingQuantity(false)
             setIsAddingShipping(true)
           }}
+          className="flex mx-auto font-semibold bg-green-600 w-full sm:w-48 md:w-32 h-10 text-lg text-tertiary hover:bg-green-500"
         >
-          Add Shipping Info
+          Checkout
         </Button>
       )}
     </DialogFooter>

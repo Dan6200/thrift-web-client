@@ -1,37 +1,30 @@
+'use client'
 // cspell:ignore Swipeable
-import { SwipeableDrawer } from '@mui/material'
 import { ProductImage } from '../products/image'
 import { Card, CardContent } from '../ui/card'
-import { useAtomValue, useSetAtom } from 'jotai'
-import {
-  decreaseItemCountAtom,
-  getItemsAtom,
-  getTotalAtom,
-  increaseItemCountAtom,
-} from '@/atoms'
 import { Item } from './types'
 import { Button } from '../ui/button'
 import { Minus, PanelRightClose, Plus } from 'lucide-react'
+import ShippingInfo from '../shipping-info/types'
 
-export function ShoppingCartDrawer({
-  isOpen,
+export function ShoppingCart({
   toggleDrawer,
+  shippingInfo,
+  items,
+  increaseItemCount,
+  decreaseItemCount,
+  total,
 }: {
-  isOpen: boolean
-  toggleDrawer: any
+  shippingInfo: ShippingInfo | null
+  items: Item[]
+  increaseItemCount: any
+  decreaseItemCount: any
+  total?: number
+  toggleDrawer?: any
 }) {
-  const items = useAtomValue(getItemsAtom)
-  const increaseItemCount = useSetAtom(increaseItemCountAtom)
-  const decreaseItemCount = useSetAtom(decreaseItemCountAtom)
-  const total = useAtomValue(getTotalAtom)
   return (
-    <SwipeableDrawer
-      anchor="right"
-      open={isOpen}
-      onClose={() => toggleDrawer(false)}
-      onOpen={() => toggleDrawer(true)}
-    >
-      <div className="container border space-y-4 overflow-scroll p-4 bg-background text-foreground h-full w-[50vw]">
+    <div className="container p-4 bg-background text-foreground ">
+      {toggleDrawer && (
         <Button
           onClick={() => toggleDrawer(false)}
           variant="outline"
@@ -40,9 +33,11 @@ export function ShoppingCartDrawer({
         >
           <PanelRightClose />
         </Button>
-        <h2 className="text-center p8 text-semibold text-2xl w-full my-8 ">
-          Items in Cart...
-        </h2>
+      )}
+      <h2 className="text-center p8 font-semibold text-2xl w-full my-8">
+        Items in Cart
+      </h2>
+      <div className="space-y-4">
         {items.length ? (
           items.map(({ product, count }: Item, index: number) => {
             return (
@@ -50,9 +45,9 @@ export function ShoppingCartDrawer({
                 key={product.product_id}
                 className="flex items-center w-full"
               >
-                <CardContent className="rounded-md w-full border-b p-2 flex items-center h-24">
+                <CardContent className="rounded-md w-full border-b p-2 flex flex-col  sm:flex-row items-center justify-between h-40 sm:h-24">
                   <ProductImage
-                    className="py-1 object-contain w-32 mx-auto rounded-sm bg-white max-h-20 object-center"
+                    className="py-1 object-contain w-32 mx-auto rounded-sm bg-white max-h-20 object-center border dark:border-none"
                     imgData={product?.media?.find(
                       (img) => img?.is_display_image
                     )}
@@ -112,8 +107,14 @@ export function ShoppingCartDrawer({
             })}
           </p>
         </div>
-        <Button className="mx-auto my-4">Add Shipping Info</Button>
       </div>
-    </SwipeableDrawer>
+      {shippingInfo ? (
+        <Button className="my-16 flex mx-auto font-semibold bg-green-600 w-full md:w-64 h-10 text-lg text-tertiary hover:bg-green-500">
+          Checkout
+        </Button>
+      ) : (
+        <Button className="flex mx-auto my-4">Add Shipping Info</Button>
+      )}
+    </div>
   )
 }

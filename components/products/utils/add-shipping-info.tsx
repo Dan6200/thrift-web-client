@@ -40,8 +40,9 @@ export const AddShippingInfo = ({
             setIsAddingCard(true)
             setIsAddingShipping(false)
           }}
+          className="flex mx-auto font-semibold bg-green-600 w-full sm:w-48 md:w-32 h-10 text-lg text-tertiary hover:bg-green-500"
         >
-          Add Card Info
+          Continue With Checkout
         </Button>
       )}
     </DialogFooter>

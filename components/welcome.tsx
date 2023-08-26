@@ -24,7 +24,7 @@ export function Welcome() {
         <Link href="/products">
           <button
             type="button"
-            className="h-9 px-4 py-2 items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 flex w-36 bg-gradient-to-r hover:bg-gradient-to-l from-primary to-secondary capitalize text-md text-lg text-primary-foreground font-semibold hover:shadow-wide shadow-primary hover:shadow-primary/70"
+            className="h-9 px-4 py-2 items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 flex w-36 bg-gradient-to-r hover:bg-gradient-to-l from-primary to-secondary capitalize text-md text-lg text-primary-foreground font-semibold hover:shadow-wide shadow-primary hover:shadow-primary/40"
           >
             Browse
           </button>
