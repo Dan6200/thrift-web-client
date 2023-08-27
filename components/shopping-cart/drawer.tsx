@@ -1,7 +1,5 @@
 // cspell:ignore Swipeable
 import { SwipeableDrawer } from '@mui/material'
-import { ProductImage } from '../products/image'
-import { Card, CardContent } from '../ui/card'
 import { useAtomValue, useSetAtom } from 'jotai'
 import {
   decreaseItemCountAtom,
@@ -10,17 +8,15 @@ import {
   increaseItemCountAtom,
   shippingInfoAtom,
 } from '@/atoms'
-import { Item } from './types'
-import { Button } from '../ui/button'
-import { Minus, PanelRightClose, Plus } from 'lucide-react'
 import { ShoppingCart } from '.'
+import { Dispatch, SetStateAction } from 'react'
 
 export function ShoppingCartDrawer({
   isOpen,
   toggleDrawer,
 }: {
   isOpen: boolean
-  toggleDrawer: any
+  toggleDrawer: Dispatch<SetStateAction<boolean>>
 }) {
   const items = useAtomValue(getItemsAtom)
   const increaseItemCount = useSetAtom(increaseItemCountAtom)

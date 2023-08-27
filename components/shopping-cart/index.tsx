@@ -4,10 +4,26 @@ import { ProductImage } from '../products/image'
 import { Card, CardContent } from '../ui/card'
 import { Item } from './types'
 import { Button } from '../ui/button'
-import { Minus, PanelRightClose, Plus } from 'lucide-react'
+import { Minus, PanelRightClose, Plus, Trash2 } from 'lucide-react'
 import ShippingInfo from '../shipping-info/types'
+import { useSetAtom } from 'jotai'
+import { Product } from '../products/types'
+import { Dispatch, SetStateAction } from 'react'
+
+type RemoveItem = ReturnType<
+  typeof useSetAtom<null, [newProduct: Product], void>
+>
+
+type IncreaseItemCount = ReturnType<
+  typeof useSetAtom<null, [index: number], void>
+>
+
+type DecreaseItemCount = ReturnType<
+  typeof useSetAtom<null, [index: number], void>
+>
 
 export function ShoppingCart({
+  removeItem,
   toggleDrawer,
   shippingInfo,
   items,
@@ -17,10 +33,11 @@ export function ShoppingCart({
 }: {
   shippingInfo: ShippingInfo | null
   items: Item[]
-  increaseItemCount: any
-  decreaseItemCount: any
+  increaseItemCount: IncreaseItemCount
+  decreaseItemCount: DecreaseItemCount
   total?: number
-  toggleDrawer?: any
+  toggleDrawer?: Dispatch<SetStateAction<boolean>>
+  removeItem?: RemoveItem
 }) {
   return (
     <div className="container p-4 bg-background text-foreground ">
@@ -45,35 +62,45 @@ export function ShoppingCart({
                 key={product.product_id}
                 className="flex items-center w-full"
               >
-                <CardContent className="rounded-md w-full border-b p-2 flex flex-col  sm:flex-row items-center justify-between h-40 sm:h-24">
+                <CardContent className="rounded-md w-full border-b p-4 flex flex-col  sm:flex-row items-center justify-between h-44 sm:h-24">
                   <ProductImage
-                    className="py-1 object-contain w-32 mx-auto rounded-sm bg-white max-h-20 object-center border dark:border-none"
+                    className="py-1 object-contain w-32 mx-auto rounded-sm bg-white max-h-24 sm:max-h-20 object-center border dark:border-none"
                     imgData={product?.media?.find(
                       (img) => img?.is_display_image
                     )}
                   />
-                  <div className="w-full flex px-8 justify-between">
-                    <div className="flex h-fit items-center border w-28 justify-between p-0 rounded-md">
+                  <div className="w-full flex sm:px-8 justify-between">
+                    <div className="flex justify-between sm:justify-normal items-center">
+                      <div className="flex h-fit mr-2 items-center border w-28 justify-between p-0 rounded-md">
+                        <Button
+                          onClick={() => {
+                            count > 1 ? decreaseItemCount(index) : null
+                          }}
+                          variant={'outline'}
+                          className="p-2 border-r border-y-0 border-l-0 h-7 rounded-none m-0"
+                        >
+                          <Minus className="w-4" />
+                        </Button>
+                        <p className="mx-auto p-1">{count}</p>
+                        <Button
+                          onClick={() => {
+                            count <= product.quantity_available
+                              ? increaseItemCount(index)
+                              : null
+                          }}
+                          variant={'outline'}
+                          className="p-2 border-l border-y-0 border-r-0 h-7 rounded-none m-0"
+                        >
+                          <Plus className="w-4" />
+                        </Button>
+                      </div>
                       <Button
-                        onClick={() => {
-                          count > 1 ? decreaseItemCount(index) : null
-                        }}
-                        variant={'outline'}
-                        className="p-2 border-r border-y-0 border-l-0 h-7 rounded-none m-0"
+                        variant="outline"
+                        onClick={() =>
+                          removeItem ? removeItem(product) : null
+                        }
                       >
-                        <Minus className="w-4" />
-                      </Button>
-                      <p className="mx-auto p-1">{count}</p>
-                      <Button
-                        onClick={() => {
-                          count <= product.quantity_available
-                            ? increaseItemCount(index)
-                            : null
-                        }}
-                        variant={'outline'}
-                        className="p-2 border-l border-y-0 border-r-0 h-7 rounded-none m-0"
-                      >
-                        <Plus className="w-4" />
+                        <Trash2 className="text-destructive" />
                       </Button>
                     </div>
                     <p className="p-1">
