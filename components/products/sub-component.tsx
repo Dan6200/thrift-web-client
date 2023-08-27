@@ -47,7 +47,7 @@ export const ProductsSubComponent = ({
       {totalProducts && itemsPerPage && (
         <Paginate count={Math.ceil(totalProducts / itemsPerPage)} />
       )}
-      <div className="w-full sm:px-4 sm:py-2 md:px-8 md:py-4 mx-auto place-items-center grid grid-cols-2 gap-2 sm:gap-5 sm:grid-cols-3 lg:grid-cols-4">
+      <div className="w-full sm:px-2 sm:py-2 md:px-4 md:py-4 mx-auto place-items-center grid grid-cols-2 gap-2 sm:gap-5 sm:grid-cols-3 lg:grid-cols-4">
         {productsToDisplay.map((product) => (
           <Card
             key={product?.product_id}
@@ -86,7 +86,7 @@ export const ProductsSubComponent = ({
               </Link>
               <div className="flex w-full mt-4 justify-between">
                 <Button
-                  className="p-1 h-9 w-16 sm:w-[9vw]"
+                  className="shadow-around p-1 h-9 w-16 sm:w-[9vw]"
                   variant="outline"
                   onClick={() => {
                     shoppingCart

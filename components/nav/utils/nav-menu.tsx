@@ -24,10 +24,7 @@ import {
 import { logout } from './logout'
 import { UserAccount } from '@/components/user-account/types'
 import { getTotalCountAtom } from '@/atoms'
-import { SwipeableDrawer } from '@mui/material'
-import { CardContent } from '@/components/ui/card'
-import { ProductImage } from '@/components/products/image'
-import { ShoppingCartDrawer } from '@/components/shopping-cart'
+import { ShoppingCartDrawer } from '@/components/shopping-cart/drawer'
 
 type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
 

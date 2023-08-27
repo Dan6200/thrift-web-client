@@ -38,14 +38,14 @@ export const NavDrawer = ({
         Thrift
       </Link>
       <div className="flex items-center space-x-4">
-        <div className="relative h-12 w-12 p-0">
+        <Link href="/shopping-cart" className="block relative h-12 w-12 p-0">
           <span className="bg-primary text-primary-foreground w-6 text-center block absolute right-0 top-0 text-sm rounded-full">
             {totalItems}
           </span>
           <Button variant="outline" className="my-2 p-0 w-10">
             <ShoppingCart className="w-5" />
           </Button>
-        </div>
+        </Link>
         {user?.token ? (
           <Link
             href="/account"

@@ -22,21 +22,21 @@ export function Welcome() {
       <Slideshow />
       <div className="w-80 sm:w-96 my-16 flex justify-between mx-auto">
         <Link href="/products">
-          <Button
+          <button
             type="button"
-            className="w-36 bg-gradient-to-r hover:bg-gradient-to-l from-primary to-secondary hover:font-semibold capitalize text-md shadow-sm text-lg hover:shadow-md shadow-primary hover:shadow-primary"
+            className="h-9 px-4 py-2 items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 flex w-36 bg-gradient-to-r hover:bg-gradient-to-l from-primary to-secondary capitalize text-md text-lg text-primary-foreground font-semibold hover:shadow-wide shadow-primary hover:shadow-primary/40"
           >
             Browse
-          </Button>
+          </button>
         </Link>
-        <div className="rounded-md bg-gradient-to-r shadow-sm hover:bg-gradient-to-l hover:shadow-md hover:shadow-secondary shadow-secondary h-9 from-primary to-secondary w-36 p-[1pt]">
+        <div className="rounded-md bg-gradient-to-r shadow-around hover:bg-gradient-to-l hover:shadow-wide hover:shadow-secondary/30 shadow-secondary/70 h-9 from-primary to-secondary w-36 p-[1pt]">
           <Link
             href="/create-store"
             className="bg-background block h-full rounded-md"
           >
             <Button
               type="button"
-              className="bg-gradient-to-r from-primary to-secondary bg-clip-text h-full text-transparent w-full capitalize font-semibold text-lg"
+              className="bg-gradient-to-r hover:bg-gradient-to-l from-primary to-secondary bg-clip-text h-full text-transparent w-full capitalize font-semibold text-lg"
             >
               Start selling
             </Button>
