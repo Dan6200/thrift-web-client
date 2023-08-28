@@ -1,4 +1,3 @@
-import { Nav } from '@/components/nav'
 import Link from 'next/link'
 import getProducts from './products/get-products'
 import { isProductData } from '@/components/products/types'
@@ -15,7 +14,6 @@ export default async function Home() {
   // Move these to child components to use clients
   return (
     <div className="mx-auto w-full">
-      <Nav />
       <div className="container w-full mx-auto p-4">
         <Welcome />
         <ProductsHome products={productData.products} />

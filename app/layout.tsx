@@ -1,6 +1,7 @@
 // cspell:ignore Resizer
 'use strict'
 import { Resizer } from '@/components/handle-resize'
+import { Nav } from '@/components/nav'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/toaster'
 import './globals.css'
@@ -21,7 +22,10 @@ export default function RootLayout({
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Providers>
-            <Resizer>{children}</Resizer>
+            <Resizer>
+              <Nav />
+              {children}
+            </Resizer>
             <Toaster />
           </Providers>
         </ThemeProvider>

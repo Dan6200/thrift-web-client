@@ -6,6 +6,7 @@ import {
   getItemsAtom,
   getTotalAtom,
   increaseItemCountAtom,
+  removeItemAtom,
   shippingInfoAtom,
 } from '@/atoms'
 import { ShoppingCart } from '.'
@@ -23,6 +24,7 @@ export function ShoppingCartDrawer({
   const decreaseItemCount = useSetAtom(decreaseItemCountAtom)
   const total = useAtomValue(getTotalAtom)
   const shippingInfo = useAtomValue(shippingInfoAtom)
+  const removeItem = useSetAtom(removeItemAtom)
   return (
     <SwipeableDrawer
       anchor="right"
@@ -30,7 +32,7 @@ export function ShoppingCartDrawer({
       onClose={() => toggleDrawer(false)}
       onOpen={() => toggleDrawer(true)}
     >
-      <div className="overflow-scroll border h-full w-[50vw]">
+      <div className="overflow-scroll border h-full w-[50vw] bg-background text-foreground">
         <ShoppingCart
           toggleDrawer={toggleDrawer}
           items={items}
@@ -38,6 +40,7 @@ export function ShoppingCartDrawer({
           decreaseItemCount={decreaseItemCount}
           total={total}
           shippingInfo={shippingInfo}
+          removeItem={removeItem}
         />
       </div>
     </SwipeableDrawer>

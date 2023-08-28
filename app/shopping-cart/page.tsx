@@ -7,7 +7,6 @@ import {
   shippingInfoAtom,
   removeItemAtom,
 } from '@/atoms'
-import { Nav } from '@/components/nav'
 import { ShoppingCart } from '@/components/shopping-cart'
 import { useAtomValue, useSetAtom } from 'jotai'
 
@@ -21,7 +20,6 @@ export default function ShoppingCartPage() {
 
   return (
     <>
-      <Nav />
       <ShoppingCart
         items={items}
         increaseItemCount={increaseItemCount}

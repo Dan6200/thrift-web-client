@@ -1,13 +1,31 @@
+'use client'
+import { addItemAtom, getTotalCountAtom, shoppingCartAtom } from '@/atoms'
+import { useToast } from '@/components/ui/use-toast'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { MoveLeft } from 'lucide-react'
+import { ShoppingCart } from '@/components/shopping-cart/types'
+import { useState, useEffect } from 'react'
 import { Button } from '../../ui/button'
 import { Card, CardContent } from '../../ui/card'
 import { GoBackLink } from '../go-back-link'
 import { ProductImage } from '../image'
 import { Product } from '../types'
+import { BuyNow } from '../utils/buy-now'
 import { Price } from './utils/price'
 
 export function Product({ product }: { product: Product }) {
   const displayImg = product?.media?.find((img) => img?.is_display_image)
+  const [shoppingCart, setShoppingCart] = useAtom(shoppingCartAtom)
+  const addItem = useSetAtom(addItemAtom)
+  const totalItems = useAtomValue(getTotalCountAtom)
+  const { toast } = useToast()
+  const [showToast, setShowToast] = useState(false)
+  useEffect(() => {
+    if (showToast)
+      toast({
+        title: `${totalItems} Items Added To Cart.`,
+      })
+  }, [showToast, totalItems])
   return (
     <div className="container mx-auto p-5 my-20">
       <GoBackLink className="cursor-pointer text-sm text-blue-700 dark:text-blue-200 mb-8 block">
@@ -25,7 +43,7 @@ export function Product({ product }: { product: Product }) {
         >
           <ProductImage
             imgData={displayImg}
-            className="object-cover py-4 border-b w-full sm:w-96 rounded-sm"
+            className="object-cover py-4 border-b w-full sm:w-96 rounded-md"
           />
           <div className="flex flex-col my-4 p-2 sm:p-4 w-full sm:w-96 justify-between sm:h-48">
             <Price
@@ -39,8 +57,24 @@ export function Product({ product }: { product: Product }) {
               </p>
             </div>
             <div className="flex w-full mb-4 justify-between">
-              <Button>Add To Cart</Button>
-              <Button>Save For Later</Button>
+              <Button
+                className="w-28"
+                onClick={() => {
+                  shoppingCart
+                    ? addItem(product)
+                    : setShoppingCart(new ShoppingCart(product, null))
+                  setShowToast(true)
+                }}
+              >
+                Add To Cart
+              </Button>
+              <BuyNow
+                imgData={displayImg}
+                netPrice={product?.net_price}
+                listPrice={product?.list_price}
+                quantityAvailable={product?.quantity_available}
+                isProductPage={true}
+              />
             </div>
           </div>
         </CardContent>

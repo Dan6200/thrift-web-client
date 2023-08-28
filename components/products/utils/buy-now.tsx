@@ -11,6 +11,7 @@ import { SelectQuantity } from './select-quantity'
 import { AddCardInfo } from './add-card-info'
 
 export const BuyNow = ({
+  isProductPage,
   imgData,
   netPrice,
   quantityAvailable,
@@ -19,6 +20,7 @@ export const BuyNow = ({
   netPrice: string | number
   listPrice: string | number
   quantityAvailable: number
+  isProductPage?: boolean
 }) => {
   const shippingInfo = useAtomValue(shippingInfoAtom)
   const [isAddingShipping, setIsAddingShipping] = useState(false)
@@ -29,16 +31,20 @@ export const BuyNow = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="p-1 h-9 w-16 sm:w-[9vw]" variant="outline">
-          {isSmallScreen ? (
-            <>
-              <ShoppingCart />
-              <Check className="w-4" />
-            </>
-          ) : (
-            'Buy Now'
-          )}
-        </Button>
+        {isProductPage ? (
+          <Button className="w-28">Buy Now</Button>
+        ) : (
+          <Button className="p-1 h-9 w-16 sm:w-[9vw]" variant="outline">
+            {isSmallScreen ? (
+              <>
+                <ShoppingCart />
+                <Check className="w-4" />
+              </>
+            ) : (
+              'Buy Now'
+            )}
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="transition-all ease-in-out overflow-y-scroll rounded-md w-[90vw] p-8 py-16 md:p-16 h-[90vh] sm:h-[80vh] sm:w-[80vw] md:w-[70vw] max-w-none">
         {isSelectingQuantity ? (
