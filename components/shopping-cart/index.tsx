@@ -125,23 +125,23 @@ export function ShoppingCart({
             <p>Click on the &apos;Add to cart button&apos; on the page</p>
           </div>
         )}
-        <div className="flex w-full items-center justify-between text-center text-lg">
-          <h2 className="">Total Items: </h2>
-          <p className="text-xl font-bold text-green-700 dark:text-green-400">
-            {total?.toLocaleString('en-NG', {
-              currency: 'NGN',
-              style: 'currency',
-            })}
-          </p>
-        </div>
+        {items.length && (
+          <>
+            <div className="flex w-full items-center justify-between text-center text-lg">
+              <h2 className="">Total Items: </h2>
+              <p className="text-xl font-bold text-green-700 dark:text-green-400">
+                {total?.toLocaleString('en-NG', {
+                  currency: 'NGN',
+                  style: 'currency',
+                })}
+              </p>
+            </div>
+            <Button className="my-16 flex mx-auto font-semibold bg-green-600 w-full md:w-64 h-10 text-lg text-tertiary hover:bg-green-500">
+              Checkout
+            </Button>
+          </>
+        )}
       </div>
-      {shippingInfo ? (
-        <Button className="my-16 flex mx-auto font-semibold bg-green-600 w-full md:w-64 h-10 text-lg text-tertiary hover:bg-green-500">
-          Checkout
-        </Button>
-      ) : (
-        <Button className="flex mx-auto my-4">Add Shipping Info</Button>
-      )}
     </div>
   )
 }

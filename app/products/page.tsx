@@ -1,5 +1,4 @@
 // Purpose: Page for displaying all products
-import { Nav } from '@/components/nav'
 import { Products } from '@/components/products'
 import { isProductData } from '@/components/products/types'
 import getProducts from './get-products'
@@ -12,7 +11,6 @@ export default async function ProductsPage() {
   }
   return (
     <>
-      <Nav />
       <Products products={productData.products} />
     </>
   )
