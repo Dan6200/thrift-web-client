@@ -14,8 +14,7 @@ export default async function getProducts() {
       'https://thrift-dev.onrender.com/v1/products?' +
         new URLSearchParams({
           public: 'true',
-          sort: 'created_at',
-          order: 'desc',
+          sort: '-created_at',
         }),
       { next: { revalidate: 60 * 60 } }
     ).then((res) => {
@@ -28,8 +27,7 @@ export default async function getProducts() {
         'https://thrift-dev.onrender.com/v1/products?' +
           new URLSearchParams({
             public: 'true',
-            sort: 'created_at',
-            order: 'desc',
+            sort: '-created_at',
           }),
         { next: { revalidate: 60 * 60 } }
       )

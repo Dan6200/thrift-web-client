@@ -3,7 +3,6 @@ import { ProductImage } from '../image'
 import { Button } from '@/components/ui/button'
 import { DialogFooter, DialogHeader, DialogTitle } from '../../ui/dialog'
 import { Minus, Plus } from 'lucide-react'
-import { CardContent } from '@/components/ui/card'
 import { Dispatch, SetStateAction } from 'react'
 import { ImgData } from '../types'
 import ShippingInfo from '@/components/shipping-info/types'
@@ -80,7 +79,7 @@ export const SelectQuantity = ({
               })}
         </p>
       </div>
-      {!shippingInfo ? (
+      {shippingInfo ? (
         <div className="flex flex-col md:flex-row justify-between h-24 md:h-fit">
           <Button
             onClick={() => {

@@ -33,14 +33,14 @@ export const AddShippingInfo = ({
       </DialogTitle>
     </DialogHeader>
     <ShippingInfoForm />
-    <DialogFooter className="flex flex-col md:flex-row text-lg justify-between items-center md:w-full">
+    <DialogFooter className="flex flex-col md:flex-row text-lg justify-between md:justify-end items-center md:w-full">
       {shippingInfo && (
         <Button
           onClick={() => {
             setIsAddingCard(true)
             setIsAddingShipping(false)
           }}
-          className="flex mx-auto font-semibold bg-green-600 w-full sm:w-48 md:w-32 h-10 text-lg text-tertiary hover:bg-green-500"
+          className="flex font-semibold bg-green-600 w-full md:w-64 h-10 text-lg text-tertiary hover:bg-green-500"
         >
           Continue With Checkout
         </Button>
