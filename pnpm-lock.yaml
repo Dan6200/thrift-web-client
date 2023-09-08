@@ -119,6 +119,9 @@ dependencies:
   fetch-ponyfill:
     specifier: ^7.1.0
     version: 7.1.0(encoding@0.1.13)
+  instantsearch.css:
+    specifier: ^8.0.0
+    version: 8.0.0
   joi:
     specifier: ^17.9.2
     version: 17.9.2
@@ -3686,6 +3689,10 @@ packages:
 
   /ini@1.3.8:
     resolution: {integrity: sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==}
+    dev: false
+
+  /instantsearch.css@8.0.0:
+    resolution: {integrity: sha512-yU63cF9KdkyFFh7ynYQy39nh1MD1eVDHIaa/gdm8a/O9dTG/5P6hBF1ONoIbKTtjlxxsHS2S8MarCZZ0l31ajg==}
     dev: false
 
   /instantsearch.js@4.56.10(algoliasearch@4.19.1):

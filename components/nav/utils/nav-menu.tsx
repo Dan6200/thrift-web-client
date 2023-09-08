@@ -103,7 +103,7 @@ export function NavMenu({
           </NavigationMenuItem>
         </NavigationMenuList>
       </div>
-      {/* <Search /> */}
+      <Search />
       <div className="flex justify-between items-center w-48">
         <div className="relative h-12 w-12 p-0">
           {!!totalItems && (
