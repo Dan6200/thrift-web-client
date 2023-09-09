@@ -10,7 +10,10 @@ import {
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 import { SearchIcon, X } from 'lucide-react'
 
-const searchClient = instantMeiliSearch('https://thrift-search.onrender.com')
+const searchClient = instantMeiliSearch(
+  'http://ec2-13-53-122-178.eu-north-1.compute.amazonaws.com/',
+  process.env.NEXT_PUBLIC_SEARCH_KEY
+)
 
 const Search = () => {
   const [show, setShow] = useState(false)
