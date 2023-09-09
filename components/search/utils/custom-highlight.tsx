@@ -1,3 +1,4 @@
+/*
 import React from 'react'
 import { connectHighlight } from 'react-instantsearch-core'
 
@@ -25,3 +26,4 @@ const CustomHighlight = ({ highlight, attribute, hit, maxLength }) => {
 }
 
 export default connectHighlight(CustomHighlight)
+ */
