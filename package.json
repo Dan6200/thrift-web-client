@@ -66,6 +66,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.2",
     "react-instantsearch": "^7.0.2",
+    "react-instantsearch-core": "^7.0.2",
     "react-material-ui-carousel": "^3.4.2",
     "sharp": "^0.32.3",
     "tailwind-merge": "^1.14.0",

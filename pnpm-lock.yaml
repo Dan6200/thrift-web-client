@@ -173,6 +173,9 @@ dependencies:
   react-instantsearch:
     specifier: ^7.0.2
     version: 7.0.2(algoliasearch@4.19.1)(react-dom@18.2.0)(react@18.2.0)
+  react-instantsearch-core:
+    specifier: ^7.0.2
+    version: 7.0.2(algoliasearch@4.19.1)(react@18.2.0)
   react-material-ui-carousel:
     specifier: ^3.4.2
     version: 3.4.2(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/icons-material@5.14.3)(@mui/material@5.14.2)(@mui/system@5.14.5)(react-dom@18.2.0)(react@18.2.0)
