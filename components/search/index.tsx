@@ -11,7 +11,7 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 import { SearchIcon, X } from 'lucide-react'
 
 const searchClient = instantMeiliSearch(
-  'http://ec2-13-53-122-178.eu-north-1.compute.amazonaws.com/',
+  process.env.NEXT_PUBLIC_SEARCH!,
   process.env.NEXT_PUBLIC_SEARCH_KEY
 )
 
@@ -54,7 +54,7 @@ const Search = () => {
           hitComponent={Hit}
           style={{ display: show ? 'block' : 'none' }}
           onClick={() => setShow(false)}
-          className="p-8 border relative z-1000 top-5 rounded-md w-[50vw] h-[80vh] bg-background overflow-y-scroll"
+          className="p-8 border relative z-1000 top-5 rounded-md w-[80vw] md:w-[50vw] h-[80vh] bg-background overflow-y-scroll"
         />
       </div>
     </InstantSearch>
@@ -71,9 +71,10 @@ const Hit = ({ hit }: { hit: any }) => {
       }}
       key={hit.product_id}
     >
-      <h1 className="font-bold text-lg mb-2">
+      <h1 className="font-bold text-md sm:text-lg mb-2">
         <Highlight attribute="title" hit={hit} />
       </h1>
+      {/* Change this to custom, does not show incremental highlight */}
       <p>{hit.description.join('.  ').slice(0, 150)}...</p>
     </article>
   )

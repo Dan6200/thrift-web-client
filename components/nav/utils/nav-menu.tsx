@@ -105,7 +105,7 @@ export function NavMenu({
       </div>
       <Search />
       <div className="flex space-x-2 items-center w-64">
-        <div className="relative h-12 w-12 p-0 z-10">
+        <div className="relative h-12 w-12 p-0 -z-10">
           {!!totalItems && (
             <span className="bg-primary text-primary-foreground w-6 text-center block absolute right-0 top-0 text-sm rounded-full">
               {totalItems}
