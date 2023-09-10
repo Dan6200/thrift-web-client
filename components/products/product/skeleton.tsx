@@ -11,7 +11,7 @@ export function ProductSkeleton() {
         <MoveLeft className="inline mr-4" />
         Go back
       </a>
-      <div className="mb-16">
+      <div className="animate-pulse mb-16">
         <div className="rounded h-4 sm:text-2xl font-bold text-justify mb-4 break-words bg-foreground/20"></div>
         <div className="rounded h-4 sm:text-2xl font-bold text-justify mb-4 break-words bg-foreground/20"></div>
         <div className="rounded h-4 sm:text-2xl font-bold text-justify mb-4 break-words bg-foreground/20"></div>
@@ -38,7 +38,7 @@ export function ProductSkeleton() {
           <h3 className="w-full mx-auto my-8 text-xl sm:text-lg font-bold text-center">
             About This Product
           </h3>
-          <div className="pt-6">
+          <div className="animate-pulse pt-6">
             {Array(30)
               .fill(0)
               .map((_, index) => (

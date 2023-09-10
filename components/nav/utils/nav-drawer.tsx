@@ -2,7 +2,7 @@
 import { SwipeableDrawer } from '@mui/material'
 import Link from 'next/link'
 import { useState } from 'react'
-import { Menu, ShoppingCart } from 'lucide-react'
+import { Menu, Search, ShoppingCart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Accordion,
@@ -17,6 +17,7 @@ import { logout } from './logout'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { UserAccount } from '@/components/user-account/types'
 import { getTotalCountAtom } from '@/atoms'
+import SearchComp from '@/components/search'
 
 type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
 
@@ -28,6 +29,7 @@ export const NavDrawer = ({
   setUser: SetUser
 }) => {
   const [isOpen, toggleDrawer] = useState(false)
+  const [showSearchBox, setShowSearchBox] = useState(false)
   const totalItems = useAtomValue(getTotalCountAtom)
   return (
     <div className="max-w-none border-b flex flex-row items-center justify-between w-full px-4 py-4 bg-background shadow-md dark:shadow-none">
@@ -37,14 +39,26 @@ export const NavDrawer = ({
       >
         Thrift
       </Link>
-      <div className="flex items-center space-x-4">
-        <Link href="/shopping-cart" className="block relative h-12 w-12 p-0">
+      <div className="flex items-center space-x-2">
+        <Button
+          variant={'outline'}
+          className=""
+          size="icon"
+          onClick={() => setShowSearchBox(true)}
+        >
+          <Search />
+          {showSearchBox && <SearchComp />}
+        </Button>
+        <Link
+          href="/shopping-cart"
+          className="block relative h-12 w-12 p-0 -z-10"
+        >
           {!!totalItems && (
             <span className="bg-primary text-primary-foreground w-6 text-center block absolute right-0 top-0 text-sm rounded-full">
               {totalItems}
             </span>
           )}
-          <Button variant="outline" className="my-2 p-0 w-10">
+          <Button variant="outline" size="icon" className="my-2 p-0 w-10">
             <ShoppingCart className="w-5" />
           </Button>
         </Link>

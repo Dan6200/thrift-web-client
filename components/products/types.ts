@@ -1,7 +1,10 @@
 export interface Product {
   product_id: number
   title: string
-  category: string
+  category_id: number
+  category_name: string
+  subcategory_id: number
+  subcategory_name: string
   description: string[]
   list_price: number | string
   net_price: number | string
@@ -46,7 +49,10 @@ export function isProduct(product: unknown): product is Product {
     typeof (product as Product).title === 'string' &&
     typeof (product as Product).description === 'object' &&
     typeof (product as Product).description !== null &&
-    typeof (product as Product).category === 'string' &&
+    typeof (product as Product).category_id === 'number' &&
+    typeof (product as Product).category_name === 'string' &&
+    typeof (product as Product).subcategory_id === 'number' &&
+    typeof (product as Product).subcategory_name === 'string' &&
     (typeof (product as Product).list_price === 'number' ||
       typeof (product as Product).list_price === 'string') &&
     (typeof (product as Product).net_price === 'number' ||
@@ -55,7 +61,6 @@ export function isProduct(product: unknown): product is Product {
     typeof (product as Product).created_at === 'string' &&
     typeof (product as Product).media === 'object' &&
     typeof (product as Product).media !== null &&
-    typeof (product as Product).media[0].filename === 'string' &&
     (product as Product).media.every(
       (media) => typeof media.filename === 'string'
     ) &&
