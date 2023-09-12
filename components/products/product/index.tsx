@@ -32,19 +32,21 @@ export function Product({ product }: { product: Product }) {
         <MoveLeft className="inline mr-4" />
         Go back
       </GoBackLink>
-      <h2 className="sm:text-2xl font-bold text-justify mb-16 break-words">
+      <h2 className="sm:text-2xl sm:w-[80%] font-bold text-justify mb-16 break-words">
         {/* remove &nbsp;, that breaks the ui */}
         {product?.title.replace(/\u00A0/, ' ')}
       </h2>
       <Card className="flex flex-col sm:flex-row items-center rounded-sm py-4 w-full">
         <CardContent
-          className="flex flex-col w-full sm:w-[50%] sm:h-full items-center justify-between"
+          className="flex flex-col w-full sm:w-[50%] py-8 sm:h-full items-center justify-between"
           key={product?.product_id}
         >
-          <ProductImage
-            imgData={displayImg}
-            className="object-cover py-4 border-b w-full sm:w-96 rounded-md"
-          />
+          <div className="bg-white h-96 sm:mt-16 sm:h-[27rem] rounded-md">
+            <ProductImage
+              imgData={displayImg}
+              className="object-cover py-4 border-b w-full h-full sm:w-96 rounded-md"
+            />
+          </div>
           <div className="flex flex-col my-4 p-2 sm:p-4 w-full sm:w-96 justify-between sm:h-48">
             <Price
               netPrice={product?.net_price}
@@ -80,13 +82,13 @@ export function Product({ product }: { product: Product }) {
         </CardContent>
         <div className="border-b-2 sm:border-l-2 sm:border-b-0 block w-[80%] sm:w-[.5pt] sm:h-80"></div>
         <CardContent className="w-full sm:w-[50%]">
-          <h3 className="w-full mx-auto my-8 text-xl sm:text-lg font-bold text-center">
+          <h3 className="w-full mx-auto text-xl sm:text-2xl my-10 sm:my-16 font-bold text-center">
             About This Product
           </h3>
           {product?.description && (
-            <div className="pt-6">
+            <div className="my-10 sm:mb-16">
               {product?.description?.map((desc, index) => (
-                <p className="mb-4 text-sm break-words" key={index}>
+                <p className="mb-4 text-md break-words" key={index}>
                   {/* remove &nbsp; that breaks ui */}
                   {desc.replace(/\u00A0/, ' ')}
                 </p>

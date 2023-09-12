@@ -19,8 +19,8 @@ const Search = () => {
   const [show, setShow] = useState(false)
   const searchRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
-    document.addEventListener('mousedown', hide)
-    return () => document.addEventListener('mousedown', hide)
+    document.addEventListener('click', hide)
+    return () => document.addEventListener('click', hide)
   }, [])
   const hide = (e: Event) => {
     if (searchRef.current && !searchRef.current.contains(e.target as any)) {
@@ -31,7 +31,7 @@ const Search = () => {
   return (
     <InstantSearch indexName="products" searchClient={searchClient}>
       <div
-        className="absolute top-0 w-96 flex flex-col z-1000 items-center  mt-4 left-[50%] translate-x-[-50%]"
+        className="absolute top-0 border border-red-500 sm:top-0 w-80 flex flex-col z-1000 items-center  mt-4 left-[50%] translate-x-[-50%]"
         ref={searchRef}
       >
         <span className="flex h-10 px-3 w-full justify-between rounded-md border border-input bg-background text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
