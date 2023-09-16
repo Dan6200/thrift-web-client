@@ -51,7 +51,7 @@ export const ProductsSubComponent = ({
         {productsToDisplay.map((product) => (
           <Card
             key={product?.product_id}
-            className="w-full sm:w-[30vw] md:w-[25vw] lg:w-[22vw] h-[25rem] overflow-hidden rounded-sm"
+            className="w-full sm:w-[30vw] md:w-[25vw] lg:w-[22vw] h-[26rem] overflow-hidden rounded-sm"
           >
             <Link
               href={`/products/${product?.product_id}`}
@@ -65,7 +65,7 @@ export const ProductsSubComponent = ({
                 />
               </CardContent>
             </Link>
-            <CardFooter className="p-2 sm:p-4 flex flex-col items-center justify-between h-52">
+            <CardFooter className="p-2 sm:p-4 flex flex-col items-center justify-between h-56">
               <Link
                 href={`/products/${product?.product_id}`}
                 passHref

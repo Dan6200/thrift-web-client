@@ -32,7 +32,7 @@ export const NavDrawer = ({
   const [isOpen, toggleDrawer] = useState(false)
   const [showSearchBox, setShowSearchBox] = useState(false)
   const totalItems = useAtomValue(getTotalCountAtom)
-  const searchRef = useRef<null | HTMLDivElement>(null)
+  const searchOverLayRef = useRef<null | HTMLDivElement>(null)
   const toggleSearchButton = useRef<null | HTMLButtonElement>(null)
   useEffect(() => {
     document.addEventListener('click', hide)
@@ -40,19 +40,20 @@ export const NavDrawer = ({
   }, [])
   const hide = (e: Event) => {
     if (
-      searchRef.current &&
-      !searchRef.current.contains(e.target as any) &&
-      !searchRef.current.contains(toggleSearchButton.current) &&
+      searchOverLayRef.current &&
+      !searchOverLayRef.current.contains(e.target as any) &&
+      !searchOverLayRef.current.contains(toggleSearchButton.current) &&
       !toggleSearchButton.current?.contains(e.target as any)
     ) {
       setShowSearchBox(false)
-      console.log('runs')
-      console.log(searchRef.current.contains(e.target as any))
-      console.log()
+      console.log(e.target)
+      console.log(searchOverLayRef.current)
+      console.log(toggleSearchButton.current === e.target)
+      console.log(toggleSearchButton.current?.contains(e.target as any))
     }
   }
   return (
-    <>
+    <div className={showSearchBox ? 'overflow-hidden' : ''}>
       <div className="max-w-none border-b flex flex-row items-center justify-between w-full px-4 py-4 bg-background shadow-md dark:shadow-none">
         <Link
           href="/"
@@ -195,15 +196,14 @@ export const NavDrawer = ({
         </SwipeableDrawer>
       </div>
       <div
-        style={{
-          filter: 'blur(-4px)',
-        }}
-        className={cn(showSearchBox ? 'block' : 'hidden')}
-        ref={searchRef}
+        className={cn(
+          'absolute top-0 left-0 w-full h-[5000px] backdrop-blur-sm',
+          showSearchBox ? '' : 'hidden'
+        )}
+        ref={searchOverLayRef}
       >
         <SearchComp />
       </div>
-      <div className="w-full h-[100vh] blur-sm absolute top-0 left-0 z-10 block"></div>
-    </>
+    </div>
   )
 }
