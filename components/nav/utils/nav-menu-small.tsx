@@ -22,7 +22,7 @@ import { cn } from '@/lib/utils'
 
 type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
 
-export const NavDrawer = ({
+export const NavMenuSmall = ({
   user,
   setUser,
 }: {
@@ -33,23 +33,21 @@ export const NavDrawer = ({
   const [showSearchBox, setShowSearchBox] = useState(false)
   const totalItems = useAtomValue(getTotalCountAtom)
   const searchOverLayRef = useRef<null | HTMLDivElement>(null)
+  const searchRef = useRef<null | HTMLDivElement>(null)
   const toggleSearchButton = useRef<null | HTMLButtonElement>(null)
+  const [show, setShow] = useState(false)
   useEffect(() => {
     document.addEventListener('click', hide)
     return () => document.addEventListener('click', hide)
   }, [])
   const hide = (e: Event) => {
     if (
-      searchOverLayRef.current &&
-      !searchOverLayRef.current.contains(e.target as any) &&
-      !searchOverLayRef.current.contains(toggleSearchButton.current) &&
+      searchRef.current &&
+      !searchRef.current.contains(e.target as any) &&
       !toggleSearchButton.current?.contains(e.target as any)
     ) {
+      setShow(false)
       setShowSearchBox(false)
-      console.log(e.target)
-      console.log(searchOverLayRef.current)
-      console.log(toggleSearchButton.current === e.target)
-      console.log(toggleSearchButton.current?.contains(e.target as any))
     }
   }
   return (
@@ -197,12 +195,12 @@ export const NavDrawer = ({
       </div>
       <div
         className={cn(
-          'absolute top-0 left-0 w-full h-[5000px] backdrop-blur-sm',
+          'absolute top-0 left-0 w-full h-[3200px] backdrop-blur-sm',
           showSearchBox ? '' : 'hidden'
         )}
         ref={searchOverLayRef}
       >
-        <SearchComp />
+        <SearchComp ref={searchRef} {...{ show, setShow }} />
       </div>
     </div>
   )
