@@ -3,7 +3,7 @@ import React from 'react'
 import { useAtom, useAtomValue } from 'jotai'
 import { isSmallScreenAtom, userAtom } from '@/atoms'
 import { NavMenu } from './utils/nav-menu'
-import { NavDrawer } from './utils/nav-drawer'
+import { NavMenuSmall } from './utils/nav-menu-small'
 
 export function Nav() {
   const [user, setUser] = useAtom(userAtom)
@@ -11,7 +11,7 @@ export function Nav() {
   return (
     <>
       {isSmallScreen ? (
-        <NavDrawer user={user} setUser={setUser} />
+        <NavMenuSmall user={user} setUser={setUser} />
       ) : (
         <NavMenu user={user} setUser={setUser} />
       )}

@@ -1,10 +1,7 @@
 //cspell: ignore semibold jotai
 'use client'
-import Link from 'next/link'
-import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { ProductImage } from './image'
+import { ProductsTiles } from './tiles'
 import { Product } from './types'
-import { ProductsSubComponent } from './sub-component'
 
 /** Display products in a grid
  * for home page only
@@ -22,7 +19,7 @@ export const ProductsHome = ({ products }: { products: Product[] }) => {
       <h4 className="w-full mx-auto my-4 text-xl font-bold text-center">
         New Arrivals
       </h4>
-      <ProductsSubComponent productsToDisplay={productsToDisplay} />
+      <ProductsTiles productsToDisplay={productsToDisplay} />
     </div>
   )
 }

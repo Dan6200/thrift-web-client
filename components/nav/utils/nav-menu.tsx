@@ -1,6 +1,6 @@
 // cspell:ignore womens
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { ModeToggle } from '../../dark-mode-toggle'
 import { Button } from '../../ui/button'
@@ -38,6 +38,17 @@ export function NavMenu({
 }) {
   const totalItems = useAtomValue(getTotalCountAtom)
   const [isOpen, toggleDrawer] = useState(false)
+  const searchRef = useRef<null | HTMLDivElement>(null)
+  const [show, setShow] = useState(false)
+  useEffect(() => {
+    document.addEventListener('click', hide)
+    return () => document.addEventListener('click', hide)
+  }, [])
+  const hide = (e: Event) => {
+    if (searchRef.current && !searchRef.current.contains(e.target as any)) {
+      setShow(false)
+    }
+  }
   return (
     <NavigationMenu className="max-w-none border-b flex flex-row items-center justify-between w-full px-4 py-2  shadow-md dark:bg-background  dark:shadow-none">
       <div className="justify-start flex">
@@ -103,9 +114,9 @@ export function NavMenu({
           </NavigationMenuItem>
         </NavigationMenuList>
       </div>
-      <Search />
-      <div className="flex space-x-2 items-center w-64">
-        <div className="relative h-12 w-12 p-0 -z-10">
+      <Search ref={searchRef} {...{ show, setShow }} />
+      <div className="flex space-x-4 items-center justify-between">
+        <div className="relative h-12 w-12 p-0 z-10">
           {!!totalItems && (
             <span className="bg-primary text-primary-foreground w-6 text-center block absolute right-0 top-0 text-sm rounded-full">
               {totalItems}

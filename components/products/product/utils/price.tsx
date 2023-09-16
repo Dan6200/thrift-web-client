@@ -17,7 +17,7 @@ export const Price = ({
         })}
       </p>
       {parseFloat(netPrice).toFixed(2) !== parseFloat(listPrice).toFixed(2) && (
-        <p className="mb-4 line-through dark:text-gray-700">
+        <p className="mb-4 line-through text-foreground/40">
           {parseFloat(listPrice).toLocaleString('en-NG', {
             currency: 'NGN',
             style: 'currency',
