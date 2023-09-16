@@ -1,8 +1,8 @@
 'use client'
 import { Product } from './types'
 import { useAtomValue } from 'jotai'
-import { ProductsSubComponent } from './sub-component'
 import { pageNumAtom } from '@/atoms'
+import { ProductsTiles } from './tiles'
 
 // One based to work well with mui component
 
@@ -16,7 +16,7 @@ export const Products = ({ products }: { products: Product[] }) => {
   )
   return (
     <div className="container p-4">
-      <ProductsSubComponent
+      <ProductsTiles
         itemsPerPage={itemsPerPage}
         totalProducts={totalProducts}
         productsToDisplay={productsToDisplay}

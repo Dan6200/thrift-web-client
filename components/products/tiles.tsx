@@ -20,7 +20,7 @@ import { ShoppingCart as ShoppingCartIcon } from 'lucide-react'
 import { ShoppingCart } from '../shopping-cart/types'
 import { useEffect, useState } from 'react'
 
-export const ProductsSubComponent = ({
+export const ProductsTiles = ({
   totalProducts,
   itemsPerPage,
   productsToDisplay,

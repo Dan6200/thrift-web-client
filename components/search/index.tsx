@@ -1,19 +1,7 @@
-import React, {
-  Dispatch,
-  forwardRef,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+// cspell:ignore instantsearch, meilisearch, Meili
+import React, { Dispatch, forwardRef, SetStateAction } from 'react'
 import { useRouter } from 'next/navigation'
-import {
-  InstantSearch,
-  SearchBox,
-  Hits,
-  Highlight,
-  Snippet,
-} from 'react-instantsearch'
+import { InstantSearch, SearchBox, Hits, Highlight } from 'react-instantsearch'
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 import { SearchIcon, X } from 'lucide-react'
 
@@ -62,6 +50,8 @@ const Search = forwardRef<HTMLDivElement, SearchProps>(
     )
   }
 )
+
+Search.displayName = 'Search'
 
 const Hit = ({ hit }: { hit: any }) => {
   const router = useRouter()
