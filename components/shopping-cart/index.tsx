@@ -25,7 +25,6 @@ type DecreaseItemCount = ReturnType<
 export function ShoppingCart({
   removeItem,
   toggleDrawer,
-  shippingInfo,
   items,
   increaseItemCount,
   decreaseItemCount,
