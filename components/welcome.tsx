@@ -7,7 +7,7 @@ import { Button } from './ui/button'
 
 export function Welcome() {
   const user = useAtomValue(userAtom)
-  return !user ? (
+  return user ? null : (
     <>
       <h1 className="w-full mx-auto mt-16 text-3xl sm:text-4xl md:text-5xl font-semibold text-center">
         Welcome to{' '}
@@ -24,7 +24,7 @@ export function Welcome() {
         <Link href="/products">
           <button
             type="button"
-            className="h-9 px-4 py-2 items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 flex w-36 bg-gradient-to-r hover:bg-gradient-to-l from-primary to-secondary capitalize text-md text-lg text-primary-foreground font-semibold hover:shadow-wide shadow-primary hover:shadow-primary/40"
+            className="h-9 px-4 py-2 items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 flex w-36 bg-gradient-to-r hover:bg-gradient-to-l from-secondary to-primary capitalize text-md text-lg text-primary-foreground font-semibold hover:shadow-wide shadow-primary hover:shadow-primary/40"
           >
             Browse
           </button>
@@ -45,5 +45,5 @@ export function Welcome() {
       </div>
       <div className="dark:bg-foreground/20 w-full mx-auto h-[.7pt]"></div>
     </>
-  ) : null
+  )
 }
