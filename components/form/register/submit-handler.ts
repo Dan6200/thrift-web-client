@@ -1,13 +1,14 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import { UseFormSetError } from 'react-hook-form'
 import { RegisterFormState, ResponseData } from './types'
 
-export default async (
+export default async function submitHandler(
   setUser: any,
   setError: UseFormSetError<RegisterFormState>,
-  router: any,
+  router: AppRouterInstance,
   data: RegisterFormState
-) => {
+) {
   const formData = data
   const { confirm_password, ...userData } = formData
   if (formData.email === '') {
@@ -44,7 +45,7 @@ export default async (
       }
     }
     // re-route to previous page
-    router.back()
+    router.push('/')
   } catch (err) {
     if (err instanceof AxiosError && err.response) {
       if (err.response && err.response.status >= 400) {
