@@ -1,4 +1,4 @@
-//cspell:ignore CldImage, cloudinary, cloudinary's
+//cspell:ignore CldImage, cloudinary, cloudinary's, unoptimized
 'use client'
 import { CldImage } from 'next-cloudinary'
 import Image from 'next/image'
@@ -37,8 +37,8 @@ export function ProductImage({
     const src = imgData.filepath
     const alt = imgData.description
     return (
-      // <Image src={src} alt={alt ?? ''} width={300} height={600} className={className} />
       <Image
+        unoptimized
         src={src}
         alt={alt ?? ''}
         width={600}
@@ -48,12 +48,10 @@ export function ProductImage({
     )
   }
   return (
-    // leads to memory leak in dev mode
-    //<Image src={placeHolder} alt={'placeholder'} width={300} height={600} className={className} />
     <Image
       src={placeHolder}
       alt={'placeholder'}
-      width={300}
+      width={600}
       height={600}
       className={className}
     />

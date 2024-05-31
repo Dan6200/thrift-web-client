@@ -1,15 +1,15 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import jwtDecode from 'jwt-decode'
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import { UseFormSetError } from 'react-hook-form'
 import { LoginFormState, ResponseData } from './types'
 
-export default async (
+export default async function submitHandler(
   setUser: any,
   setError: UseFormSetError<LoginFormState>,
   router: AppRouterInstance,
   data: LoginFormState
-) => {
+) {
   const loginData = data
   if (data.email === '') {
     loginData.email = null
@@ -20,7 +20,7 @@ export default async (
   try {
     if (process.env.NEXT_PUBLIC_SERVER)
       response = await axios.post(
-        process.env.NEXT_PUBLIC_SERVER + '/auth/login',
+        process.env.NEXT_PUBLIC_SERVER + '/v1/auth/login',
         loginData
       )
     if (response == null) {
@@ -35,14 +35,17 @@ export default async (
     if (data) {
       const { token } = data
       if (process.env.NEXT_PUBLIC_SERVER) {
-        const user = await fetch(process.env.NEXT_PUBLIC_SERVER + '/account', {
-          headers: { Authorization: `Bearer ${token}` },
-        }).then((res) => res.json())
+        const user = await fetch(
+          process.env.NEXT_PUBLIC_SERVER + '/v1/account',
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        ).then((res) => res.json())
         if (token) setUser({ ...user, token })
       }
     }
     // re-route to previous page
-    router.back()
+    router.push('/')
   } catch (err) {
     if (err instanceof AxiosError && err.response) {
       if (err.response && err.response.status >= 400) {

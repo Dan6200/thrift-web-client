@@ -9,8 +9,8 @@ import { isSmallScreenAtom } from '@/atoms'
 export function Slideshow(props: PropsWithChildren) {
   return null
   const isSmallScreen = useAtomValue(isSmallScreenAtom)
-  const images = []
-  const smallerImages = []
+  const images: any[] = []
+  const smallerImages: any = []
   const imgList = isSmallScreen ? smallerImages : images
   return (
     <Carousel className="w-[70vw] md:w-[50vw] mx-auto shadow-sm mb-8">

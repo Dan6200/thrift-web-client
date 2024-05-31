@@ -26,8 +26,10 @@ import { UserAccount } from '@/components/user-account/types'
 import { getTotalCountAtom } from '@/atoms'
 import { ShoppingCartDrawer } from '@/components/shopping-cart/drawer'
 import Search from '@/components/search'
+import { Montagu_Slab } from 'next/font/google'
 
 type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
+const montaguSlab = Montagu_Slab({ weight: '700', subsets: ['latin'] })
 
 export function NavMenu({
   user,
@@ -54,7 +56,7 @@ export function NavMenu({
       <div className="justify-start flex">
         <Link
           href="/"
-          className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent text-2xl font-bold"
+          className={`${montaguSlab.className} bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent text-2xl font-bold`}
         >
           Thrift
         </Link>

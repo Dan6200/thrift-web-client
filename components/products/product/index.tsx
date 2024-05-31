@@ -25,29 +25,36 @@ export function Product({ product }: { product: Product }) {
       toast({
         title: `${totalItems} Items Added To Cart.`,
       })
-  }, [showToast, totalItems])
+  }, [toast, showToast, totalItems])
   return (
-    <div className="container mx-auto p-5 my-20">
-      <GoBackLink className="cursor-pointer text-sm text-blue-700 dark:text-blue-200 mb-8 block">
+    <div className="container mx-auto p-4 sm:px-8 h-full my-20">
+      <GoBackLink className="cursor-pointer text-base md:text-lg text-blue-700 dark:text-blue-200 mb-4 block">
         <MoveLeft className="inline mr-4" />
         Go back
       </GoBackLink>
-      <h2 className="sm:text-2xl sm:w-[80%] font-bold text-justify mb-16 break-words">
+      <h2 className="text-lg sm:text-xl font-bold text-justify mb-8 break-words">
         {/* remove &nbsp;, that breaks the ui */}
         {product?.title.replace(/\u00A0/, ' ')}
       </h2>
-      <Card className="flex flex-col sm:flex-row items-center rounded-sm py-4 w-full">
+      <Card
+        id="product-card"
+        className="flex px-4 py-6 sm:px-8 sm:py-10 flex-col gap-5 lg:gap-7 lg:flex-row items-center rounded-xl w-full lg:mx-auto"
+      >
         <CardContent
-          className="flex flex-col w-full sm:w-[50%] py-8 sm:h-full items-center justify-between"
+          className="flex flex-col p-0 w-full lg:w-[45%] lg:h-full items-center justify-between"
           key={product?.product_id}
+          id="card-content-product"
         >
-          <div className="bg-white h-96 sm:mt-16 sm:h-[27rem] rounded-md">
+          <div
+            id="img-bg"
+            className="bg-white h-96 sm:h-[26rem] rounded-lg w-full"
+          >
             <ProductImage
               imgData={displayImg}
-              className="object-cover py-4 border-b w-full h-full sm:w-96 rounded-md"
+              className="object-contain py-4 w-[95%] mx-auto h-full"
             />
           </div>
-          <div className="flex flex-col my-4 p-2 sm:p-4 w-full sm:w-96 justify-between sm:h-48">
+          <div className="p-0 flex flex-col my-4 lg:p-4 w-full justify-between lg:h-48 lg:text-lg">
             <Price
               netPrice={product?.net_price}
               listPrice={product?.list_price}
@@ -58,9 +65,9 @@ export function Product({ product }: { product: Product }) {
                 {product.quantity_available}
               </p>
             </div>
-            <div className="flex w-full mb-4 justify-between">
+            <div className="flex w-full mb-4 gap-2 sm:gap-4 justify-between">
               <Button
-                className="w-28"
+                className="text-base font-bold w-full flex-1"
                 onClick={() => {
                   shoppingCart
                     ? addItem(product)
@@ -80,15 +87,21 @@ export function Product({ product }: { product: Product }) {
             </div>
           </div>
         </CardContent>
-        <div className="border-b-2 sm:border-l-2 sm:border-b-0 block w-[80%] sm:w-[.5pt] sm:h-80"></div>
-        <CardContent className="w-full sm:w-[50%]">
-          <h3 className="w-full mx-auto text-xl sm:text-2xl my-10 sm:my-16 font-bold text-center">
+        <div className="border-b-2 lg:border-l-2 lg:border-b-0 block w-[95%] lg:w-[.5pt] lg:h-80"></div>
+        <CardContent
+          className="p-0 px-2 w-full lg:w-[50%]"
+          id="card-content-description"
+        >
+          <h3 className="w-full mx-auto text-xl lg:text-2xl mb-6 lg:mb-12 font-bold text-center">
             About This Product
           </h3>
           {product?.description && (
-            <div className="my-10 sm:mb-16">
+            <div className="gap-4 flex flex-col mb-8">
               {product?.description?.map((desc, index) => (
-                <p className="mb-4 text-md break-words" key={index}>
+                <p
+                  className="text-base break-words font-light md:text-lg"
+                  key={index}
+                >
                   {/* remove &nbsp; that breaks ui */}
                   {desc.replace(/\u00A0/, ' ')}
                 </p>
