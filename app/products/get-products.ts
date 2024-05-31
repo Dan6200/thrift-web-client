@@ -9,7 +9,7 @@ export default async function getProducts() {
   // fetch products
   const response = await fetch(
     process.env.NEXT_PUBLIC_SERVER +
-      '/products?' +
+      '/v1/products?' +
       new URLSearchParams({
         public: 'true',
         sort: '-created_at',

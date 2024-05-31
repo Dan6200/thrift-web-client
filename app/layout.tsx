@@ -1,5 +1,6 @@
 // cspell:ignore Resizer
 'use strict'
+import { Lato } from 'next/font/google'
 import { Resizer } from '@/components/handle-resize'
 import { Nav } from '@/components/nav'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -12,6 +13,8 @@ export const metadata = {
   description: 'An eCommerce store for the modern Nigerian.',
 }
 
+const lato = Lato({ weight: '400', subsets: ['latin'] })
+
 export default function RootLayout({
   children,
 }: {
@@ -19,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={lato.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Providers>
             <Resizer>

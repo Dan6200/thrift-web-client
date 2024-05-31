@@ -8,7 +8,7 @@ export const logout = async (user: UserAccount, setUser: any) => {
     try {
       const decoded = jwtDecode<Token>(user.token)
       if ('exp' in decoded && decoded.exp * 1000 >= Date.now()) {
-        await axios.delete(process.env.NEXT_PUBLIC_SERVER + '/auth/logout', {
+        await axios.delete(process.env.NEXT_PUBLIC_SERVER + '/v1/auth/logout', {
           headers: { Authorization: `Bearer ${user.token}` },
         })
       }

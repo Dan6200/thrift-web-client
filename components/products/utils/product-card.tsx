@@ -31,27 +31,24 @@ export default function ProductCard({
   isSmallScreen: boolean
 }) {
   return (
-    <Card
-      key={product?.product_id}
-      className="w-full sm:w-[30vw] md:w-[25vw] lg:w-[22vw] h-[26rem] overflow-hidden rounded-sm"
-    >
+    <Card className="flex flex-col w-full sm:w-[30vw] lg:w-[22vw] h-[28rem] overflow-hidden rounded-sm">
       <Link
         href={`/products/${product?.product_id}`}
         passHref
         className="hover:bg-primary/20"
       >
-        <CardContent className="bg-white border-b p-0 w-full flex items-center h-48">
+        <CardContent className="bg-white border-b p-2 w-full flex items-center">
           <ProductImage
-            className="object-contain w-full max-h-40"
+            className="object-contain w-full h-40"
             imgData={product?.media?.find((img) => img?.is_display_image)}
           />
         </CardContent>
       </Link>
-      <CardFooter className="p-2 sm:p-4 flex flex-col items-center justify-between h-56">
+      <CardFooter className="p-2 sm:p-4 flex flex-col flex-1 justify-between">
         <Link
           href={`/products/${product?.product_id}`}
           passHref
-          className="active:bg-blue-100 flex flex-col justify-between h-40"
+          className="active:bg-blue-100 h-[50%] lg:h-[65%] flex flex-col justify-between"
         >
           <h4 className="hover:text-primary dark:hover:text-secondary my-2 w-full whitespace-normal break-words">
             {/* remove &nbsp; that breaks ui */}
@@ -65,9 +62,9 @@ export default function ProductCard({
             />
           </div>
         </Link>
-        <div className="flex w-full mt-4 justify-between">
+        <div className="flex flex-col lg:flex-row gap-2 w-full justify-between">
           <Button
-            className="shadow-around p-1 h-9 w-16 sm:w-[9vw]"
+            className="shadow-around p-1 h-9 w-full"
             variant="outline"
             onClick={() => {
               shoppingCart
@@ -76,14 +73,15 @@ export default function ProductCard({
               setShowToast(true)
             }}
           >
-            {isSmallScreen ? (
+            {/*isSmallScreen ? (
               <>
                 <ShoppingCartIcon />
                 <Plus className="w-4" />
               </>
             ) : (
               'Add To Cart'
-            )}
+						)*/}
+            Add To Cart
           </Button>
           <BuyNow
             imgData={product?.media?.find((img) => img?.is_display_image)}

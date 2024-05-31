@@ -1,12 +1,11 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
 import { UseFormSetError } from 'react-hook-form'
 import { RegisterFormState, ResponseData } from './types'
 
 export default async (
   setUser: any,
   setError: UseFormSetError<RegisterFormState>,
-  router: AppRouterInstance,
+  router: any,
   data: RegisterFormState
 ) => {
   const formData = data
@@ -20,7 +19,7 @@ export default async (
   try {
     if (process.env.NEXT_PUBLIC_SERVER)
       response = await axios.post(
-        process.env.NEXT_PUBLIC_SERVER + '/auth/register',
+        process.env.NEXT_PUBLIC_SERVER + '/v1/auth/register',
         userData
       )
     if (response == null) {
@@ -35,9 +34,12 @@ export default async (
     if (data) {
       const { token } = data
       if (process.env.NEXT_PUBLIC_SERVER) {
-        const user = await fetch(process.env.NEXT_PUBLIC_SERVER + '/account', {
-          headers: { Authorization: `Bearer ${token}` },
-        }).then((res) => res.json())
+        const user = await fetch(
+          process.env.NEXT_PUBLIC_SERVER + '/v1/account',
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        ).then((res) => res.json())
         if (token) setUser({ ...user, token })
       }
     }

@@ -14,6 +14,7 @@ export const Products = ({ products }: { products: Product[] }) => {
     pageNum * itemsPerPage - itemsPerPage,
     pageNum * itemsPerPage
   )
+
   return (
     <div className="container p-4">
       <ProductsTiles

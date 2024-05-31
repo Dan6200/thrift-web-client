@@ -4,7 +4,7 @@ import { isProduct } from '@/components/products/types'
 export default async function getProductById(id: number) {
   // fetch product
   const response = await fetch(
-    process.env.NEXT_PUBLIC_SERVER + '/products/' + id + '?public=true',
+    process.env.NEXT_PUBLIC_SERVER + '/v1/products/' + id + '?public=true',
     { next: { revalidate: 30 * 60 } }
   ).then((res) => {
     if (res.status === 404) return null

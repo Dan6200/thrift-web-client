@@ -11,7 +11,7 @@ export const Resizer = ({ children }: PropsWithChildren) => {
   }
 
   useEffect(() => {
-    if (isSmallScreen && window.innerWidth >= 960) setIsSmallScreen(false)
+    if (isSmallScreen && window.innerWidth > 960) setIsSmallScreen(false)
     if (!isSmallScreen && window.innerWidth <= 960) setIsSmallScreen(true)
   }, [setIsSmallScreen, isSmallScreen])
 
