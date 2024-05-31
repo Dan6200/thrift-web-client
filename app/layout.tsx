@@ -11,7 +11,7 @@ import Providers from './providers'
 export const metadata = {
   title: 'Thrift eCommerce',
   description:
-    'Thrift, an ecommerce platform to buy or sell any product.\nStill in development...',
+    'Thrift, an ecommerce platform to buy or sell any product. Still in development...',
 }
 
 const lato = Lato({ weight: '400', subsets: ['latin'] })
