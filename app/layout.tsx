@@ -1,5 +1,6 @@
 // cspell:ignore Resizer
 'use strict'
+import { Analytics } from '@vercel/analytics/react'
 import { Lato } from 'next/font/google'
 import { Resizer } from '@/components/handle-resize'
 import { Nav } from '@/components/nav'
@@ -33,6 +34,7 @@ export default function RootLayout({
             <Toaster />
           </Providers>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
