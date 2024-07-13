@@ -64,11 +64,43 @@ const Hit = ({ hit }: { hit: any }) => {
       key={hit.product_id}
     >
       <h1 className="font-bold text-md sm:text-lg mb-2">
-        <Highlight attribute="title" hit={hit} />
+        <TruncatedHighlight attribute="title" hit={hit} maxLength={100} />
       </h1>
-      {/* Change this to custom, does not show incremental highlight */}
-      <p>{hit.description.join('.  ').slice(0, 150)}...</p>
+      <p>{hit.description.join('.  ').slice(0, 50)}...</p>
     </article>
+  )
+}
+
+const TruncatedHighlight = ({
+  attribute,
+  hit,
+  maxLength,
+}: {
+  attribute: string
+  hit: any
+  maxLength: number
+}) => {
+  const { value } = hit._highlightResult[attribute]
+  const truncatedHighlightText = truncateAndHighlight(value, maxLength)
+  return <span dangerouslySetInnerHTML={{ __html: truncatedHighlightText }} />
+}
+
+const truncateAndHighlight = (
+  text: string,
+  length: number,
+  highlightTag = 'mark'
+) => {
+  let truncatedText = text.substring(0, length)
+
+  if (text.length > length) {
+    truncatedText += '...'
+  }
+
+  return truncatedText.replace(
+    new RegExp(`<${highlightTag}>(.*?)<\/${highlightTag}>`, 'g'),
+    (_, p1) => {
+      return `<${highlightTag}>${p1}</${highlightTag}>`
+    }
   )
 }
 
