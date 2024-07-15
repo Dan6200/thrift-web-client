@@ -7,13 +7,15 @@ import { useAtomValue } from 'jotai'
 import { isSmallScreenAtom } from '@/atoms'
 
 export function Slideshow(props: PropsWithChildren) {
-  return null
   const isSmallScreen = useAtomValue(isSmallScreenAtom)
-  const images: any[] = []
+  const images: any[] = [
+    { src: '/banner.png', category: 'Clothing' },
+    { src: '/banner-2.png', category: 'Clothing' },
+  ]
   const smallerImages: any = []
   const imgList = isSmallScreen ? smallerImages : images
   return (
-    <Carousel className="w-[70vw] md:w-[50vw] mx-auto shadow-sm mb-8">
+    <Carousel className="w-full h-[50vh] mx-auto shadow-sm mb-8">
       {imgList.map(({ src, alt, category }: any) => (
         <Link key={src} href={`/categories/${category}`}>
           {isSmallScreen ? (
@@ -33,10 +35,10 @@ export function Slideshow(props: PropsWithChildren) {
               src={src}
               alt={alt}
               width={1920}
-              height={1200}
+              height={600}
               objectFit="cover"
               objectPosition="center"
-              className="h-[80vh]"
+              className=""
               {...props}
             />
           )}

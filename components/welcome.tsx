@@ -1,17 +1,22 @@
 'use client'
 import { userAtom } from '@/atoms'
+import { Montagu_Slab } from 'next/font/google'
 import { useAtomValue } from 'jotai'
 import Link from 'next/link'
 import { Slideshow } from './slideshow'
 import { Button } from './ui/button'
 
+const montaguSlab = Montagu_Slab({ weight: '500', subsets: ['latin'] })
+
 export function Welcome() {
   const user = useAtomValue(userAtom)
   return user ? null : (
-    <div className="w-[90vw] sm:w-[90vw] md:text-center flex flex-col gap-5 sm:gap-10 md:gap-10 mx-auto mt-16">
+    <div className="w-[90vw] md:text-center flex flex-col gap-5 sm:gap-10 md:gap-10 mx-auto mt-16">
       <h1 className="text-4xl w-full sm:text-5xl sm:font-semibold">
         Welcome to{' '}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary font-bold text-5xl sm:text-6xl md:text-7xl to-secondary">
+        <span
+          className={`${montaguSlab.className} font-thin text-transparent bg-clip-text bg-gradient-to-r from-primary text-5xl sm:text-6xl md:text-7xl to-secondary`}
+        >
           Thrift
         </span>
       </h1>

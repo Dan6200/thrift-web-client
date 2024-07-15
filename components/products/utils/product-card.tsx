@@ -39,7 +39,7 @@ export default function ProductCard({
       >
         <CardContent className="bg-white border-b p-2 w-full flex items-center">
           <ProductImage
-            className="object-contain w-full h-40"
+            className="object-contain w-full h-44"
             imgData={product?.media?.find((img) => img?.is_display_image)}
           />
         </CardContent>
@@ -48,7 +48,7 @@ export default function ProductCard({
         <Link
           href={`/products/${product?.product_id}`}
           passHref
-          className="active:bg-blue-100 h-[50%] lg:h-[65%] flex flex-col justify-between"
+          className="active:text-accent h-[50%] lg:h-[65%] flex flex-col justify-between"
         >
           <h4 className="hover:text-primary dark:hover:text-secondary my-2 w-full whitespace-normal break-words">
             {/* remove &nbsp; that breaks ui */}
@@ -64,7 +64,7 @@ export default function ProductCard({
         </Link>
         <div className="flex flex-col lg:flex-row gap-2 w-full justify-between">
           <Button
-            className="shadow-around p-1 h-9 w-full"
+            className="hover:bg-primary shadow-around p-1 h-9 w-full"
             variant="outline"
             onClick={() => {
               shoppingCart
