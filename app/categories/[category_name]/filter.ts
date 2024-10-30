@@ -2,13 +2,17 @@
 import { axiosInstance } from '@/components/axios-instance'
 import { AxiosError } from 'axios'
 
-export default async function filterByCategoryName(category_name: string) {
+export default async function filterByField(
+  field: string,
+  operator: string,
+  value: string
+) {
   // filter product by category
   try {
     const response = await axiosInstance.post(
       `${process.env.NEXT_PUBLIC_SEARCH}/indexes/products/search`,
       {
-        filter: `category_name=${category_name}`,
+        filter: field + operator + value,
       }
     )
     return response.data.hits

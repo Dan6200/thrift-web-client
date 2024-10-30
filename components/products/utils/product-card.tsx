@@ -40,7 +40,7 @@ export default function ProductCard({
         <CardContent className="bg-white border-b p-2 w-full flex items-center">
           <ProductImage
             className="object-contain w-full h-44"
-            imgData={product?.media?.find((img) => img?.is_display_image)}
+            imgData={product?.media?.find((img) => img?.is_thumbnail_image)}
           />
         </CardContent>
       </Link>
@@ -84,7 +84,7 @@ export default function ProductCard({
             Add To Cart
           </Button>
           <BuyNow
-            imgData={product?.media?.find((img) => img?.is_display_image)}
+            imgData={product?.media?.find((img) => img?.is_thumbnail_image)}
             netPrice={product?.net_price}
             listPrice={product?.list_price}
             quantityAvailable={product?.quantity_available}

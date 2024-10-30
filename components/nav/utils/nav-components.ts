@@ -10,7 +10,7 @@ export const components: {
   },
   {
     title: 'Electronic Accessories',
-    href: '/categories/electronic-accessories',
+    href: '/subcategories/electronic-accessories',
     description: 'Accessories such as headphones, chargers, USB cables etc.',
   },
   {

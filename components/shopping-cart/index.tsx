@@ -65,7 +65,7 @@ export function ShoppingCart({
                   <ProductImage
                     className="py-1 object-contain w-32 mx-auto rounded-sm bg-white max-h-24 sm:max-h-20 object-center border dark:border-none"
                     imgData={product?.media?.find(
-                      (img) => img?.is_display_image
+                      (img) => img?.is_thumbnail_image
                     )}
                   />
                   <div className="w-full flex sm:px-8 justify-between">

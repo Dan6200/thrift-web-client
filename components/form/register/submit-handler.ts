@@ -20,7 +20,7 @@ export default async function submitHandler(
   try {
     if (process.env.NEXT_PUBLIC_SERVER)
       response = await axios.post(
-        process.env.NEXT_PUBLIC_SERVER + '/v1/auth/register',
+        process.env.NEXT_PUBLIC_SERVER + '/v1/users/',
         userData
       )
     if (response == null) {

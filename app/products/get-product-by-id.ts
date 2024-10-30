@@ -10,6 +10,7 @@ export default async function getProductById(id: number) {
     if (res.status === 404) return null
     return res.json()
   })
+  console.log(response)
   if (response == null) throw new Error('Product not found')
   if (!isProduct(response)) throw new Error('Invalid product')
   return response

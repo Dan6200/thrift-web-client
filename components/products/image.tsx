@@ -11,41 +11,23 @@ export function ProductImage({
   imgData:
     | {
         filename: string
-        filepath: string
         description: string
-        is_display_image: boolean
+        is_thumbnail_image: boolean
+        is_landing_image: boolean
+        is_video: boolean
       }
     | undefined
 }) {
   const placeHolder =
     'https://images.pexels.com/photos/16952091/pexels-photo-16952091/free-photo-of-wood-landscape-field-summer.jpeg'
 
-  if (imgData?.filepath?.includes('cloudinary')) {
-    const src = imgData.filename
+  //console.log(imgData)
+
+  if (imgData?.filename) {
+    const src = 'thrift-app-media/' + imgData.filename + '.jpg.jpg'
     const alt = imgData.description
-    return (
-      <CldImage
-        src={src}
-        width={600}
-        height={600}
-        alt={alt}
-        className={className}
-      />
-    )
-  }
-  if (imgData?.filepath) {
-    const src = imgData.filepath
-    const alt = imgData.description
-    return (
-      <Image
-        unoptimized
-        src={src}
-        alt={alt ?? ''}
-        width={600}
-        height={600}
-        className={className}
-      />
-    )
+    // Note explicitly setting version is not necessary
+    return <CldImage {...{ src, alt, className }} width={600} height={600} />
   }
   return (
     <Image

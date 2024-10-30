@@ -10,11 +10,13 @@ export interface Product {
   net_price: number | string
   quantity_available: number
   created_at: string
+  vendor_id: string
   media: {
     filename: string
-    filepath: string
     description: string
-    is_display_image: boolean
+    is_thumbnail_image: boolean
+    is_landing_image: boolean
+    is_video: boolean
   }[]
 }
 
@@ -43,38 +45,63 @@ export function isProducts(products: unknown): products is Product[] {
 
 export function isProduct(product: unknown): product is Product {
   return (
-    typeof product === 'object' &&
-    product !== null &&
-    typeof (product as Product).product_id === 'number' &&
-    typeof (product as Product).title === 'string' &&
-    typeof (product as Product).description === 'object' &&
-    typeof (product as Product).description !== null &&
-    typeof (product as Product).category_id === 'number' &&
-    typeof (product as Product).category_name === 'string' &&
-    typeof (product as Product).subcategory_id === 'number' &&
-    typeof (product as Product).subcategory_name === 'string' &&
-    (typeof (product as Product).list_price === 'number' ||
-      typeof (product as Product).list_price === 'string') &&
-    (typeof (product as Product).net_price === 'number' ||
-      typeof (product as Product).net_price === 'string') &&
-    typeof (product as Product).quantity_available === 'number' &&
-    typeof (product as Product).created_at === 'string' &&
-    typeof (product as Product).media === 'object' &&
-    typeof (product as Product).media !== null &&
-    (product as Product).media.every(
-      (media) => typeof media.filename === 'string'
-    ) &&
-    (product as Product).media.every(
-      (media) => typeof media.filepath === 'string'
-    )
+    isObj(product) &&
+    !isNull(product) &&
+    isNumber((product as Product).product_id) &&
+    isString((product as Product).title) &&
+    !isNull((product as Product).description) &&
+    isObj((product as Product).description) &&
+    isNumber((product as Product).category_id) &&
+    isString((product as Product).category_name) &&
+    isNumber((product as Product).subcategory_id) &&
+    isString((product as Product).subcategory_name) &&
+    isString((product as Product).vendor_id) &&
+    isNumberOrString((product as Product).list_price) &&
+    isNumberOrString((product as Product).net_price) &&
+    isString((product as Product).created_at) &&
+    isNumber((product as Product).quantity_available) &&
+    !isNull((product as Product).media) &&
+    isObj((product as Product).media) &&
+    (product as Product).media.every((media) => isString(media.filename))
   )
+}
+
+function isObj(obj: unknown): obj is object {
+  const condition = typeof obj === 'object'
+  if (!condition) throw new Error('must be of type object: ' + obj)
+  return condition
+}
+
+function isString(val: unknown): val is string {
+  const condition = typeof val === 'string'
+  if (!condition) throw new Error('must be of type string: ' + val)
+  return condition
+}
+
+function isNumberOrString(val: unknown): val is number | string {
+  const condition = typeof val === 'number' || typeof val === 'string'
+  if (!condition) throw new Error('must be of type number or string: ' + val)
+  return condition
+}
+
+function isNumber(val: unknown): val is number {
+  const condition = typeof val === 'number'
+  if (!condition) throw new Error('must be of type number: ' + val)
+  return condition
+}
+
+function isNull(val: unknown): val is null {
+  const condition = val === null
+  if (condition) throw new Error('value is null: ' + val)
+  return condition
 }
 
 export type ImgData =
   | {
       filename: string
-      filepath: string
       description: string
-      is_display_image: boolean
+      is_thumbnail_image: boolean
+      is_landing_image: boolean
+      is_video: boolean
     }
   | undefined

@@ -14,7 +14,7 @@ import { BuyNow } from '../utils/buy-now'
 import { Price } from './utils/price'
 
 export function Product({ product }: { product: Product }) {
-  const displayImg = product?.media?.find((img) => img?.is_display_image)
+  const displayImg = product?.media?.find((img) => img?.is_thumbnail_image)
   const [shoppingCart, setShoppingCart] = useAtom(shoppingCartAtom)
   const addItem = useSetAtom(addItemAtom)
   const totalItems = useAtomValue(getTotalCountAtom)

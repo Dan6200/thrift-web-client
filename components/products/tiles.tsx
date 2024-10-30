@@ -36,7 +36,7 @@ export const ProductsTiles = ({
   }, [toast, showToast, totalItems])
   return (
     <div className="mx-auto">
-      {totalProducts && itemsPerPage && (
+      {totalProducts && itemsPerPage && totalProducts > itemsPerPage && (
         <Paginate count={Math.ceil(totalProducts / itemsPerPage)} />
       )}
       <div className="w-full sm:px-2 sm:py-2 md:px-4 md:py-4 mx-auto place-items-center grid grid-cols-2 gap-2 sm:gap-5 sm:grid-cols-3 lg:grid-cols-4">
@@ -55,7 +55,7 @@ export const ProductsTiles = ({
           />
         ))}
       </div>
-      {totalProducts && itemsPerPage && (
+      {totalProducts && itemsPerPage && totalProducts > itemsPerPage && (
         <Paginate count={Math.ceil(totalProducts / itemsPerPage)} />
       )}
     </div>
