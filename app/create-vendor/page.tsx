@@ -9,9 +9,7 @@ export default function CreateVendorPage() {
             Create An Account
           </CardHeader>
           {/* Use Dialog instead */}
-          <CardContent>
-            <CreateVendor />
-          </CardContent>
+          <CardContent>{/* <CreateVendor /> */}</CardContent>
         </Card>
       </div>
     </>
