@@ -1,5 +1,5 @@
+import { signInWithEmailAndPasswordWrapper } from '@/app/auth/firebase'
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import jwtDecode from 'jwt-decode'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import { UseFormSetError } from 'react-hook-form'
 import { LoginFormState, ResponseData } from './types'
@@ -16,13 +16,12 @@ export default async function submitHandler(
   } else if (data.phone === '') {
     loginData.phone = null
   }
-  let response: AxiosResponse<ResponseData> | null = null
+  let response = null
   try {
-    if (process.env.NEXT_PUBLIC_SERVER)
-      response = await axios.post(
-        process.env.NEXT_PUBLIC_SERVER + '/v1/auth/login',
-        loginData
-      )
+    const { email, phone, password } = loginData
+
+    if (email)
+      response = await signInWithEmailAndPasswordWrapper(email, password)
     if (response == null) {
       setError('root', {
         type: 'server',
@@ -31,21 +30,22 @@ export default async function submitHandler(
       })
       return
     }
-    const { data } = response
-    if (data) {
-      const { token } = data
-      if (process.env.NEXT_PUBLIC_SERVER) {
-        const user = await fetch(
-          process.env.NEXT_PUBLIC_SERVER + '/v1/account',
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        ).then((res) => res.json())
-        if (token) setUser({ ...user, token })
-      }
+    const { result } = response
+    if (result) {
+      console.log(result)
+      //const { token } = data
+      //if (process.env.NEXT_PUBLIC_SERVER) {
+      //  const user = await fetch(
+      //    process.env.NEXT_PUBLIC_SERVER + '/v1/account',
+      //    {
+      //      headers: { Authorization: `Bearer ${token}` },
+      //    }
+      //  ).then((res) => res.json())
+      //  if (token) setUser({ ...user, token })
+      //}
     }
     // re-route to previous page
-    router.push('/')
+    //router.push('/')
   } catch (err) {
     if (err instanceof AxiosError && err.response) {
       if (err.response && err.response.status >= 400) {

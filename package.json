@@ -49,6 +49,7 @@
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.16",
     "fetch-ponyfill": "^7.1.0",
+    "firebase": "^11.0.1",
     "instantsearch.css": "^8.0.0",
     "joi": "^17.9.2",
     "jotai": "^2.2.2",
