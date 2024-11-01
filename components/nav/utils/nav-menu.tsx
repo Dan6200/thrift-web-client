@@ -153,14 +153,22 @@ export function NavMenu({
                 </Button>
               </PopoverTrigger>
               <PopoverContent>
-                <Button
-                  className="w-full text-destructive text-md"
-                  onClick={
-                    user ? signOutWrapper.bind(null, setUser) : undefined
-                  }
-                >
-                  Sign out
-                </Button>
+                <section className="flex flex-col space-y-2">
+                  <Link
+                    href="/create-vendor"
+                    className="rounded-md p-2 hover:bg-accent"
+                  >
+                    Create A Vendor Account
+                  </Link>
+                  <Button
+                    className="w-full text-destructive text-md"
+                    onClick={
+                      user ? signOutWrapper.bind(null, setUser) : undefined
+                    }
+                  >
+                    Sign out
+                  </Button>
+                </section>
               </PopoverContent>
             </Popover>
           </Link>
