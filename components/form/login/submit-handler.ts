@@ -18,7 +18,7 @@ export default async function submitHandler(
   }
   let response = null
   try {
-    const { email, phone, password } = loginData
+    const { email, password } = loginData
 
     if (email)
       response = await signInWithEmailAndPasswordWrapper(email, password)
@@ -30,22 +30,22 @@ export default async function submitHandler(
       })
       return
     }
-    const { result } = response
-    if (result) {
-      console.log(result)
-      //const { token } = data
-      //if (process.env.NEXT_PUBLIC_SERVER) {
-      //  const user = await fetch(
-      //    process.env.NEXT_PUBLIC_SERVER + '/v1/account',
-      //    {
-      //      headers: { Authorization: `Bearer ${token}` },
-      //    }
-      //  ).then((res) => res.json())
-      //  if (token) setUser({ ...user, token })
-      //}
+    const { result: user } = response
+    if (user) {
+      let token: string | null = null
+      if (typeof user !== 'string') token = await user.getIdToken()
+      console.log('token: ', token)
+      if (process.env.NEXT_PUBLIC_SERVER) {
+        await axios(process.env.NEXT_PUBLIC_SERVER + '/v1/users', {
+          headers: { Authorization: `Bearer ${token}` },
+        }).then((res) => {
+          const { data: user } = res
+          if (user) setUser({ ...user, token })
+        })
+        // re-route to previous page
+        router.push('/')
+      }
     }
-    // re-route to previous page
-    //router.push('/')
   } catch (err) {
     if (err instanceof AxiosError && err.response) {
       if (err.response && err.response.status >= 400) {

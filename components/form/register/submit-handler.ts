@@ -1,9 +1,9 @@
 import { createUserWithEmailAndPasswordWrapper } from '@/app/auth/firebase'
-import { isUserAccount, UserAccount } from '@/components/user-account/types'
-import axios, { AxiosError, AxiosResponse } from 'axios'
+import { isUserAccount } from '@/components/user-account/types'
+import axios, { AxiosError } from 'axios'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import { UseFormSetError } from 'react-hook-form'
-import { RegisterFormState, ResponseData } from './types'
+import { RegisterFormState } from './types'
 
 export default async function submitHandler(
   setUser: any,

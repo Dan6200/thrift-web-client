@@ -52,8 +52,9 @@ export async function signInWithEmailAndPasswordWrapper(
   }
 }
 
-export async function signOutWrapper() {
+export async function signOutWrapper(setUser: any) {
   auth.signOut().catch(function (e: Error) {
     throw new Error('Error signing out -- Tag:2\n\t' + e)
   })
+  await setUser(null)
 }

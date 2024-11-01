@@ -13,13 +13,13 @@ import {
 import { PanelRightClose, UserCircle2 } from 'lucide-react'
 import { components } from './nav-components'
 import { ModeToggle } from '@/components/dark-mode-toggle'
-import { logout } from './logout'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { UserAccount } from '@/components/user-account/types'
 import { getTotalCountAtom } from '@/atoms'
 import SearchComp from '@/components/search'
 import { cn } from '@/lib/utils'
 import { Montagu_Slab } from 'next/font/google'
+import { signOutWrapper } from '@/app/auth/firebase'
 
 type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
 const montaguSlab = Montagu_Slab({ weight: '500', subsets: ['latin'] })
@@ -28,7 +28,7 @@ export const NavMenuSmall = ({
   user,
   setUser,
 }: {
-  user: UserAccount | null
+  user: (UserAccount & { token: string }) | null
   setUser: SetUser
 }) => {
   const [isOpen, toggleDrawer] = useState(false)
@@ -187,7 +187,7 @@ export const NavMenuSmall = ({
             {user && (
               <Button
                 className="w-full text-destructive text-md"
-                onClick={user ? logout.bind(null, user, setUser) : undefined}
+                onClick={user ? signOutWrapper.bind(null, setUser) : undefined}
               >
                 Sign out
               </Button>
@@ -202,7 +202,11 @@ export const NavMenuSmall = ({
         )}
         ref={searchOverLayRef}
       >
-        <SearchComp ref={searchRef} {...{ show, setShow }} />
+        <SearchComp
+          className="absolute top-0 sm:top-0 w-80 sm:w-[25rem] flex flex-col z-1000 items-center  mt-[.75rem] left-[50%] translate-x-[-50%]"
+          ref={searchRef}
+          {...{ show, setShow }}
+        />
       </div>
     </div>
   )

@@ -21,12 +21,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { logout } from './logout'
 import { UserAccount } from '@/components/user-account/types'
 import { getTotalCountAtom } from '@/atoms'
 import { ShoppingCartDrawer } from '@/components/shopping-cart/drawer'
 import Search from '@/components/search'
 import { Montagu_Slab } from 'next/font/google'
+import { signOutWrapper } from '@/app/auth/firebase'
 
 type SetUser = ReturnType<typeof useSetAtom<UserAccount | null, any[], any>>
 const montaguSlab = Montagu_Slab({ weight: '700', subsets: ['latin'] })
@@ -35,7 +35,7 @@ export function NavMenu({
   user,
   setUser,
 }: {
-  user: UserAccount | null
+  user: (UserAccount & { token: string }) | null
   setUser: SetUser
 }) {
   const totalItems = useAtomValue(getTotalCountAtom)
@@ -116,7 +116,11 @@ export function NavMenu({
           </NavigationMenuItem>
         </NavigationMenuList>
       </div>
-      <Search ref={searchRef} {...{ show, setShow }} />
+      <Search
+        className="absolute top-0 sm:top-0 w-80 sm:w-[25rem] flex flex-col z-1000 items-center  mt-[.75rem] left-[50%] translate-x-[-50%]"
+        ref={searchRef}
+        {...{ show, setShow }}
+      />
       <div className="flex space-x-4 items-center justify-between">
         <div className="relative h-12 w-12 p-0 z-10">
           {!!totalItems && (
@@ -151,7 +155,9 @@ export function NavMenu({
               <PopoverContent>
                 <Button
                   className="w-full text-destructive text-md"
-                  onClick={user ? logout.bind(null, user, setUser) : undefined}
+                  onClick={
+                    user ? signOutWrapper.bind(null, setUser) : undefined
+                  }
                 >
                   Sign out
                 </Button>
